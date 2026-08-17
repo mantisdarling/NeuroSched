@@ -1,5 +1,3 @@
-[![NeuroSched Continuous Integration & Build Pipeline](https://github.com/mantisdarling/NeuroSched/actions/workflows/ci.yml/badge.svg)](https://github.com/mantisdarling/NeuroSched/actions/workflows/ci.yml)
-
 # NeuroSched 🍂
 
 A minimal x86 bare-metal operating system kernel featuring an embedded C neural network process scheduler.
@@ -180,3 +178,5 @@ NeuroSched/
 - Contributing Guidelines: [CONTRIBUTING.md](CONTRIBUTING.md)
 - Security Policy: [SECURITY.md](SECURITY.md)
 - License: [MIT License](LICENSE)
+
+[![NeuroSched Continuous Integration & Build Pipeline](https://github.com/mantisdarling/NeuroSched/actions/workflows/ci.yml/badge.svg)](https://github.com/mantisdarling/NeuroSched/actions/workflows/ci.yml)
