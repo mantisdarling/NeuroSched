@@ -19,43 +19,54 @@ export default function WeightHeatmap() {
   const getColor = (val) => {
     if (val > 0) {
       const alpha = Math.min(Math.abs(val), 1);
-      return `rgba(255, 90, 0, ${0.2 + alpha * 0.8})`;
+      return `rgba(29, 78, 216, ${0.28 + alpha * 0.72})`;
     } else {
       const alpha = Math.min(Math.abs(val), 1);
-      return `rgba(16, 185, 129, ${0.2 + alpha * 0.8})`;
+      return `rgba(22, 163, 74, ${0.28 + alpha * 0.72})`;
     }
   };
 
   return (
-    <div className="carbon-card p-6 space-y-6">
-      <div className="flex items-center justify-between border-b border-[#333333] pb-4">
+    <div className="appleCardDark bg-[#1d1d1f] p-7 space-y-6 border border-[rgba(255,255,255,0.1)]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-4 border-b border-[rgba(255,255,255,0.08)]">
         <div className="space-y-1">
-          <div className="flex items-center gap-2 font-mono text-xs text-[#FF5A00] font-bold">
-            <Grid className="w-4 h-4" />
-            <span>5x8 NEURAL WEIGHT MATRIX (W1 HEATMAP)</span>
+          <div className="text-[12px] font-semibold text-[#3b82f6] uppercase tracking-wider flex items-center gap-1.5">
+            <Grid className="w-3.5 h-3.5" />
+            <span>Layer 1 Parameter Weights</span>
           </div>
-          <h3 className="font-mono font-bold text-lg text-[#EAEAEA]">Synaptic Weight Heatmap & Feature Sensitivity</h3>
+          <h3 className="text-[21px] font-semibold text-white tracking-tight">
+            5×8 Synaptic Weight Matrix (W1)
+          </h3>
         </div>
-        <div className="font-mono text-xs text-[#888888]">
-          Hover cells to view weight value & impact
+        <div className="text-[13px] text-[#86868b]">
+          Hover any cell to inspect synapse connection strength
         </div>
       </div>
 
       {/* Grid Table */}
       <div className="overflow-x-auto">
-        <table className="w-full font-mono text-xs text-center border-collapse">
+        <table className="w-full font-mono text-[12px] text-center border-collapse">
           <thead>
             <tr>
-              <th className="p-2 border border-[#333333] bg-[#111111] text-[#888888] text-left">Input Feature</th>
-              {neurons.map(n => (
-                <th key={n} className="p-2 border border-[#333333] bg-[#111111] text-[#FF5A00] font-bold">{n}</th>
+              <th className="p-2.5 border border-[rgba(255,255,255,0.08)] bg-[#161617] text-[#86868b] text-left rounded-tl-[10px]">
+                Input Feature
+              </th>
+              {neurons.map((n, idx) => (
+                <th 
+                  key={n} 
+                  className={`p-2.5 border border-[rgba(255,255,255,0.08)] bg-[#161617] text-[#3b82f6] font-semibold ${
+                    idx === neurons.length - 1 ? 'rounded-tr-[10px]' : ''
+                  }`}
+                >
+                  {n}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {W1.map((row, i) => (
               <tr key={i}>
-                <td className="p-2 border border-[#333333] bg-[#111111] text-left text-[#EAEAEA] font-bold">
+                <td className="p-2.5 border border-[rgba(255,255,255,0.08)] bg-[#161617] text-left text-white font-medium">
                   {features[i]}
                 </td>
                 {row.map((val, j) => (
@@ -63,8 +74,8 @@ export default function WeightHeatmap() {
                     key={j}
                     onMouseEnter={() => setHoveredWeight({ feat: features[i], neuron: neurons[j], val })}
                     onMouseLeave={() => setHoveredWeight(null)}
-                    className="p-3 border border-[#333333] font-bold cursor-pointer transition-all duration-200 hover:scale-105"
-                    style={{ backgroundColor: getColor(val), color: val > 0 ? '#000000' : '#EAEAEA' }}
+                    className="p-3 border border-[rgba(255,255,255,0.08)] font-semibold cursor-pointer transition-transform duration-150 hover:scale-105"
+                    style={{ backgroundColor: getColor(val), color: '#ffffff' }}
                   >
                     {val > 0 ? `+${val.toFixed(2)}` : val.toFixed(2)}
                   </td>
@@ -76,27 +87,27 @@ export default function WeightHeatmap() {
       </div>
 
       {/* Hover Info Tooltip Panel */}
-      <div className="bg-[#111111] border border-[#333333] p-4 flex items-center justify-between font-mono text-xs">
+      <div className="bg-[#161617] rounded-[14px] border border-[rgba(255,255,255,0.08)] p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[13px]">
         {hoveredWeight ? (
           <div className="flex items-center gap-3">
-            <Eye className="w-4 h-4 text-[#FF5A00]" />
+            <Eye className="w-4 h-4 text-[#3b82f6]" />
             <div>
-              <span className="text-[#888888]">Synapse: </span>
-              <strong className="text-[#FF5A00]">{hoveredWeight.feat}</strong> → <strong className="text-[#EAEAEA]">{hoveredWeight.neuron}</strong>
-              <span className="text-[#888888] ml-4">Weight: </span>
-              <strong className="text-[#EAEAEA]">{hoveredWeight.val > 0 ? `+${hoveredWeight.val}` : hoveredWeight.val}</strong>
+              <span className="text-[#86868b]">Synapse: </span>
+              <strong className="text-[#3b82f6] font-mono">{hoveredWeight.feat}</strong> → <strong className="text-white font-mono">{hoveredWeight.neuron}</strong>
+              <span className="text-[#86868b] ml-4">Weight: </span>
+              <strong className="text-white font-mono">{hoveredWeight.val > 0 ? `+${hoveredWeight.val}` : hoveredWeight.val}</strong>
             </div>
           </div>
         ) : (
-          <div className="text-[#888888] flex items-center gap-2">
-            <Eye className="w-4 h-4 text-[#888888]" />
-            <span>Hover any cell above to inspect synapse connection strength.</span>
+          <div className="text-[#86868b] flex items-center gap-2">
+            <Eye className="w-4 h-4 text-[#86868b]" />
+            <span>Hover across cells to inspect sensitivity coefficients.</span>
           </div>
         )}
 
-        <div className="flex items-center gap-4 text-[11px]">
-          <span className="flex items-center gap-1"><span className="w-3 h-3 bg-[#FF5A00] inline-block" /> Positive Weight</span>
-          <span className="flex items-center gap-1"><span className="w-3 h-3 bg-[#10B981] inline-block" /> Negative Weight</span>
+        <div className="flex items-center gap-4 text-[12px] text-[#86868b]">
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#1d4ed8] inline-block" /> Positive Weight</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#16a34a] inline-block" /> Negative Weight</span>
         </div>
       </div>
     </div>

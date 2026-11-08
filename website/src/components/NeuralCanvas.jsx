@@ -9,7 +9,7 @@ export default function NeuralCanvas({ currentConfidence, isRunning, activeProce
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
-    // Define 5->8->1 neural architecture layout
+    // Define 5 to 8 to 1 neural architecture layout
     const inputNodes = [
       { label: 'waitTicks', y: 40 },
       { label: 'remainingBurst', y: 90 },
@@ -33,29 +33,29 @@ export default function NeuralCanvas({ currentConfidence, isRunning, activeProce
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw Layer 1 Connections (Input -> Hidden)
+      // Draw Layer 1 Connections
       inputNodes.forEach((inp) => {
         hiddenNodes.forEach((hid) => {
           ctx.beginPath();
           ctx.moveTo(inputX, inp.y);
           ctx.lineTo(hiddenX, hid.y);
-          ctx.strokeStyle = isRunning ? 'rgba(255, 90, 0, 0.15)' : 'rgba(51, 51, 51, 0.4)';
+          ctx.strokeStyle = isRunning ? 'rgba(59, 130, 246, 0.25)' : 'rgba(255, 255, 255, 0.08)';
           ctx.lineWidth = 1;
           ctx.stroke();
         });
       });
 
-      // Draw Layer 2 Connections (Hidden -> Output)
+      // Draw Layer 2 Connections
       hiddenNodes.forEach((hid) => {
         ctx.beginPath();
         ctx.moveTo(hiddenX, hid.y);
         ctx.lineTo(outputX, outputNode.y);
-        ctx.strokeStyle = isRunning ? 'rgba(255, 90, 0, 0.25)' : 'rgba(51, 51, 51, 0.4)';
+        ctx.strokeStyle = isRunning ? 'rgba(59, 130, 246, 0.35)' : 'rgba(255, 255, 255, 0.08)';
         ctx.lineWidth = 1;
         ctx.stroke();
       });
 
-      // Draw Glowing Particles moving along synapses if running
+      // Draw Particles moving along synapses if running
       if (isRunning) {
         particleOffset = (particleOffset + 0.02) % 1;
 
@@ -66,11 +66,8 @@ export default function NeuralCanvas({ currentConfidence, isRunning, activeProce
 
             ctx.beginPath();
             ctx.arc(px, py, 2, 0, Math.PI * 2);
-            ctx.fillStyle = '#FF5A00';
-            ctx.shadowColor = '#FF5A00';
-            ctx.shadowBlur = 6;
+            ctx.fillStyle = '#3b82f6';
             ctx.fill();
-            ctx.shadowBlur = 0;
           });
         });
       }
@@ -78,24 +75,24 @@ export default function NeuralCanvas({ currentConfidence, isRunning, activeProce
       // Draw Input Nodes
       inputNodes.forEach((inp) => {
         ctx.beginPath();
-        ctx.arc(inputX, inp.y, 7, 0, Math.PI * 2);
-        ctx.fillStyle = '#1B1B1B';
-        ctx.strokeStyle = '#FF5A00';
+        ctx.arc(inputX, inp.y, 6, 0, Math.PI * 2);
+        ctx.fillStyle = '#272729';
+        ctx.strokeStyle = '#3b82f6';
         ctx.lineWidth = 2;
         ctx.fill();
         ctx.stroke();
 
-        ctx.font = '10px "JetBrains Mono", monospace';
-        ctx.fillStyle = '#888888';
+        ctx.font = '10px -apple-system, sans-serif';
+        ctx.fillStyle = '#86868b';
         ctx.fillText(inp.label, inputX - 52, inp.y + 3);
       });
 
       // Draw Hidden Nodes
       hiddenNodes.forEach((hid) => {
         ctx.beginPath();
-        ctx.arc(hiddenX, hid.y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = isRunning ? '#FF5A00' : '#1B1B1B';
-        ctx.strokeStyle = '#FF5A00';
+        ctx.arc(hiddenX, hid.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = isRunning ? '#3b82f6' : '#272729';
+        ctx.strokeStyle = '#3b82f6';
         ctx.lineWidth = 1.5;
         ctx.fill();
         ctx.stroke();
@@ -104,18 +101,16 @@ export default function NeuralCanvas({ currentConfidence, isRunning, activeProce
       // Draw Output Node
       const isFallback = currentConfidence < 0.65;
       ctx.beginPath();
-      ctx.arc(outputX, outputNode.y, 10, 0, Math.PI * 2);
-      ctx.fillStyle = isFallback ? '#FFD600' : '#10B981';
-      ctx.strokeStyle = isFallback ? '#FFD600' : '#10B981';
-      ctx.shadowColor = isFallback ? '#FFD600' : '#10B981';
-      ctx.shadowBlur = 10;
+      ctx.arc(outputX, outputNode.y, 9, 0, Math.PI * 2);
+      ctx.fillStyle = isFallback ? '#d97706' : '#16a34a';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
       ctx.fill();
       ctx.stroke();
-      ctx.shadowBlur = 0;
 
-      ctx.font = '10px "JetBrains Mono", monospace';
-      ctx.fillStyle = '#EAEAEA';
-      ctx.fillText(`score: ${(currentConfidence * 100).toFixed(0)}%`, outputX + 16, outputNode.y + 3);
+      ctx.font = '11px -apple-system, sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(`score: ${(currentConfidence * 100).toFixed(0)}%`, outputX + 16, outputNode.y + 4);
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -126,7 +121,7 @@ export default function NeuralCanvas({ currentConfidence, isRunning, activeProce
   }, [isRunning, currentConfidence]);
 
   return (
-    <div className="w-full flex justify-center py-2 bg-[#111111] border border-[#333333]">
+    <div className="w-full flex justify-center py-2 bg-[#1d1d1f] rounded-[14px]">
       <canvas
         ref={canvasRef}
         width={480}
