@@ -1,28 +1,37 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Animated film grain canvas overlay.
- * Renders a new noise frame every ~100ms for the tactile Awwwards premium look.
- * pointer-events: none so it never blocks interaction.
+ * Dual-layer animated film grain canvas overlay.
+ *
+ * Layer 1 (multiply): darkens bright/light surfaces — makes grain visible on white backgrounds.
+ * Layer 2 (screen):   lightens dark surfaces — makes grain visible on black/dark backgrounds.
+ *
+ * This combination produces consistent tactile grain across all background luminances,
+ * matching the aesthetic of Awwwards SOTD and Basement Studio style sites.
+ *
+ * Redraws every ~80ms. pointer-events: none; z-index: 9999 — never blocks interaction.
  */
 export default function GrainCanvas() {
-  const canvasRef = useRef(null);
+  const multiplyRef = useRef(null);
+  const screenRef = useRef(null);
   const rafRef = useRef(null);
   const lastRef = useRef(0);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const cMul = multiplyRef.current;
+    const cScr = screenRef.current;
+    if (!cMul || !cScr) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctxMul = cMul.getContext('2d');
+    const ctxScr = cScr.getContext('2d');
     let w = window.innerWidth;
     let h = window.innerHeight;
 
     const resize = () => {
       w = window.innerWidth;
       h = window.innerHeight;
-      canvas.width = w;
-      canvas.height = h;
+      cMul.width = w;  cMul.height = h;
+      cScr.width = w;  cScr.height = h;
     };
     resize();
     window.addEventListener('resize', resize);
@@ -34,16 +43,28 @@ export default function GrainCanvas() {
       }
       lastRef.current = ts;
 
-      const imageData = ctx.createImageData(w, h);
-      const data = imageData.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const v = (Math.random() * 255) | 0;
-        data[i] = v;
-        data[i + 1] = v;
-        data[i + 2] = v;
-        data[i + 3] = 28; // alpha: ~11% per pixel, stacks to visible grain
+      const total = w * h * 4;
+
+      // Multiply layer: dark pixels only (0-180) — shows up on light backgrounds
+      const mulData = ctxMul.createImageData(w, h);
+      const md = mulData.data;
+      for (let i = 0; i < total; i += 4) {
+        const v = (Math.random() * 180) | 0;
+        md[i] = v; md[i + 1] = v; md[i + 2] = v;
+        md[i + 3] = 38;
       }
-      ctx.putImageData(imageData, 0, 0);
+      ctxMul.putImageData(mulData, 0, 0);
+
+      // Screen layer: light pixels only (80-255) — shows up on dark backgrounds
+      const scrData = ctxScr.createImageData(w, h);
+      const sd = scrData.data;
+      for (let i = 0; i < total; i += 4) {
+        const v = 80 + ((Math.random() * 175) | 0);
+        sd[i] = v; sd[i + 1] = v; sd[i + 2] = v;
+        sd[i + 3] = 32;
+      }
+      ctxScr.putImageData(scrData, 0, 0);
+
       rafRef.current = requestAnimationFrame(drawGrain);
     };
 
@@ -55,21 +76,20 @@ export default function GrainCanvas() {
     };
   }, []);
 
+  const baseStyle = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    pointerEvents: 'none',
+    zIndex: 9999,
+  };
+
   return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        pointerEvents: 'none',
-        zIndex: 9999,
-        mixBlendMode: 'overlay',
-        opacity: 1,
-      }}
-    />
+    <>
+      <canvas ref={multiplyRef} aria-hidden="true" style={{ ...baseStyle, mixBlendMode: 'multiply' }} />
+      <canvas ref={screenRef}   aria-hidden="true" style={{ ...baseStyle, mixBlendMode: 'screen' }} />
+    </>
   );
 }
