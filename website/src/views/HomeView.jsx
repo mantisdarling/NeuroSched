@@ -4,7 +4,7 @@ import AudienceToggle from '../components/AudienceToggle';
 import HowToUse from '../components/HowToUse';
 import Quickstart from '../components/Quickstart';
 import FAQ from '../components/FAQ';
-import { Cpu, Terminal, TrendingUp, BookOpen, ChevronRight, Activity, ShieldCheck, Layers, Server, Monitor, Globe } from 'lucide-react';
+import { Cpu, Terminal, TrendingUp, BookOpen, ChevronRight, Activity, ShieldCheck, Layers, Server, Monitor, Globe, Brain } from 'lucide-react';
 
 export default function HomeView({ currentMode, setMode, onNavigate }) {
   return (
