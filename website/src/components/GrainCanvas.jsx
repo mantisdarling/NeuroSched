@@ -25,7 +25,7 @@ export default function GrainCanvas() {
       data[i]     = v;
       data[i + 1] = v;
       data[i + 2] = v;
-      data[i + 3] = 22;
+      data[i + 3] = 12;
     }
     ctx.putImageData(imageData, 0, 0);
   };
