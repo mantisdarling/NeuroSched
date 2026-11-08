@@ -14,6 +14,10 @@ import Benchmarks from './components/Benchmarks';
 import OSKnowledgeBase from './components/OSKnowledgeBase';
 import Quickstart from './components/Quickstart';
 import Footer from './components/Footer';
+import AboutView from './components/AboutView';
+import ContactView from './components/ContactView';
+import PrivacyView from './components/PrivacyView';
+import TermsView from './components/TermsView';
 import { ArrowLeft, Cpu, Activity, TrendingUp, HelpCircle } from 'lucide-react';
 
 const SEO_MAP = {
@@ -46,6 +50,26 @@ const SEO_MAP = {
     title: "Documentation: NeuroSched Kernel Architecture and Freestanding C Engine",
     description: "Complete technical specifications for the NeuroSched 32 bit x86 kernel: Multiboot2 handshake, x87 FPU setup, 5 8 1 MLP forward pass, Taylor sigmoid math, and zero malloc layout.",
     canonical: "https://neurosched.vercel.app/docs"
+  },
+  about: {
+    title: "About NeuroSched: x86 Neural Operating System Kernel",
+    description: "Discover the genesis and vision behind NeuroSched, the open source 32 bit x86 AI operating system kernel with freestanding machine learning scheduling.",
+    canonical: "https://neurosched.vercel.app/about"
+  },
+  contact: {
+    title: "Contact Engineering: NeuroSched Research Team",
+    description: "Get in touch with the NeuroSched research maintainers for academic collaboration, kernel bug reports, or security vulnerability disclosures.",
+    canonical: "https://neurosched.vercel.app/contact"
+  },
+  privacy: {
+    title: "Privacy Policy: NeuroSched Data Protection and Cookie Disclosures",
+    description: "NeuroSched privacy policy detailing cookie usage, Google DoubleClick DART ad policies, GDPR entitlements, CCPA disclosures, and zero user tracking.",
+    canonical: "https://neurosched.vercel.app/privacy"
+  },
+  terms: {
+    title: "Terms of Use: NeuroSched Open Source MIT Licensing",
+    description: "Terms of use and open source MIT licensing conditions for NeuroSched 32 bit x86 operating system source code and academic citations.",
+    canonical: "https://neurosched.vercel.app/terms"
   }
 };
 
@@ -59,6 +83,10 @@ const getRouteFromLocation = () => {
   if (path === '/architecture') return 'architecture';
   if (path === '/benchmarks') return 'benchmarks';
   if (path === '/faq') return 'faq';
+  if (path === '/about') return 'about';
+  if (path === '/contact') return 'contact';
+  if (path === '/privacy') return 'privacy';
+  if (path === '/terms') return 'terms';
 
   return 'home';
 };
@@ -277,6 +305,58 @@ export default function App() {
           </div>
 
           <OSKnowledgeBase />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* Dedicated About Page */
+  if (currentView === 'about') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          <AboutView onNavigateHome={() => navigateTo('home')} />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* Dedicated Contact Page */
+  if (currentView === 'contact') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          <ContactView onNavigateHome={() => navigateTo('home')} />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* Dedicated Privacy Policy Page */
+  if (currentView === 'privacy') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          <PrivacyView onNavigateHome={() => navigateTo('home')} />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* Dedicated Terms of Use Page */
+  if (currentView === 'terms') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          <TermsView onNavigateHome={() => navigateTo('home')} />
         </div>
         <Footer onNavigate={navigateTo} />
       </div>

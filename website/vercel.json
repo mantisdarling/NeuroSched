@@ -60,7 +60,7 @@
       ]
     },
     {
-      "source": "/(robots.txt|sitemap.xml|ads.txt|manifest.json)",
+      "source": "/(robots.txt|ads.txt)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -69,6 +69,32 @@
         {
           "key": "Content-Type",
           "value": "text/plain; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/manifest.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json; charset=utf-8"
         }
       ]
     }

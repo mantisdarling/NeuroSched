@@ -91,6 +91,24 @@ export default function Footer({ onNavigate }) {
             <ul className="space-y-2 text-[#86868b]">
               <li>
                 <a
+                  href="/about"
+                  onClick={(e) => handleNav('about', e)}
+                  className="hover:text-[#1d4ed8] transition-colors"
+                >
+                  About NeuroSched
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  onClick={(e) => handleNav('contact', e)}
+                  className="hover:text-[#1d4ed8] transition-colors"
+                >
+                  Contact Engineering
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://github.com/mantisdarling/NeuroSched/blob/main/CERTIFICATE.md"
                   target="_blank"
                   rel="noreferrer"
@@ -134,17 +152,24 @@ export default function Footer({ onNavigate }) {
           </div>
 
           <div className="space-y-2.5">
-            <h4 className="font-semibold text-[#1d1d1f]">Repository</h4>
+            <h4 className="font-semibold text-[#1d1d1f]">Legal and Trust</h4>
             <ul className="space-y-2 text-[#86868b]">
               <li>
                 <a
-                  href="https://github.com/mantisdarling/NeuroSched"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1"
+                  href="/privacy"
+                  onClick={(e) => handleNav('privacy', e)}
+                  className="hover:text-[#1d4ed8] transition-colors"
                 >
-                  <Github className="w-3.5 h-3.5" />
-                  <span>GitHub Repository</span>
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/terms"
+                  onClick={(e) => handleNav('terms', e)}
+                  className="hover:text-[#1d4ed8] transition-colors"
+                >
+                  Terms of Use
                 </a>
               </li>
               <li>
@@ -159,12 +184,13 @@ export default function Footer({ onNavigate }) {
               </li>
               <li>
                 <a
-                  href="https://neurosched.vercel.app"
+                  href="https://github.com/mantisdarling/NeuroSched"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-[#1d4ed8] transition-colors"
+                  className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1"
                 >
-                  Live Production URL
+                  <Github className="w-3.5 h-3.5" />
+                  <span>GitHub Repository</span>
                 </a>
               </li>
             </ul>
@@ -176,7 +202,31 @@ export default function Footer({ onNavigate }) {
           <div>
             Copyright 2026 <strong className="text-[#1d1d1f] font-semibold">MANTIS</strong> (mantisdarling). All rights reserved.
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="/privacy"
+              onClick={(e) => handleNav('privacy', e)}
+              className="hover:text-[#1d1d1f] transition-colors"
+            >
+              Privacy
+            </a>
+            <span className="text-[#7a7a7a]">|</span>
+            <a
+              href="/terms"
+              onClick={(e) => handleNav('terms', e)}
+              className="hover:text-[#1d1d1f] transition-colors"
+            >
+              Terms
+            </a>
+            <span className="text-[#7a7a7a]">|</span>
+            <a
+              href="/contact"
+              onClick={(e) => handleNav('contact', e)}
+              className="hover:text-[#1d1d1f] transition-colors"
+            >
+              Contact
+            </a>
+            <span className="text-[#7a7a7a]">|</span>
             <a href="https://github.com/mantisdarling/NeuroSched" target="_blank" rel="noreferrer" className="hover:text-[#1d1d1f]">
               mantisdarling/NeuroSched
             </a>
