@@ -3,9 +3,9 @@ import { useEffect, useRef } from 'react';
 /**
  * Static film grain canvas overlay.
  *
- * Draws once on mount — no animation, no RAF loop.
+ * Draws once on mount with zero animation and zero RAF loop.
  * No blend mode: pure alpha compositing so underlying colors stay bold and true.
- * White stays white, black stays black — only a fine paper-like grain texture is added.
+ * White stays white, black stays black: only a fine tactile grain texture is added.
  *
  * Regenerates on viewport resize to fill the new dimensions.
  */
@@ -25,7 +25,7 @@ export default function GrainCanvas() {
       data[i]     = v;
       data[i + 1] = v;
       data[i + 2] = v;
-      data[i + 3] = 22; // ~8.6% alpha — visible texture, no color distortion
+      data[i + 3] = 22;
     }
     ctx.putImageData(imageData, 0, 0);
   };
