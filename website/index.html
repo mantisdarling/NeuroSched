@@ -2,16 +2,274 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23000000'/><text x='50' y='65' font-family='-apple-system, system-ui, sans-serif' font-weight='600' font-size='45' fill='%230066cc' text-anchor='middle'>NS</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NeuroSched — An x86 Operating System with Neural Process Scheduling</title>
-    <meta name="description" content="A 32-bit x86 bare-metal operating system kernel featuring an embedded C neural network inference engine that optimizes process scheduling." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Core Search Engine Optimization (SEO) -->
+    <title>NeuroSched — x86 Bare Metal OS with Neural Process Scheduling</title>
+    <meta name="description" content="NeuroSched is an open-source 32-bit x86 bare-metal OS kernel with an embedded C neural network replacing Round Robin scheduling. Achieves 16.8% lower average wait time." />
+    <meta name="keywords" content="NeuroSched, x86 operating system, bare metal kernel, neural network scheduler, process scheduling, MLP inference C, freestanding C kernel, Multiboot2, zero malloc OS, x87 FPU, COM1 UART telemetry" />
+    <meta name="author" content="MANTIS" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://neurosched.vercel.app/" />
+
+    <!-- Mobile PWA & Theme Color -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Open Graph Protocol (LinkedIn, Discord, Facebook, Slack) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NeuroSched" />
+    <meta property="og:title" content="NeuroSched — x86 Bare Metal OS with Neural Process Scheduling" />
+    <meta property="og:description" content="Open-source 32-bit x86 kernel with an embedded MLP neural network. Zero heap allocation. 16.8% lower average process wait time." />
+    <meta property="og:url" content="https://neurosched.vercel.app/" />
+    <meta property="og:image" content="https://neurosched.vercel.app/og-banner.png" />
+    <meta property="og:image:secure_url" content="https://neurosched.vercel.app/og-banner.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="NeuroSched — 32-bit x86 Bare-Metal Operating System Kernel with Embedded Neural Scheduler" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NeuroSched — x86 Bare Metal OS with Neural Process Scheduling" />
+    <meta name="twitter:description" content="Open-source 32-bit x86 kernel with an embedded MLP neural network. Zero heap. 16.8% faster scheduling. Freestanding C." />
+    <meta name="twitter:image" content="https://neurosched.vercel.app/og-banner.png" />
+    <meta name="twitter:image:alt" content="NeuroSched kernel terminal and neural process scheduling telemetry" />
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect & Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD Structured Data Schema (Schema.org Graph: SoftwareApplication, SoftwareSourceCode, TechArticle, FAQPage) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://neurosched.vercel.app/#app",
+          "name": "NeuroSched",
+          "description": "An open-source 32-bit x86 bare-metal operating system kernel featuring an embedded C neural network inference engine that replaces traditional Round Robin process scheduling with zero heap allocations.",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "x86 Bare Metal, i686 Protected Mode",
+          "softwareVersion": "1.0",
+          "url": "https://neurosched.vercel.app/",
+          "downloadUrl": "https://github.com/mantisdarling/NeuroSched",
+          "installUrl": "https://github.com/mantisdarling/NeuroSched#quickstart",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "MANTIS",
+            "url": "https://github.com/mantisdarling"
+          },
+          "license": "https://opensource.org/licenses/MIT"
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "@id": "https://neurosched.vercel.app/#sourcecode",
+          "name": "NeuroSched Kernel Source Code",
+          "description": "Freestanding C kernel implementation including 5-8-1 MLP forward inference, x87 FPU setup, Multiboot2 handshake, COM1 serial telemetry UART, and VGA text buffer driver.",
+          "codeRepository": "https://github.com/mantisdarling/NeuroSched",
+          "programmingLanguage": ["C", "Assembly", "Python"],
+          "runtimePlatform": "QEMU i386, Bare Metal x86",
+          "license": "https://opensource.org/licenses/MIT",
+          "targetProduct": { "@id": "https://neurosched.vercel.app/#app" },
+          "author": {
+            "@type": "Person",
+            "name": "MANTIS",
+            "url": "https://github.com/mantisdarling"
+          }
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://neurosched.vercel.app/#techarticle",
+          "headline": "NeuroSched: Deterministic Bare-Metal Neural Process Scheduling in 32-Bit x86 Protected Mode",
+          "description": "Architectural breakdown of an operating system kernel that embeds a Multi-Layer Perceptron into CPU scheduling interrupts, evaluating 5-dimensional process state vectors with zero heap allocation and deterministic Round Robin fallback.",
+          "author": {
+            "@type": "Person",
+            "name": "MANTIS",
+            "url": "https://github.com/mantisdarling"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "NeuroSched Project",
+            "url": "https://neurosched.vercel.app/"
+          },
+          "proficiencyLevel": "Expert",
+          "dependencies": "x86 Protected Mode CPU, x87 FPU coprocessor, Multiboot2 compliant bootloader"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://neurosched.vercel.app/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What makes NeuroSched different from traditional schedulers like Linux CFS or Round Robin?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Traditional operating systems rely on rigid, hand-crafted heuristics—Round Robin grants uniform time slices regardless of task urgency, while Linux CFS balances a red-black tree of virtual runtime. NeuroSched evaluates a real-time 5-dimensional feature vector (wait ticks, remaining burst, priority, I/O affinity, yield count) through an embedded 2-layer Multi-Layer Perceptron (MLP) to dynamically score process execution order, achieving a 16.8% reduction in average wait time."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does NeuroSched achieve zero dynamic memory allocation (0 Bytes malloc)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Dynamic heap allocation inside an OS kernel introduces fragmentation, lock contention, and non-deterministic latency. NeuroSched eliminates malloc completely by placing all 57 static float model weights (228 bytes) directly in the read-only data (.rodata) section of the ELF binary. All intermediate hidden layer activations are allocated strictly on the execution stack."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the kernel execute floating-point math without triggering an Interrupt 7 (#NM) trap?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "On x86 protected mode entry, floating-point instructions trigger an unhandled Device Not Available (#NM) exception unless the coprocessor is unlocked in Control Register 0. NeuroSched's assembly entry point (boot/boot.S) clears the Emulation flag (CR0.EM=0) and asserts Monitor Coprocessor (CR0.MP=1) and Numeric Error (CR0.NE=1) before running fninit to initialize the x87 FPU stack ST(0)-ST(7)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is the transcendental Sigmoid activation computed without math.h in freestanding C?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Because standard C runtime libraries (libc and libm) are unavailable in a bare-metal kernel, NeuroSched approximates sigmoid σ(x) = 1 / (1 + e^-x) using a 6-term Taylor polynomial expansion of e^x. The inputs are clamped to [-10.0f, +10.0f] to prevent coprocessor register overflow while maintaining ±0.5% numerical precision."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the confidence fallback threshold and how does it prevent kernel instability?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "To eliminate out-of-distribution failure modes, NeuroSched enforces a confidence barrier (NN_CONF_THRESH = 0.65f). If the top predicted process score falls below 0.65, the scheduler logs an event over COM1 serial UART and immediately reverts to deterministic O(1) Round Robin dispatch for that timer tick, guaranteeing 100% kernel stability."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I build, test, and emulate NeuroSched locally?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "NeuroSched requires standard x86 build tools (gcc, make, qemu-system-i386, xorriso). Run 'make clean && make' to produce the Multiboot2 kernel ELF binary and bootable ISO image, or execute 'bash scripts/boot-test.sh' to launch headless QEMU emulation with real-time CSV execution telemetry streaming over COM1 serial port (0x3F8)."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://neurosched.vercel.app/#organization",
+          "name": "NeuroSched Project",
+          "url": "https://neurosched.vercel.app/",
+          "sameAs": [
+            "https://github.com/mantisdarling/NeuroSched"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://neurosched.vercel.app/#website",
+          "url": "https://neurosched.vercel.app/",
+          "name": "NeuroSched",
+          "description": "Official website and documentation for NeuroSched, an experimental x86 operating system kernel with neural process scheduling.",
+          "publisher": { "@id": "https://neurosched.vercel.app/#organization" }
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="bg-[#f5f5f7] text-[#1d1d1f] font-sans antialiased selection:bg-[#0066cc] selection:text-white min-h-screen overflow-x-hidden">
-    <div id="root"></div>
+    <!-- 
+      Semantic Pre-rendered Crawlable Shell
+      This semantic content is instantly parsed by search engine crawlers (Googlebot, Bingbot, DuckDuckGo)
+      even before client-side JavaScript executes. When React mounts, hydrate/replace mounts smoothly.
+    -->
+    <div id="root">
+      <main style="padding: 40px 20px; max-width: 1100px; margin: 0 auto; font-family: system-ui, sans-serif;">
+        <header>
+          <p style="color: #1d4ed8; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">NeuroSched Kernel Architecture</p>
+          <h1 style="font-size: 38px; line-height: 1.15; margin: 8px 0 16px 0; color: #111827;">NeuroSched — An x86 Operating System Driven by an Embedded Neural Network</h1>
+          <p style="font-size: 19px; line-height: 1.5; color: #4b5563;">
+            NeuroSched is an experimental, bare-metal 32-bit x86 operating system kernel that replaces static Round Robin heuristics with a trained, freestanding C neural network (5 to 8 to 1 Multi-Layer Perceptron). Designed with 0 Bytes dynamic heap allocation, native x87 FPU hardware acceleration, and a deterministic confidence fallback gate.
+          </p>
+        </header>
+
+        <section style="margin-top: 36px;">
+          <h2 style="font-size: 24px; color: #111827;">Core Kernel Verification Metrics</h2>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 15px;">
+            <thead>
+              <tr style="border-bottom: 2px solid #e5e7eb; text-align: left;">
+                <th style="padding: 10px;">Metric</th>
+                <th style="padding: 10px;">Round Robin Baseline</th>
+                <th style="padding: 10px;">NeuroSched (Neural + Fallback)</th>
+                <th style="padding: 10px;">Empirical Delta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #e5e7eb;">
+                <td style="padding: 10px; font-weight: 600;">Average Process Wait Time</td>
+                <td style="padding: 10px;">34.40 ticks</td>
+                <td style="padding: 10px; color: #1d4ed8; font-weight: 600;">28.60 ticks</td>
+                <td style="padding: 10px; color: #16a34a; font-weight: 600;">-16.8% faster response</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #e5e7eb;">
+                <td style="padding: 10px; font-weight: 600;">Average Turnaround Time</td>
+                <td style="padding: 10px;">40.80 ticks</td>
+                <td style="padding: 10px; color: #1d4ed8; font-weight: 600;">35.00 ticks</td>
+                <td style="padding: 10px; color: #16a34a; font-weight: 600;">-14.2% faster completion</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #e5e7eb;">
+                <td style="padding: 10px; font-weight: 600;">Kernel Heap Allocations</td>
+                <td style="padding: 10px;">0 Bytes</td>
+                <td style="padding: 10px; font-weight: 600;">0 Bytes (Zero Malloc)</td>
+                <td style="padding: 10px; color: #16a34a;">100% Static .rodata Layout</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px; font-weight: 600;">Fallback Safety Gate</td>
+                <td style="padding: 10px;">N/A</td>
+                <td style="padding: 10px;">c &lt; 0.65f boundary</td>
+                <td style="padding: 10px; color: #16a34a; font-weight: 600;">100% Kernel Stability</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section style="margin-top: 36px;">
+          <h2 style="font-size: 24px; color: #111827;">System Architecture & Hardware Specifications</h2>
+          <ul style="line-height: 1.8; color: #374151; font-size: 16px;">
+            <li><strong>Protected Mode & Bootloader:</strong> Multiboot2 handshake verification (magic <code>0x36D76289</code> in register <code>EAX</code>), 16 KiB reserved System V ABI stack.</li>
+            <li><strong>Hardware FPU Coprocessor:</strong> x87 FPU enabled via Control Register 0 flags (<code>CR0.EM=0</code>, <code>CR0.MP=1</code>, <code>CR0.NE=1</code>) to eliminate Interrupt 7 (#NM) traps.</li>
+            <li><strong>Freestanding Neural Engine:</strong> 5 inputs → 8 hidden neurons (ReLU) → 1 output score (Sigmoid). Weight matrix comprises exactly 57 static floats (228 bytes) in <code>.rodata</code>.</li>
+            <li><strong>Approximation Mathematics:</strong> 6-term Taylor series polynomial expansion of <code>exp(x)</code> clamped to <code>[-10.0f, +10.0f]</code>.</li>
+            <li><strong>Real-time Telemetry:</strong> 16550 UART serial driver streaming CSV execution rows over COM1 (<code>0x3F8</code>, 38,400 baud, 8N1).</li>
+          </ul>
+        </section>
+
+        <section style="margin-top: 36px;">
+          <h2 style="font-size: 24px; color: #111827;">Frequently Asked Questions (FAQ)</h2>
+          <div style="margin-top: 16px; line-height: 1.7; color: #374151;">
+            <p><strong>Q: What makes NeuroSched different from traditional schedulers like Linux CFS or Round Robin?</strong></p>
+            <p>A: NeuroSched replaces static heuristic rules with an embedded Multi-Layer Perceptron evaluating a 5-element runtime state vector, reducing process wait time by 16.8%.</p>
+            <p style="margin-top: 14px;"><strong>Q: How does NeuroSched achieve zero dynamic memory allocation?</strong></p>
+            <p>A: All 57 model weights are compiled statically into the <code>.rodata</code> binary section. Activations execute on the thread stack with zero calls to <code>malloc()</code>.</p>
+            <p style="margin-top: 14px;"><strong>Q: What happens if neural confidence drops?</strong></p>
+            <p>A: If prediction confidence drops below <code>0.65f</code>, the scheduler automatically defers to Round Robin for that timer tick, preventing kernel panics.</p>
+          </div>
+        </section>
+
+        <footer style="margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280;">
+          <p>Author & Maintainer: <strong>MANTIS</strong> (mantisdarling) | Open Source under MIT License</p>
+          <p>Official Repository: <a href="https://github.com/mantisdarling/NeuroSched" style="color: #1d4ed8;">github.com/mantisdarling/NeuroSched</a></p>
+        </footer>
+      </main>
+    </div>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

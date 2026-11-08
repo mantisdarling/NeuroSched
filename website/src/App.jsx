@@ -12,6 +12,7 @@ import WeightHeatmap from './components/WeightHeatmap';
 import MultiAlgoComparison from './components/MultiAlgoComparison';
 import Benchmarks from './components/Benchmarks';
 import Quickstart from './components/Quickstart';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 
 const isDocsRoute = () => {
@@ -132,6 +133,7 @@ export default function App() {
       <CodeExplorer />
       <Benchmarks />
       <Quickstart />
+      <FAQ />
       <Footer />
     </div>
   );

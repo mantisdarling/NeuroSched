@@ -1,0 +1,18 @@
+{
+  "name": "NeuroSched — x86 Bare Metal Neural OS",
+  "short_name": "NeuroSched",
+  "description": "A 32-bit x86 bare-metal operating system kernel featuring an embedded C neural network inference engine that optimizes process scheduling.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["developer", "education", "utilities"]
+}
