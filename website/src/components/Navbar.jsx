@@ -82,6 +82,12 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
               <a href="#benchmarks" className="hover:text-[#1d4ed8] transition-colors">
                 Benchmarks
               </a>
+          <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]">
+            FAQ
+          </a>
+              <a href="#faq" className="hover:text-[#1d4ed8] transition-colors">
+                FAQ
+              </a>
             </nav>
 
             <div className="flex items-center gap-3 pl-3 border-l border-[#e0e0e0]">

@@ -12,6 +12,7 @@ import WeightHeatmap from './components/WeightHeatmap';
 import MultiAlgoComparison from './components/MultiAlgoComparison';
 import Benchmarks from './components/Benchmarks';
 import OSKnowledgeBase from './components/OSKnowledgeBase';
+import OSWhitepaper from './components/OSWhitepaper';
 import Quickstart from './components/Quickstart';
 import Footer from './components/Footer';
 
@@ -132,6 +133,7 @@ export default function App() {
       <Architecture currentMode={currentMode} />
       <CodeExplorer />
       <Benchmarks />
+      <OSWhitepaper />
       <OSKnowledgeBase />
       <Quickstart />
       <Footer />
