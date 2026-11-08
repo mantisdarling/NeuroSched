@@ -474,6 +474,7 @@ class ErrorBoundary extends React.Component {
 export default function Root() {
   return (
     <ErrorBoundary>
+      <div className="grainOverlay" aria-hidden="true" />
       <App />
     </ErrorBoundary>
   );
