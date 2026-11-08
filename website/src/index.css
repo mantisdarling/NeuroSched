@@ -3,106 +3,231 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0B0B0D;
-  color: #EAEAEA;
-  font-family: 'Inter', sans-serif;
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Linear-grade spotlight background utility */
-.spotlight-bg {
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(255, 90, 0, 0.12) 0%, transparent 60%),
-    radial-gradient(circle at 80% 20%, rgba(255, 214, 0, 0.05) 0%, transparent 50%);
+/* Apple Display Typography Utilities (CamelCase - No dashes) */
+.appleHeroHeadline {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "system-ui", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  line-height: 1.07;
 }
 
-/* Stealth Carbon Cards with 1px Precision Rims */
-.linear-card {
-  background-color: #141417;
-  border: 1px solid #26262A;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.appleDisplayLg {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "system-ui", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.25px;
+  line-height: 1.1;
 }
 
-.linear-card:hover {
-  border-color: rgba(255, 90, 0, 0.6);
-  box-shadow: 0 0 30px rgba(255, 90, 0, 0.18), 0 20px 40px rgba(0, 0, 0, 0.8);
-  transform: translateY(-3px);
+.appleTagline {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "system-ui", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.231px;
+  line-height: 1.19;
 }
 
-/* Carbon Card Interactive */
-.carbon-card {
-  background-color: #141417;
-  border: 1px solid #26262A;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* Apple Drop Shadow for hardware console artifacts */
+.appleProductShadow {
+  box-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
 }
 
-.carbon-card:hover {
-  border-color: rgba(255, 90, 0, 0.5);
-  box-shadow: 0 0 25px rgba(255, 90, 0, 0.12);
+.appleProductShadowDark {
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 20px 40px 0px;
 }
 
-.carbon-card-interactive {
-  background-color: #141417;
-  border: 1px solid #26262A;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* Apple Cards (18px radius with 1px hairline border - CamelCase) */
+.appleCard {
+  border-radius: 18px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
 }
 
-.carbon-card-interactive:hover {
-  border-color: #FF5A00;
-  box-shadow: 0 0 30px rgba(255, 90, 0, 0.2);
-  transform: translateY(-2px);
+.appleCardLight {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 18px;
 }
 
-/* Gradient Text Headers */
-.gradient-heading {
-  background: linear-gradient(135deg, #FFFFFF 0%, #EAEAEA 50%, #999999 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.appleCardDark {
+  background-color: #272729;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  color: #ffffff;
 }
 
-.orange-glow-text {
-  text-shadow: 0 0 20px rgba(255, 90, 0, 0.6);
+.appleCardDarkAlt {
+  background-color: #2a2a2c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  color: #ffffff;
 }
 
-.orange-glow-border {
-  box-shadow: 0 0 25px rgba(255, 90, 0, 0.3);
+/* Button Micro-interaction */
+.applePressable {
+  transition: transform 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
 }
 
-/* Linear Grid Overlay Background */
-.grid-pattern {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+.applePressable:active {
+  transform: scale(0.95);
 }
 
-/* Glassmorphic Panel */
-.glass-panel {
-  background: rgba(20, 20, 23, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Apple Pill Action Button with Royal Tech Blue #1d4ed8 */
+.appleBtnPrimary {
+  background-color: #1d4ed8;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 11px 22px;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.appleBtnPrimary:hover {
+  background-color: #1e40af;
+}
+
+.appleBtnPrimary:active {
+  transform: scale(0.95);
+}
+
+/* Secondary Ghost Pill Button */
+.appleBtnSecondary {
+  background-color: transparent;
+  color: #1d4ed8;
+  border: 1px solid #1d4ed8;
+  border-radius: 9999px;
+  padding: 11px 22px;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.appleBtnSecondary:hover {
+  background-color: rgba(29, 78, 216, 0.08);
+}
+
+.appleBtnSecondary:active {
+  transform: scale(0.95);
+}
+
+/* Ghost Pill on Dark Tile */
+.appleBtnSecondaryDark {
+  background-color: transparent;
+  color: #3b82f6;
+  border: 1px solid #3b82f6;
+  border-radius: 9999px;
+  padding: 11px 22px;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.appleBtnSecondaryDark:hover {
+  background-color: rgba(59, 130, 246, 0.12);
+}
+
+.appleBtnSecondaryDark:active {
+  transform: scale(0.95);
+}
+
+/* Frosted glass subnav */
+.appleFrostedNav {
+  background-color: rgba(245, 245, 247, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.appleFrostedNavDark {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0B0D;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #26262A;
-  border-radius: 0px;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF5A00;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* OpenCode Terminal Theme (CamelCase - No dashes) */
+.openCodeRoot {
+  font-family: "Geist Mono", "JetBrains Mono", "Berkeley Mono", "SF Mono", Menlo, Monaco, Consolas, monospace;
+  background-color: #000000;
+  color: #f4f4f5;
+}
+
+.openCodeBorder {
+  border-color: #1f1f23;
+}
+
+.openCodeSurface {
+  background-color: #09090b;
+}
+
+.openCodeSurfaceElevated {
+  background-color: #121215;
+}
+
+.openCodeRadius {
+  border-radius: 4px;
+}
+
+.openCodePressable {
+  transition: all 0.12s ease;
+}
+
+.openCodePressable:hover {
+  border-color: #3b82f6;
+}
+
+.openCodePressable:active {
+  transform: scale(0.98);
 }
