@@ -15,74 +15,73 @@ export default function Benchmarks() {
   };
 
   return (
-    <section id="benchmarks" className="py-16 px-4 lg:px-8 border-b border-[#333333] bg-[#111111]">
-      <div className="max-w-7xl mx-auto space-y-10">
+    <section id="benchmarks" className="py-20 px-4 lg:px-8 bg-[#272729] text-white border-b border-[#3a3a3c]">
+      <div className="max-w-6xl mx-auto space-y-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 font-mono text-xs text-[#FF5A00] uppercase tracking-wider font-semibold">
-              <Award className="w-3.5 h-3.5" />
-              <span>Verified QEMU Benchmarks & Hardware Telemetry</span>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-3">
+            <div className="text-[13px] font-semibold text-[#3b82f6] uppercase tracking-wider">
+              Empirical Performance Validation
             </div>
-            <h2 className="text-3xl font-extrabold text-[#EAEAEA]">
-              Empirical Metric Outcomes
+            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-semibold text-white tracking-tight leading-tight">
+              Verified QEMU Benchmarks.
             </h2>
-            <p className="text-xs text-[#888888] max-w-2xl">
-              Real benchmark output captured directly over QEMU COM1 serial UART port during dual-phase kernel execution.
+            <p className="text-[17px] text-[#86868b] max-w-2xl leading-relaxed">
+              Real benchmark outcomes captured directly over QEMU COM1 serial UART port during dual phase kernel execution.
             </p>
           </div>
 
           <button
             onClick={handleDownloadPDF}
-            className="flex items-center gap-2 bg-[#FF5A00] hover:bg-[#E04F00] text-black font-mono font-bold text-xs px-4 py-2.5 transition-all shadow-[0_0_20px_rgba(255,90,0,0.3)] self-start md:self-auto"
+            className="applePressable flex items-center gap-2 bg-[#1d4ed8] hover:bg-[#1e40af] text-white font-medium text-[14px] px-5 py-2.5 rounded-full transition-all self-start md:self-auto"
           >
             {downloading ? <Check className="w-4 h-4" /> : <FileText className="w-4 h-4" />}
-            <span>{downloading ? 'GENERATING PRINT REPORT...' : 'EXPORT BENCHMARK PDF REPORT'}</span>
+            <span>{downloading ? 'Preparing Report...' : 'Export PDF Report'}</span>
           </button>
         </div>
 
-        {/* Metric Cards Grid */}
+        {/* Metric Outcome Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="carbon-card p-6 space-y-4">
+          <div className="appleCardDark bg-[#1d1d1f] p-7 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-xs text-[#888888] uppercase">Average Wait Time</span>
-              <TrendingUp className="w-4 h-4 text-[#10B981]" />
+              <span className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">Average Wait Time</span>
+              <TrendingUp className="w-4 h-4 text-[#16a34a]" />
             </div>
             <div className="space-y-1">
-              <div className="font-mono text-3xl font-extrabold text-[#FF5A00]">28.60 Ticks</div>
-              <div className="font-mono text-xs text-[#888888]">vs 34.40 ticks (Round-Robin)</div>
+              <div className="text-4xl font-semibold text-white tracking-tight">28.60 <span className="text-lg font-normal text-[#86868b]">Ticks</span></div>
+              <div className="text-[13px] text-[#86868b]">vs 34.40 ticks (Round Robin)</div>
             </div>
-            <div className="bg-[#10B981]/10 border border-[#10B981]/30 p-2.5 text-[#10B981] font-mono text-xs font-bold">
-              ⚡ 16.8% Lower Average Wait Time
+            <div className="bg-[#16a34a]/10 border border-[#16a34a]/30 p-2.5 rounded-[10px] text-[#16a34a] text-[13px] font-medium">
+              16.8% lower average wait time
             </div>
           </div>
 
-          <div className="carbon-card p-6 space-y-4">
+          <div className="appleCardDark bg-[#1d1d1f] p-7 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-xs text-[#888888] uppercase">Average Turnaround</span>
-              <TrendingUp className="w-4 h-4 text-[#10B981]" />
+              <span className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">Average Turnaround</span>
+              <TrendingUp className="w-4 h-4 text-[#16a34a]" />
             </div>
             <div className="space-y-1">
-              <div className="font-mono text-3xl font-extrabold text-[#EAEAEA]">35.00 Ticks</div>
-              <div className="font-mono text-xs text-[#888888]">vs 40.80 ticks (Round-Robin)</div>
+              <div className="text-4xl font-semibold text-white tracking-tight">35.00 <span className="text-lg font-normal text-[#86868b]">Ticks</span></div>
+              <div className="text-[13px] text-[#86868b]">vs 40.80 ticks (Round Robin)</div>
             </div>
-            <div className="bg-[#10B981]/10 border border-[#10B981]/30 p-2.5 text-[#10B981] font-mono text-xs font-bold">
-              ⚡ 14.2% Faster Job Completion
+            <div className="bg-[#16a34a]/10 border border-[#16a34a]/30 p-2.5 rounded-[10px] text-[#16a34a] text-[13px] font-medium">
+              14.2% faster job completion
             </div>
           </div>
 
-          <div className="carbon-card p-6 space-y-4">
+          <div className="appleCardDark bg-[#1d1d1f] p-7 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-xs text-[#888888] uppercase">Fallback Safety</span>
-              <ShieldAlert className="w-4 h-4 text-[#FFD600]" />
+              <span className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">Fallback Safety</span>
+              <ShieldAlert className="w-4 h-4 text-[#3b82f6]" />
             </div>
             <div className="space-y-1">
-              <div className="font-mono text-3xl font-extrabold text-[#FFD600]">100% Stable</div>
-              <div className="font-mono text-xs text-[#888888]">50 Safety Fallbacks Triggered</div>
+              <div className="text-4xl font-semibold text-white tracking-tight">100% <span className="text-lg font-normal text-[#86868b]">Safe</span></div>
+              <div className="text-[13px] text-[#86868b]">50 safety fallbacks triggered</div>
             </div>
-            <div className="bg-[#FFD600]/10 border border-[#FFD600]/30 p-2.5 text-[#FFD600] font-mono text-xs font-bold">
-              🛡️ Zero Kernel Panic Guarantee
+            <div className="bg-[#3b82f6]/10 border border-[#3b82f6]/30 p-2.5 rounded-[10px] text-[#3b82f6] text-[13px] font-medium">
+              Zero kernel panic guarantee
             </div>
           </div>
         </div>
@@ -94,45 +93,45 @@ export default function Benchmarks() {
         <CpuCoreVisualizer />
 
         {/* Detailed Benchmark Comparison Table */}
-        <div className="carbon-card p-6 space-y-4">
-          <div className="font-mono text-xs text-[#EAEAEA] font-bold pb-2 border-b border-[#333333]">
-            Side-by-Side Execution Comparison Matrix
+        <div className="appleCardDark bg-[#1d1d1f] p-7 space-y-5 border border-[rgba(255,255,255,0.1)]">
+          <div className="text-[16px] font-semibold text-white pb-3 border-b border-[rgba(255,255,255,0.08)]">
+            Side by Side Execution Comparison Matrix
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left font-mono text-xs">
+            <table className="w-full text-left text-[14px]">
               <thead>
-                <tr className="border-b border-[#333333] text-[#888888]">
-                  <th className="py-2.5 px-3">Metric</th>
-                  <th className="py-2.5 px-3">Round-Robin</th>
-                  <th className="py-2.5 px-3">Neural + Fallback</th>
-                  <th className="py-2.5 px-3">Improvement</th>
+                <tr className="border-b border-[rgba(255,255,255,0.08)] text-[#86868b]">
+                  <th className="py-3 px-4 font-medium">Metric</th>
+                  <th className="py-3 px-4 font-medium">Round Robin</th>
+                  <th className="py-3 px-4 font-medium">Neural + Fallback</th>
+                  <th className="py-3 px-4 font-medium">Improvement</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#333333] text-[#EAEAEA]">
+              <tbody className="divide-y divide-[rgba(255,255,255,0.06)] text-white">
                 <tr>
-                  <td className="py-3 px-3 font-bold">Average Wait Time</td>
-                  <td className="py-3 px-3 text-[#888888]">34.40 ticks</td>
-                  <td className="py-3 px-3 text-[#FF5A00] font-bold">28.60 ticks</td>
-                  <td className="py-3 px-3 text-[#10B981] font-bold">+16.8% faster</td>
+                  <td className="py-3.5 px-4 font-medium">Average Wait Time</td>
+                  <td className="py-3.5 px-4 text-[#86868b] font-mono">34.40 ticks</td>
+                  <td className="py-3.5 px-4 text-[#3b82f6] font-semibold font-mono">28.60 ticks</td>
+                  <td className="py-3.5 px-4 text-[#16a34a] font-medium">+16.8% faster</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-3 font-bold">Average Turnaround</td>
-                  <td className="py-3 px-3 text-[#888888]">40.80 ticks</td>
-                  <td className="py-3 px-3 text-[#FF5A00] font-bold">35.00 ticks</td>
-                  <td className="py-3 px-3 text-[#10B981] font-bold">+14.2% faster</td>
+                  <td className="py-3.5 px-4 font-medium">Average Turnaround</td>
+                  <td className="py-3.5 px-4 text-[#86868b] font-mono">40.80 ticks</td>
+                  <td className="py-3.5 px-4 text-[#3b82f6] font-semibold font-mono">35.00 ticks</td>
+                  <td className="py-3.5 px-4 text-[#16a34a] font-medium">+14.2% faster</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-3 font-bold">Total Ticks Elapsed</td>
-                  <td className="py-3 px-3">64 ticks</td>
-                  <td className="py-3 px-3">64 ticks</td>
-                  <td className="py-3 px-3 text-[#888888]">100% finished</td>
+                  <td className="py-3.5 px-4 font-medium">Total Ticks Elapsed</td>
+                  <td className="py-3.5 px-4 font-mono">64 ticks</td>
+                  <td className="py-3.5 px-4 font-mono">64 ticks</td>
+                  <td className="py-3.5 px-4 text-[#86868b]">100% finished</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-3 font-bold">NN Fallback Triggers</td>
-                  <td className="py-3 px-3 text-[#888888]">N/A</td>
-                  <td className="py-3 px-3 text-[#FFD600] font-bold">50 times</td>
-                  <td className="py-3 px-3 text-[#10B981] font-bold">100% safe</td>
+                  <td className="py-3.5 px-4 font-medium">NN Fallback Triggers</td>
+                  <td className="py-3.5 px-4 text-[#86868b]">N/A</td>
+                  <td className="py-3.5 px-4 text-[#d97706] font-mono font-medium">50 times</td>
+                  <td className="py-3.5 px-4 text-[#16a34a] font-medium">100% stable</td>
                 </tr>
               </tbody>
             </table>

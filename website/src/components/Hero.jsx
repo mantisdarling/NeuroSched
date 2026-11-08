@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Shield, ArrowRight, Play, Cpu, CheckCircle2, Command, Search, Sparkles } from 'lucide-react';
+import { Terminal, Shield, ArrowRight, Play, Cpu, CheckCircle2, ChevronRight, Activity } from 'lucide-react';
 
 export default function Hero({ currentMode }) {
   const [terminalStep, setTerminalStep] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const bootLogs = [
     "[OK] Multiboot2 boot verified (Magic: 0x36D76289)",
@@ -11,7 +10,7 @@ export default function Hero({ currentMode }) {
     "[OK] COM1 serial port configured (38400 baud, 8N1 @ 0x3F8)",
     "[OK] x87 FPU enabled (CR0.EM=0, CR0.MP=1)",
     "[INFO] Workload: 10 synthetic processes loaded",
-    ">>> Phase 1: Round-Robin Simulation complete (64 ticks)",
+    ">>> Phase 1: Round Robin Simulation complete (64 ticks)",
     ">>> Phase 2: Neural Scheduler Simulation complete (64 ticks)",
     "[RESULT] Neural scheduler achieved 16.8% lower avg wait time!",
     ">>> NeuroSched v1.0 complete. Halting CPU."
@@ -20,155 +19,146 @@ export default function Hero({ currentMode }) {
   useEffect(() => {
     const timer = setInterval(() => {
       setTerminalStep((prev) => (prev < bootLogs.length ? prev + 1 : prev));
-    }, 400);
+    }, 450);
     return () => clearInterval(timer);
   }, [bootLogs.length]);
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
-
   return (
-    <section 
-      onMouseMove={handleMouseMove}
-      className="relative pt-16 pb-24 px-4 lg:px-8 border-b border-[#28282C] bg-[#0E0E10] grid-pattern overflow-hidden"
-    >
-      {/* Interactive Mouse Spotlight Gradient */}
-      <div 
-        className="pointer-events-none absolute w-[600px] h-[600px] rounded-full transition-opacity duration-500 opacity-40"
-        style={{
-          background: `radial-gradient(circle, rgba(255,90,0,0.12) 0%, rgba(255,90,0,0) 70%)`,
-          left: `${mousePos.x - 300}px`,
-          top: `${mousePos.y - 300}px`
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+    <section className="bg-[#ffffff] text-[#1d1d1f] pt-16 pb-20 px-4 lg:px-8 border-b border-[#e0e0e0] overflow-hidden">
+      <div className="max-w-6xl mx-auto text-center space-y-8">
         
-        {/* Left Column: Kinetic Headline and Quick Action Bar */}
-        <div className="lg:col-span-7 space-y-6">
-          
-          {/* Linear-style Status Pill */}
-          <div className="inline-flex items-center gap-2 bg-[#17171A] border border-[#28282C] px-3.5 py-1.5 font-mono text-xs text-[#888888]">
-            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-            <span className="text-[#EAEAEA] font-medium">Bare-Metal x86 Kernel</span>
-            <span className="text-[#FF5A00] font-bold">| Multiboot2</span>
-            <span className="text-[#333333]">/</span>
-            <span className="text-[#888888]">5→8→1 MLP Engine</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#EAEAEA] leading-[1.08]">
-            An x86 OS Driven by an <br />
-            <span className="text-[#FF5A00] orange-glow-text">Embedded Neural Net</span> <br />
-            Process Scheduler.
-          </h1>
-
-          {/* Dynamic mode explanation */}
-          <p className="text-base sm:text-lg text-[#888888] leading-relaxed max-w-2xl">
-            {currentMode === 'architect' ? (
-              <>
-                Replaces 50-year-old Round-Robin algorithms with a freestanding C neural network engine (5→8→1 MLP). 
-                Features zero dynamic memory allocations (<code className="text-[#FF5A00] font-mono">malloc</code>), x87 FPU hardware acceleration, 
-                and a strict <strong className="text-[#EAEAEA]">Confidence Fallback Mechanism</strong> for kernel stability.
-              </>
-            ) : (
-              <>
-                What if an Operating System could learn and predict which program needs the CPU next? 
-                NeuroSched is a custom x86 kernel that trains a artificial intelligence model to schedule software 
-                processes, reducing waiting times by <strong className="text-[#FF5A00]">16.8%</strong> compared to traditional algorithms.
-              </>
-            )}
-          </p>
-
-          {/* Quick Stats Banner */}
-          <div className="grid grid-cols-3 gap-4 pt-2 max-w-xl">
-            <div className="linear-card p-4">
-              <div className="font-mono text-2xl font-extrabold text-[#FF5A00]">-16.8%</div>
-              <div className="font-mono text-[11px] text-[#888888] uppercase tracking-wider mt-0.5">Avg Wait Time</div>
-            </div>
-            <div className="linear-card p-4">
-              <div className="font-mono text-2xl font-extrabold text-[#EAEAEA]">0 Bytes</div>
-              <div className="font-mono text-[11px] text-[#888888] uppercase tracking-wider mt-0.5">Heap Allocation</div>
-            </div>
-            <div className="linear-card p-4">
-              <div className="font-mono text-2xl font-extrabold text-[#10B981]">100%</div>
-              <div className="font-mono text-[11px] text-[#888888] uppercase tracking-wider mt-0.5">Fallback Safety</div>
-            </div>
-          </div>
-
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
-            <a
-              href="#simulator"
-              className="inline-flex items-center gap-2 bg-[#FF5A00] hover:bg-[#E04F00] text-black font-mono font-bold text-sm px-6 py-3.5 transition-all shadow-[0_0_30px_rgba(255,90,0,0.35)]"
-            >
-              <Play className="w-4 h-4 fill-black" />
-              <span>Launch Live Simulator</span>
-            </a>
-            <a
-              href="#architecture"
-              className="inline-flex items-center gap-2 bg-[#17171A] hover:bg-[#222226] border border-[#28282C] text-[#EAEAEA] font-mono text-sm px-6 py-3.5 transition-all"
-            >
-              <Cpu className="w-4 h-4 text-[#FF5A00]" />
-              <span>Explore Kernel Specs</span>
-            </a>
-          </div>
-
+        {/* Subtle Category Pill (No dots) */}
+        <div className="inline-flex items-center gap-3 bg-[#f5f5f7] border border-[#e0e0e0] px-4 py-1.5 rounded-full text-[14px] text-[#1d1d1f]">
+          <span className="font-semibold text-[#1d4ed8]">NeuroSched</span>
+          <span className="text-[#86868b]">|</span>
+          <span className="text-[#86868b]">Bare Metal x86 Kernel Architecture</span>
         </div>
 
-        {/* Right Column: Monolith Boot Trace Console */}
-        <div className="lg:col-span-5">
-          <div className="linear-card overflow-hidden">
+        {/* Display Headline */}
+        <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold text-[#1d1d1f] tracking-tight leading-[1.07] max-w-4xl mx-auto">
+          An operating system driven by an embedded neural network.
+        </h1>
+
+        {/* Lead Subtitle */}
+        <p className="text-[20px] sm:text-[24px] text-[#86868b] font-normal leading-[1.3] max-w-3xl mx-auto tracking-tight">
+          {currentMode === 'architect' ? (
+            <>
+              Replaces static Round Robin scheduling heuristics with a freestanding C neural network (5 to 8 to 1 MLP). 
+              Zero dynamic memory allocations, native x87 hardware acceleration, and structure level confidence fallbacks.
+            </>
+          ) : (
+            <>
+              What if your computer core system could predict which task needs the processor next? 
+              NeuroSched trains a neural network to organize running tasks, reducing waiting times by <strong className="text-[#1d1d1f] font-semibold">16.8%</strong>.
+            </>
+          )}
+        </p>
+
+        {/* Dual Pill Action CTAs with Royal Cobalt Blue #1d4ed8 */}
+        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <a
+            href="#simulator"
+            className="appleBtnPrimary"
+          >
+            <span>Launch Live Simulator</span>
+            <ChevronRight className="w-4 h-4 ml-0.5" />
+          </a>
+          <a
+            href="#architecture"
+            className="appleBtnSecondary"
+          >
+            <span>Explore Architecture</span>
+          </a>
+        </div>
+
+        {/* Three Metric Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-3xl mx-auto pt-4 text-left">
+          <div className="appleCardLight p-6">
+            <div className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">
+              Avg Wait Time
+            </div>
+            <div className="text-3xl font-semibold text-[#1d1d1f] mt-1.5 tracking-tight">
+              16.8% lower
+            </div>
+            <p className="text-[14px] text-[#86868b] mt-1 leading-normal">
+              Empirical speedup over standard Round Robin in QEMU.
+            </p>
+          </div>
+
+          <div className="appleCardLight p-6">
+            <div className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">
+              Heap Allocation
+            </div>
+            <div className="text-3xl font-semibold text-[#1d1d1f] mt-1.5 tracking-tight">
+              0 Bytes
+            </div>
+            <p className="text-[14px] text-[#86868b] mt-1 leading-normal">
+              Static stack and <code className="text-[#1d4ed8] font-mono text-xs">.rodata</code> matrix layout.
+            </p>
+          </div>
+
+          <div className="appleCardLight p-6">
+            <div className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">
+              Kernel Safety
+            </div>
+            <div className="text-3xl font-semibold text-[#1d1d1f] mt-1.5 tracking-tight">
+              100%
+            </div>
+            <p className="text-[14px] text-[#86868b] mt-1 leading-normal">
+              Instant fallback to Round Robin when confidence drops.
+            </p>
+          </div>
+        </div>
+
+        {/* Centerpiece Hardware Product Render: Serial Console */}
+        <div className="max-w-4xl mx-auto pt-8">
+          <div className="appleCardDark appleProductShadow overflow-hidden text-left border border-[#3a3a3c]">
             
-            {/* Terminal Window Header */}
-            <div className="bg-[#0E0E10] border-b border-[#28282C] px-4 py-3 flex items-center justify-between">
+            {/* Terminal Header */}
+            <div className="bg-[#1d1d1f] border-b border-[#333336] px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-[#FF5A00]" />
-                <div className="w-3 h-3 bg-[#FFD600]" />
-                <div className="w-3 h-3 bg-[#10B981]" />
+                <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block" />
+                <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block" />
+                <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block" />
               </div>
-              <div className="flex items-center gap-1.5 font-mono text-xs text-[#888888]">
-                <Terminal className="w-3.5 h-3.5 text-[#FF5A00]" />
-                <span>COM1 Serial Console Trace</span>
+              <div className="text-[13px] font-mono text-[#86868b] flex items-center gap-2">
+                <Terminal className="w-3.5 h-3.5 text-[#1d4ed8]" />
+                <span>COM1 Serial Console — QEMU i386 Target</span>
               </div>
+              <button 
+                onClick={() => setTerminalStep(0)}
+                className="text-[12px] text-[#3b82f6] hover:underline font-mono"
+              >
+                Replay
+              </button>
             </div>
 
-            {/* Terminal Console Output */}
-            <div className="p-4 font-mono text-xs space-y-2 min-h-[310px] bg-[#0E0E10] overflow-x-auto">
-              <div className="text-[#888888]"># QEMU i386 target initialization...</div>
-              
+            {/* Console Output */}
+            <div className="p-6 font-mono text-[13px] leading-relaxed space-y-2 bg-[#1d1d1f] text-[#ffffff] min-h-[260px] overflow-x-auto">
+              <div className="text-[#86868b]"># Bootstrapping NeuroSched kernel binary...</div>
               {bootLogs.slice(0, terminalStep).map((log, idx) => {
-                let colorClass = "text-[#EAEAEA]";
-                if (log.includes("[OK]")) colorClass = "text-[#10B981]";
-                if (log.includes("[RESULT]")) colorClass = "text-[#FF5A00] font-bold";
-                if (log.includes("[INFO]")) colorClass = "text-[#888888]";
-                if (log.includes(">>>")) colorClass = "text-[#FFD600]";
+                let color = "text-[#ffffff]";
+                if (log.includes("[OK]")) color = "text-[#16a34a]";
+                if (log.includes("[RESULT]")) color = "text-[#3b82f6] font-semibold";
+                if (log.includes("[INFO]")) color = "text-[#86868b]";
+                if (log.includes(">>>")) color = "text-[#d97706]";
                 return (
-                  <div key={idx} className={colorClass}>
+                  <div key={idx} className={color}>
                     {log}
                   </div>
                 );
               })}
-
               {terminalStep < bootLogs.length && (
-                <div className="inline-block w-2 h-4 bg-[#FF5A00] animate-pulse" />
+                <div className="inline-block w-2 h-4 bg-[#3b82f6] animate-pulse align-middle" />
               )}
             </div>
 
-            {/* Terminal Footer Action */}
-            <div className="border-t border-[#28282C] px-4 py-2.5 bg-[#17171A] flex items-center justify-between text-[11px] font-mono text-[#888888]">
-              <span>Execution State: VERIFIED</span>
-              <button 
-                onClick={() => setTerminalStep(0)} 
-                className="text-[#FF5A00] hover:underline"
-              >
-                [Replay Trace]
-              </button>
+            {/* Hardware Status Strip */}
+            <div className="bg-[#272729] border-t border-[#3a3a3c] px-6 py-2.5 flex items-center justify-between text-[12px] font-mono text-[#86868b]">
+              <span>Architecture: i686 elf</span>
+              <span className="text-[#16a34a] flex items-center gap-1.5 font-medium">
+                Multiboot2 Handshake Verified
+              </span>
             </div>
 
           </div>
