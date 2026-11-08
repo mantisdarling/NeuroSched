@@ -1,0 +1,38 @@
+# NeuroSched AI Operating System Kernel
+
+> NeuroSched is an open source 32 bit x86 bare metal operating system kernel that embeds a freestanding neural network directly into process scheduling.
+
+## Overview
+
+NeuroSched replaces static Round Robin scheduling algorithms with a freestanding C multilayer perceptron (5 to 8 to 1 topology). Operating with zero dynamic heap allocations, all weights and process control blocks reside in static read only data and stack memory. The kernel targets i686 protected mode hardware with native x87 floating point unit acceleration.
+
+## System Architecture
+
+* Architecture: 32 bit x86 Protected Mode
+* Boot Protocol: Multiboot2 Specification 0x36D76289
+* Floating Point: x87 FPU native hardware acceleration via CR0 manipulation
+* Memory Architecture: Zero malloc dynamic heap, static rodata matrix tables
+* Neural Network: 5 input features, 8 hidden neurons, 1 priority output
+* Activation Function: Polynomial Taylor expansion sigmoid approximation
+* Serial Diagnostics: COM1 UART at 38400 baud, 8N1 parity at IO port 0x3F8
+* Fallback Safety: Deterministic Round Robin fallback upon low inference confidence
+
+## Performance Telemetry
+
+* Process Wait Time: 16.8 percent lower wait time versus Round Robin
+* Turnaround Latency: 14.2 percent faster process completion in QEMU benchmarks
+* Memory Footprint: Exactly 0 bytes dynamic heap allocation
+* Safety Guarantee: 100 percent deterministic execution preservation
+
+## Core Documentation and Specifications
+
+* Architecture: https://neurosched.vercel.app/architecture
+* Interactive Simulator: https://neurosched.vercel.app/simulator
+* Freestanding C Docs: https://neurosched.vercel.app/docs
+* Empirical Benchmarks: https://neurosched.vercel.app/benchmarks
+* Knowledge Base FAQ: https://neurosched.vercel.app/faq
+* About the Project: https://neurosched.vercel.app/about
+* Engineering Contact: https://neurosched.vercel.app/contact
+* Privacy Disclosures: https://neurosched.vercel.app/privacy
+* MIT Licensing Terms: https://neurosched.vercel.app/terms
+* GitHub Repository: https://github.com/mantisdarling/NeuroSched

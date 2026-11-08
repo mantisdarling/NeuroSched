@@ -68,7 +68,7 @@
       ]
     },
     {
-      "source": "/(robots.txt|ads.txt)",
+      "source": "/(robots.txt|ads.txt|llms.txt)",
       "headers": [
         {
           "key": "Cache-Control",
