@@ -1,47 +1,13 @@
-import { useEffect, useRef } from 'react';
+import React from 'react';
 
 /**
- * Static film grain canvas overlay.
- *
- * Draws once on mount with zero animation and zero RAF loop.
- * No blend mode: pure alpha compositing so underlying colors stay bold and true.
- * White stays white, black stays black: only a fine tactile grain texture is added.
- *
- * Regenerates on viewport resize to fill the new dimensions.
+ * Global background texture overlay using cellular memory partition geometry.
+ * Opacity calibrated to 0.08 with multiply blending to preserve black and white contrast.
+ * Pointer events none to ensure zero interference with interactive elements.
  */
 export default function GrainCanvas() {
-  const canvasRef = useRef(null);
-
-  const draw = (canvas) => {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext('2d');
-    const imageData = ctx.createImageData(w, h);
-    const data = imageData.data;
-    for (let i = 0; i < data.length; i += 4) {
-      const v = (Math.random() * 255) | 0;
-      data[i]     = v;
-      data[i + 1] = v;
-      data[i + 2] = v;
-      data[i + 3] = 12;
-    }
-    ctx.putImageData(imageData, 0, 0);
-  };
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    draw(canvas);
-    const onResize = () => draw(canvas);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
   return (
-    <canvas
-      ref={canvasRef}
+    <div
       aria-hidden="true"
       style={{
         position: 'fixed',
@@ -51,6 +17,11 @@ export default function GrainCanvas() {
         height: '100vh',
         pointerEvents: 'none',
         zIndex: 9999,
+        backgroundImage: 'url(/textures/lava-rock.png)',
+        backgroundRepeat: 'repeat',
+        backgroundSize: '200px 200px',
+        opacity: 0.08,
+        mixBlendMode: 'multiply',
       }}
     />
   );

@@ -107,7 +107,19 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.neurosched.vercel.app" }],
+      "destination": "https://neurosched.vercel.app/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
+    { "source": "/llms.txt",    "destination": "/llms.txt" },
+    { "source": "/robots.txt",  "destination": "/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
+    { "source": "/manifest.json", "destination": "/manifest.json" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

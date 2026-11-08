@@ -5,10 +5,21 @@ export default function ErrorView({ code = 404, onNavigateHome, onNavigateDocs, 
   const is500 = code === 500;
 
   return (
-    <div className="min-h-screen bg-[#0d0d0f] text-[#f5f5f7] flex flex-col justify-between selection:bg-white selection:text-black">
+    <div className="min-h-screen bg-[#0d0d0f] text-[#f5f5f7] flex flex-col justify-between selection:bg-white selection:text-black relative overflow-hidden">
+      <div
+        className="absolute inset-0 pointer-events-none select-none"
+        style={{
+          backgroundImage: 'url(/textures/presence.png)',
+          backgroundRepeat: 'repeat',
+          backgroundSize: '600px auto',
+          opacity: 0.16,
+          mixBlendMode: 'screen',
+        }}
+        aria-hidden="true"
+      />
       
       {/* Top Header Monospace Bar */}
-      <div className="border-b border-[#222226] px-6 lg:px-12 py-5 flex items-center justify-between text-[13px] font-mono text-[#71717a]">
+      <div className="relative z-10 border-b border-[#222226] px-6 lg:px-12 py-5 flex items-center justify-between text-[13px] font-mono text-[#71717a]">
         <div className="flex items-center gap-3">
           <button
             onClick={onNavigateHome}
@@ -29,7 +40,7 @@ export default function ErrorView({ code = 404, onNavigateHome, onNavigateDocs, 
       </div>
 
       {/* Main Hero Section: Inspired by NOTREAL brutalist design */}
-      <main className="flex-1 flex flex-col justify-center px-6 lg:px-16 py-16 sm:py-24 max-w-6xl mx-auto w-full">
+      <main className="relative z-10 flex-1 flex flex-col justify-center px-6 lg:px-16 py-16 sm:py-24 max-w-6xl mx-auto w-full">
         
         <div className="space-y-8">
           
@@ -140,7 +151,7 @@ export default function ErrorView({ code = 404, onNavigateHome, onNavigateDocs, 
       </main>
 
       {/* Bottom Footer Monospace Telemetry */}
-      <footer className="border-t border-[#222226] px-6 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] font-mono text-[#71717a]">
+      <footer className="relative z-10 border-t border-[#222226] px-6 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] font-mono text-[#71717a]">
         <div>
           <span>NEUROSCHED // FREESTANDING 32 BIT FAULT TRAP</span>
         </div>

@@ -199,17 +199,29 @@ function App() {
                 <ArrowLeft className="w-4 h-4" />
                 <span>Return to Full Showcase</span>
               </button>
-              <h1 className="inline-flex items-center gap-2 px-3 py-1 bg-[#16a34a]/10 text-[#16a34a] rounded-full text-[12px] font-semibold">
+              <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#16a34a]/10 text-[#16a34a] rounded-full text-[12px] font-semibold" aria-hidden="true">
                 <Activity className="w-3.5 h-3.5" />
                 <span>Live Interactive Simulator</span>
-              </h1>
+              </span>
             </div>
           </div>
 
+          <h1 className="sr-only">Interactive Kernel Simulator: NeuroSched Operating System</h1>
           <Simulator />
 
-          <section className="py-20 px-4 lg:px-8 border-b border-[#3a3a3c] bg-[#252527] text-white">
-            <div className="max-w-6xl mx-auto space-y-12">
+          <section className="py-20 px-4 lg:px-8 border-b border-[#3a3a3c] bg-[#252527] text-white relative overflow-hidden">
+            <div
+              className="absolute inset-0 pointer-events-none select-none"
+              style={{
+                backgroundImage: 'url(/textures/presence.png)',
+                backgroundRepeat: 'repeat',
+                backgroundSize: '500px auto',
+                opacity: 0.16,
+                mixBlendMode: 'screen',
+              }}
+              aria-hidden="true"
+            />
+            <div className="relative z-10 max-w-6xl mx-auto space-y-12">
               <div className="text-center space-y-3 max-w-3xl mx-auto">
                 <div className="text-[13px] font-semibold text-[#3b82f6] uppercase tracking-wider">
                   Kernel Telemetry and Neural Analysis
@@ -412,8 +424,19 @@ function App() {
       <Simulator />
       
       {/* Interactive Shell and Neural Inspector Section */}
-      <section className="py-20 px-4 lg:px-8 border-b border-[#3a3a3c] bg-[#252527] text-white">
-        <div className="max-w-6xl mx-auto space-y-12">
+      <section className="py-20 px-4 lg:px-8 border-b border-[#3a3a3c] bg-[#252527] text-white relative overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none select-none"
+          style={{
+            backgroundImage: 'url(/textures/presence.png)',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '500px auto',
+            opacity: 0.16,
+            mixBlendMode: 'screen',
+          }}
+          aria-hidden="true"
+        />
+        <div className="relative z-10 max-w-6xl mx-auto space-y-12">
           
           <div className="text-center space-y-3 max-w-3xl mx-auto">
             <div className="text-[13px] font-semibold text-[#3b82f6] uppercase tracking-wider">

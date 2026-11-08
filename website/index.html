@@ -91,6 +91,12 @@
           "description": "An in depth technical analysis of operating system design, process scheduling heuristics, and how NeuroSched embeds an MLP directly into an x86 kernel with zero heap allocation.",
           "articleSection": "Operating Systems and Computer Engineering",
           "inLanguage": "en_US",
+          "datePublished": "2026-11-09",
+          "dateModified": "2026-11-09",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://neurosched.vercel.app/"
+          },
           "author": {
             "@type": "Person",
             "name": "MANTIS",
@@ -99,7 +105,13 @@
           "publisher": {
             "@type": "Organization",
             "name": "NeuroSched Project",
-            "url": "https://neurosched.vercel.app/"
+            "url": "https://neurosched.vercel.app/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://neurosched.vercel.app/favicon-192.png",
+              "width": 192,
+              "height": 192
+            }
           }
         },
         {
@@ -210,6 +222,21 @@
           </p>
           <p class="text-[#86868b] leading-relaxed">
             Safety remains paramount throughout scheduling execution. If inference confidence scores fall below calibrated thresholds, the kernel automatically executes an instantaneous deterministic fallback to standard Round Robin scheduling.
+          </p>
+        </section>
+
+        <section class="space-y-4">
+          <h2 class="text-2xl font-semibold text-[#1d1d1f]">
+            Interactive Neural Process Scheduler Simulator
+          </h2>
+          <p class="text-[#86868b] leading-relaxed">
+            The <a href="/simulator" class="text-[#1d4ed8] hover:underline">NeuroSched interactive simulator</a> provides a live browser-based environment for observing the neural operating system kernel in real time. Users can start and pause the scheduling simulation, adjust the confidence fallback threshold parameter, and observe process dispatching decisions across 64 tick execution horizons with 10 synthetic workloads.
+          </p>
+          <p class="text-[#86868b] leading-relaxed">
+            The neural canvas visualizes the MLP forward pass at 60 frames per second, rendering synaptic weight activation flows between the 5 input neurons, 8 hidden layer neurons, and 1 priority output neuron. When inference confidence falls below the configurable threshold value, the kernel automatically defers scheduling decisions to the deterministic Round Robin fallback, ensuring zero panic conditions during low confidence intervals.
+          </p>
+          <p class="text-[#86868b] leading-relaxed">
+            The simulator also exposes a COM1 serial terminal interface, a synaptic weight heatmap inspector, and a multi-algorithm comparison chart for direct performance contrast between neural scheduling and standard Round Robin across the same workload set.
           </p>
         </section>
 

@@ -195,24 +195,38 @@ export default function Simulator() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Neural Synapse Canvas Visualizer */}
-          <div className="lg:col-span-5 appleCardDark bg-[#1d1d1f] p-6 space-y-4">
-            <div className="flex items-center justify-between text-[14px] pb-3 border-b border-[rgba(255,255,255,0.08)]">
-              <span className="font-medium text-white">MLP Forward Pass (5 to 8 to 1)</span>
-              <span className="text-[12px] text-[#3b82f6] font-medium">60 fps Canvas</span>
-            </div>
-            
-            <NeuralCanvas
-              currentConfidence={currentConf}
-              isRunning={isRunning}
-              activeProcess={activeProcess}
+          <div className="lg:col-span-5 appleCardDark bg-[#1d1d1f] p-6 space-y-4 relative overflow-hidden">
+            <div
+              className="absolute inset-0 pointer-events-none select-none"
+              style={{
+                backgroundImage: 'url(/textures/vortex.png)',
+                backgroundRepeat: 'repeat',
+                backgroundSize: '360px 360px',
+                backgroundPosition: 'center',
+                opacity: 0.16,
+                mixBlendMode: 'screen',
+              }}
+              aria-hidden="true"
             />
-
-            {currentConf < threshold && (
-              <div className="flex items-center gap-2.5 bg-[#d97706]/10 border border-[#d97706]/30 p-3 rounded-[12px] text-[#d97706] text-[13px]">
-                <AlertTriangle className="w-4 h-4 flex-shrink-0" />
-                <span>Confidence {(currentConf * 100).toFixed(0)}% &lt; {(threshold * 100).toFixed(0)}%: Deferring to Round Robin for tick stability</span>
+            <div className="relative z-10 space-y-4">
+              <div className="flex items-center justify-between text-[14px] pb-3 border-b border-[rgba(255,255,255,0.08)]">
+                <span className="font-medium text-white">MLP Forward Pass (5 to 8 to 1)</span>
+                <span className="text-[12px] text-[#3b82f6] font-medium">60 fps Canvas</span>
               </div>
-            )}
+              
+              <NeuralCanvas
+                currentConfidence={currentConf}
+                isRunning={isRunning}
+                activeProcess={activeProcess}
+              />
+
+              {currentConf < threshold && (
+                <div className="flex items-center gap-2.5 bg-[#d97706]/10 border border-[#d97706]/30 p-3 rounded-[12px] text-[#d97706] text-[13px]">
+                  <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                  <span>Confidence {(currentConf * 100).toFixed(0)}% &lt; {(threshold * 100).toFixed(0)}%: Deferring to Round Robin for tick stability</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Process Timeline Bars */}
