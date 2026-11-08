@@ -19,6 +19,7 @@ import ContactView from './components/ContactView';
 import PrivacyView from './components/PrivacyView';
 import TermsView from './components/TermsView';
 import ErrorView from './components/ErrorView';
+import GrainCanvas from './components/GrainCanvas';
 import { ArrowLeft, Cpu, Activity, TrendingUp, HelpCircle } from 'lucide-react';
 
 const SEO_MAP = {
@@ -474,7 +475,7 @@ class ErrorBoundary extends React.Component {
 export default function Root() {
   return (
     <ErrorBoundary>
-      <div className="grainOverlay" aria-hidden="true" />
+      <GrainCanvas />
       <App />
     </ErrorBoundary>
   );
