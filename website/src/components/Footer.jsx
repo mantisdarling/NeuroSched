@@ -24,7 +24,7 @@ export default function Footer() {
               <li><a href="#architecture" className="hover:text-[#1d1d1f] transition-colors">x86 Architecture</a></li>
               <li><a href="#simulator" className="hover:text-[#1d1d1f] transition-colors">Neural Scheduler</a></li>
               <li><a href="#code" className="hover:text-[#1d1d1f] transition-colors">Freestanding C Engine</a></li>
-              <li><a href="#benchmarks" className="hover:text-[#1d1d1f] transition-colors">QEMU Telemetry</a></li>
+              <li><a href="#benchmarks" className="hover:text-[#1d1d1f] transition-colors">QEMU Telemetry</a></li>`r`n              <li><a href="#faq" className="hover:text-[#1d1d1f] transition-colors">Knowledge Base FAQ</a></li>
             </ul>
           </div>
 

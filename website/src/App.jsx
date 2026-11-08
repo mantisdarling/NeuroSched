@@ -11,6 +11,7 @@ import SerialTerminal from './components/SerialTerminal';
 import WeightHeatmap from './components/WeightHeatmap';
 import MultiAlgoComparison from './components/MultiAlgoComparison';
 import Benchmarks from './components/Benchmarks';
+import OSKnowledgeBase from './components/OSKnowledgeBase';
 import Quickstart from './components/Quickstart';
 import Footer from './components/Footer';
 
@@ -131,6 +132,7 @@ export default function App() {
       <Architecture currentMode={currentMode} />
       <CodeExplorer />
       <Benchmarks />
+      <OSKnowledgeBase />
       <Quickstart />
       <Footer />
     </div>
