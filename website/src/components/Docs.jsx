@@ -751,7 +751,7 @@ void vga_putchar(char c, uint8_t color) {
               <a
                 href="https://github.com/mantisdarling/NeuroSched"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 onClick={() => setDropdownOpen(false)}
                 className="block px-2.5 py-1.5 rounded-[3px] text-[#a1a1aa] hover:text-white hover:bg-[#18181b]"
               >
@@ -760,7 +760,7 @@ void vga_putchar(char c, uint8_t color) {
               <a
                 href="https://github.com/mantisdarling/NeuroSched/blob/main/INFO.md"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 onClick={() => setDropdownOpen(false)}
                 className="block px-2.5 py-1.5 rounded-[3px] text-[#a1a1aa] hover:text-white hover:bg-[#18181b]"
               >
@@ -784,7 +784,7 @@ void vga_putchar(char c, uint8_t color) {
           <a
             href="https://github.com/mantisdarling/NeuroSched"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
             className="text-[#71717a] hover:text-white transition-colors"
             title="View on GitHub"
           >

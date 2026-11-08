@@ -72,32 +72,9 @@
           "description": "An open-source 32-bit x86 bare-metal operating system kernel featuring an embedded C neural network inference engine that replaces traditional Round Robin process scheduling with zero heap allocations.",
           "applicationCategory": "DeveloperApplication",
           "operatingSystem": "x86 Bare Metal, i686 Protected Mode",
-          "softwareVersion": "1.0",
-          "url": "https://neurosched.vercel.app/",
-          "downloadUrl": "https://github.com/mantisdarling/NeuroSched",
-          "installUrl": "https://github.com/mantisdarling/NeuroSched#quickstart",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
-          "author": {
-            "@type": "Person",
-            "name": "MANTIS",
-            "url": "https://github.com/mantisdarling"
-          },
-          "license": "https://opensource.org/licenses/MIT"
-        },
-        {
-          "@type": "SoftwareSourceCode",
-          "@id": "https://neurosched.vercel.app/#sourcecode",
-          "name": "NeuroSched Kernel Source Code",
-          "description": "Freestanding C kernel implementation including 5-8-1 MLP forward inference, x87 FPU setup, Multiboot2 handshake, COM1 serial telemetry UART, and VGA text buffer driver.",
-          "codeRepository": "https://github.com/mantisdarling/NeuroSched",
-          "programmingLanguage": ["C", "Assembly", "Python"],
-          "runtimePlatform": "QEMU i386, Bare Metal x86",
+          "softwareVersion": "1.0.0",
           "license": "https://opensource.org/licenses/MIT",
-          "targetProduct": { "@id": "https://neurosched.vercel.app/#app" },
+          "url": "https://neurosched.vercel.app/",
           "author": {
             "@type": "Person",
             "name": "MANTIS",
@@ -105,10 +82,20 @@
           }
         },
         {
+          "@type": "SoftwareSourceCode",
+          "@id": "https://neurosched.vercel.app/#sourcecode",
+          "name": "NeuroSched Kernel Source",
+          "programmingLanguage": ["C", "Assembly x86"],
+          "codeRepository": "https://github.com/mantisdarling/NeuroSched",
+          "runtimePlatform": "i686-elf Protected Mode, Multiboot2, x87 FPU"
+        },
+        {
           "@type": "TechArticle",
-          "@id": "https://neurosched.vercel.app/#techarticle",
-          "headline": "NeuroSched: Deterministic Bare-Metal Neural Process Scheduling in 32-Bit x86 Protected Mode",
-          "description": "Architectural breakdown of an operating system kernel that embeds a Multi-Layer Perceptron into CPU scheduling interrupts, evaluating 5-dimensional process state vectors with zero heap allocation and deterministic Round Robin fallback.",
+          "@id": "https://neurosched.vercel.app/#article",
+          "headline": "Operating System Architecture: Embedded Neural Network Process Scheduling on x86 Bare Metal",
+          "description": "An in-depth technical analysis of operating system design, process scheduling heuristics, and how NeuroSched embeds a 5-8-1 MLP directly into an x86 kernel with zero heap allocation.",
+          "articleSection": "Operating Systems & Computer Engineering",
+          "inLanguage": "en-US",
           "author": {
             "@type": "Person",
             "name": "MANTIS",
@@ -118,9 +105,7 @@
             "@type": "Organization",
             "name": "NeuroSched Project",
             "url": "https://neurosched.vercel.app/"
-          },
-          "proficiencyLevel": "Expert",
-          "dependencies": "x86 Protected Mode CPU, x87 FPU coprocessor, Multiboot2 compliant bootloader"
+          }
         },
         {
           "@type": "FAQPage",
@@ -131,7 +116,7 @@
               "name": "What is an operating system?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "An operating system (OS) is the fundamental system software that manages computer hardware, software resources, and common execution services for computer programs. Acting as an intermediary between user applications and the physical central processing unit (CPU), memory, and storage devices, an operating system performs crucial functions such as process scheduling, memory allocation, input/output (I/O) handling, and security access controls."
+                "text": "An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. Acting as an intermediary between user applications and the physical CPU, memory, and storage devices, an operating system performs crucial functions such as process scheduling, memory allocation, input/output handling, and security access controls."
               }
             },
             {
@@ -139,7 +124,7 @@
               "name": "What is an operating system example?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Prominent operating system examples span multiple hardware form factors: the Linux operating system powers the majority of global web servers and cloud infrastructure; the Android operating system powers billions of mobile smartphones; Microsoft Windows and Apple macOS dominate desktop computing. In embedded and experimental systems, NeuroSched serves as a specialized operating system example—an x86 bare-metal kernel that embeds a neural network directly into process scheduling."
+                "text": "Common operating system examples include the Linux operating system powering servers and Android devices, Microsoft Windows and Apple macOS powering desktop workstations, and bare-metal experimental kernels like NeuroSched demonstrating AI-driven process scheduling on 32-bit x86 architecture."
               }
             },
             {
@@ -147,7 +132,7 @@
               "name": "What is OS type in BIOS?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "In a computer's BIOS or UEFI firmware setup utility, 'OS Type' is a configuration setting that specifies the target operating system bootloader environment. Typical options include 'Windows 8/10/11 UEFI' (which enforces Secure Boot, GPT partition tables, and UEFI GOP graphics drivers) and 'Other OS' or 'Legacy CSM' (which enables compatibility mode for operating systems like traditional Linux operating system distributions, FreeBSD, or custom bare-metal kernels like NeuroSched booting via Multiboot2 or MBR)."
+                "text": "In a computer BIOS or UEFI firmware setup utility, 'OS Type' specifies the target bootloader environment. Typical options include 'Windows 8/10/11 UEFI' (enforcing Secure Boot and GPT partition tables) and 'Other OS' or 'Legacy CSM' (enabling compatibility mode for operating systems like Linux, FreeBSD, or custom bare-metal kernels like NeuroSched booting via Multiboot2)."
               }
             },
             {
@@ -155,7 +140,7 @@
               "name": "What is an AI operating system?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "An AI operating system is an operating system that replaces or augments static, human-crafted heuristic algorithms with machine learning models inside core kernel routines. While conventional operating systems like the Linux operating system use rule-based Completely Fair Scheduling (CFS), an AI operating system like NeuroSched evaluates real-time process state metrics (wait ticks, remaining burst, priority class, and I/O yield frequency) using an embedded Multi-Layer Perceptron (MLP) neural network to predict optimal task execution order with 16.8% lower latency."
+                "text": "An AI operating system is an operating system that replaces or augments static, human-crafted heuristic algorithms with machine learning models inside core kernel routines. NeuroSched evaluates real-time process state metrics using an embedded Multi-Layer Perceptron (MLP) neural network to predict optimal task execution order with 16.8% lower latency."
               }
             },
             {
@@ -163,7 +148,7 @@
               "name": "How does the Linux operating system compare to NeuroSched?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The Linux operating system is a general-purpose, monolithic kernel that uses the Completely Fair Scheduler (CFS) to balance process execution through red-black trees of virtual runtime. In contrast, NeuroSched is a lightweight, bare-metal 32-bit x86 research kernel designed specifically for deterministic AI scheduling. While Linux requires dynamic heap allocation and multi-megabyte kernel footprints, NeuroSched guarantees zero dynamic heap allocation (0 bytes malloc), storing its entire 57-parameter neural weight matrix in 228 bytes of read-only .rodata memory."
+                "text": "The Linux operating system is a general-purpose, monolithic kernel that uses the Completely Fair Scheduler (CFS) to balance process execution through red-black trees. In contrast, NeuroSched is a lightweight, bare-metal 32-bit x86 research kernel designed specifically for deterministic AI scheduling with zero dynamic heap allocation (0 bytes malloc)."
               }
             },
             {
@@ -171,7 +156,7 @@
               "name": "What is the role of an operating system in computer hardware?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The primary role of an operating system in computer architecture is hardware abstraction and resource multiplexing. Without an operating system, software programs would need to contain custom driver instructions for every specific CPU model, memory controller, and disk interface. The operating system in computer systems virtualizes physical CPU cores through preemptive time slicing, translates virtual memory addresses via page tables, coordinates hardware interrupts, and shields physical silicon from user-space application crashes."
+                "text": "The primary role of an operating system in computer architecture is hardware abstraction and resource multiplexing. The operating system virtualizes physical CPU cores through preemptive time slicing, translates virtual memory addresses via page tables, coordinates hardware interrupts, and shields physical silicon from user-space application crashes."
               }
             },
             {
@@ -179,15 +164,7 @@
               "name": "What is the best operating system for AI and real-time scheduling research?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The best operating system depends on research scope. For training models at scale, Linux operating system distributions (such as Ubuntu Server or Arch Linux) are standard due to robust GPU driver ecosystems. However, for low-level systems research into kernel-space AI inference, NeuroSched is widely recognized as one of the best operating system experimental platforms because it demonstrates that neural networks can execute directly on the bare-metal CPU stack in microseconds with zero libc dependencies and 100% deterministic fallback safety."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How does the Android operating system manage process priority vs bare-metal kernels?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "The Android operating system runs atop a modified Linux operating system kernel and manages process priority through user-space mechanisms like LowMemoryKiller (LMK) and ActivityManager priority buckets (Foreground, Visible, Service, Cached). In contrast, bare-metal kernels like NeuroSched evaluate priority directly at the silicon timer tick level: NeuroSched normalizes process priority into a 5-element feature vector and scores execution fitness through its embedded 5-to-8-1 MLP neural inference engine."
+                "text": "For training models at scale, Linux operating system distributions are standard. For low-level systems research into kernel-space AI inference, NeuroSched is widely recognized as one of the best operating system experimental platforms because it demonstrates neural networks executing directly on the bare-metal CPU stack in microseconds with zero libc dependencies and 100% deterministic fallback safety."
               }
             },
             {
@@ -196,14 +173,6 @@
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "Dynamic heap memory allocation inside an operating system kernel introduces fragmentation, lock contention, and latency spikes. NeuroSched eliminates malloc completely by placing all 57 static float model weights (228 bytes) directly in the read-only data (.rodata) section of the ELF binary. All intermediate hidden layer activations are allocated strictly on the execution stack."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How does floating-point math work in x86 bare metal without triggering an Interrupt 7 (#NM) trap?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "On x86 protected mode entry, floating-point instructions trigger an unhandled Device Not Available (#NM) exception unless the coprocessor is unlocked in Control Register 0. NeuroSched's assembly entry point (boot/boot.S) clears the Emulation flag (CR0.EM=0) and asserts Monitor Coprocessor (CR0.MP=1) and Numeric Error (CR0.NE=1) before running fninit to initialize the x87 FPU stack ST(0)-ST(7)."
               }
             }
           ]
@@ -229,16 +198,8 @@
     }
     </script>
   </head>
-  <body class="bg-white text-[#1d1d1f] font-sans antialiased selection:bg-[#0066cc] selection:text-white min-h-screen overflow-x-hidden">
-    <div id="root">
-      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-        <div style="text-align:center;color:#1d1d1f;">
-          <div style="display:inline-block;width:32px;height:32px;border:2px solid #e0e0e0;border-top-color:#0066cc;border-radius:50%;animation:ns-spin 0.8s linear infinite;"></div>
-          <p style="margin-top:14px;font-size:14px;font-weight:400;letter-spacing:-0.224px;color:#7a7a7a;">Loading NeuroSched…</p>
-        </div>
-      </div>
-      <style>@keyframes ns-spin{to{transform:rotate(360deg)}}</style>
-    </div>
+  <body class="bg-[#f5f5f7] text-[#1d1d1f] font-sans antialiased selection:bg-[#1d4ed8] selection:text-white min-h-screen overflow-x-hidden">
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
