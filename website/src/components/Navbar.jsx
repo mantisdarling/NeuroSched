@@ -82,9 +82,6 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
               <a href="#benchmarks" className="hover:text-[#1d4ed8] transition-colors">
                 Benchmarks
               </a>
-          <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]">
-            FAQ
-          </a>
               <a href="#faq" className="hover:text-[#1d4ed8] transition-colors">
                 FAQ
               </a>
@@ -183,12 +180,19 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
             Benchmarks
           </a>
           <a
+            href="#faq"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
+          >
+            FAQ
+          </a>
+          <a
             href="https://github.com/mantisdarling/NeuroSched"
             target="_blank"
             rel="noreferrer"
             className="block py-2 text-[#1d4ed8] font-medium"
           >
-            View on GitHub →
+            View on GitHub
           </a>
         </div>
       )}
