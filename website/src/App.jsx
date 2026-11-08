@@ -199,10 +199,10 @@ function App() {
                 <ArrowLeft className="w-4 h-4" />
                 <span>Return to Full Showcase</span>
               </button>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#16a34a]/10 text-[#16a34a] rounded-full text-[12px] font-semibold">
+              <h1 className="inline-flex items-center gap-2 px-3 py-1 bg-[#16a34a]/10 text-[#16a34a] rounded-full text-[12px] font-semibold">
                 <Activity className="w-3.5 h-3.5" />
                 <span>Live Interactive Simulator</span>
-              </div>
+              </h1>
             </div>
           </div>
 
@@ -251,10 +251,10 @@ function App() {
                 <ArrowLeft className="w-4 h-4" />
                 <span>Return to Full Showcase</span>
               </button>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1d4ed8]/10 text-[#1d4ed8] rounded-full text-[12px] font-semibold">
+              <h1 className="inline-flex items-center gap-2 px-3 py-1 bg-[#1d4ed8]/10 text-[#1d4ed8] rounded-full text-[12px] font-semibold">
                 <Cpu className="w-3.5 h-3.5" />
                 <span>Kernel Architecture</span>
-              </div>
+              </h1>
             </div>
           </div>
 
@@ -282,10 +282,10 @@ function App() {
                 <ArrowLeft className="w-4 h-4" />
                 <span>Return to Full Showcase</span>
               </button>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#3b82f6]/10 text-[#3b82f6] rounded-full text-[12px] font-semibold">
+              <h1 className="inline-flex items-center gap-2 px-3 py-1 bg-[#3b82f6]/10 text-[#3b82f6] rounded-full text-[12px] font-semibold">
                 <TrendingUp className="w-3.5 h-3.5" />
                 <span>Verified Benchmarks</span>
-              </div>
+              </h1>
             </div>
           </div>
 
@@ -312,10 +312,10 @@ function App() {
                 <ArrowLeft className="w-4 h-4" />
                 <span>Return to Full Showcase</span>
               </button>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1d4ed8]/10 text-[#1d4ed8] rounded-full text-[12px] font-semibold">
+              <h1 className="inline-flex items-center gap-2 px-3 py-1 bg-[#1d4ed8]/10 text-[#1d4ed8] rounded-full text-[12px] font-semibold">
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span>Knowledge Base</span>
-              </div>
+              </h1>
             </div>
           </div>
 

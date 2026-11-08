@@ -91,7 +91,7 @@ export default function Docs({ onNavigateHome }) {
     }
   ];
 
-  // Code snippets for the multi-tab terminal block in Intro
+  // Code snippets for the multitab terminal block in Intro
   const codeTabs = {
     qemu: 'bash scripts/boot-test.sh',
     make: 'make clean && make',
