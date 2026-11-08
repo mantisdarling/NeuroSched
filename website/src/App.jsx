@@ -18,6 +18,7 @@ import AboutView from './components/AboutView';
 import ContactView from './components/ContactView';
 import PrivacyView from './components/PrivacyView';
 import TermsView from './components/TermsView';
+import ErrorView from './components/ErrorView';
 import { ArrowLeft, Cpu, Activity, TrendingUp, HelpCircle } from 'lucide-react';
 
 const SEO_MAP = {
@@ -70,6 +71,16 @@ const SEO_MAP = {
     title: "Terms of Use: NeuroSched Open Source MIT Licensing",
     description: "Terms of use and open source MIT licensing conditions for NeuroSched 32 bit x86 operating system source code and academic citations.",
     canonical: "https://neurosched.vercel.app/terms"
+  },
+  notfound: {
+    title: "404: Page Not Found | NeuroSched Operating System",
+    description: "The requested operating system route or memory sector could not be resolved in the active partition.",
+    canonical: "https://neurosched.vercel.app/404"
+  },
+  error: {
+    title: "500: Internal Server Exception | NeuroSched Operating System",
+    description: "An unexpected runtime instruction exception was trapped by the supervisor layer.",
+    canonical: "https://neurosched.vercel.app/500"
   }
 };
 
@@ -87,8 +98,11 @@ const getRouteFromLocation = () => {
   if (path === '/contact') return 'contact';
   if (path === '/privacy') return 'privacy';
   if (path === '/terms') return 'terms';
+  if (path === '/404') return 'notfound';
+  if (path === '/500') return 'error';
+  if (path === '/' || path === '') return 'home';
 
-  return 'home';
+  return 'notfound';
 };
 
 const updatePageSEO = (view) => {
@@ -112,7 +126,7 @@ const updatePageSEO = (view) => {
   if (ogUrlEl) ogUrlEl.setAttribute('content', meta.canonical);
 };
 
-export default function App() {
+function App() {
   const [currentView, setCurrentView] = useState(() => getRouteFromLocation());
   const [currentMode, setCurrentMode] = useState('architect');
 
@@ -363,6 +377,32 @@ export default function App() {
     );
   }
 
+  /* 404 Page Not Found View */
+  if (currentView === 'notfound') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          <ErrorView code={404} onNavigateHome={() => navigateTo('home')} onNavigateDocs={() => navigateTo('docs')} />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* 500 Internal Error View */
+  if (currentView === 'error') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          <ErrorView code={500} onNavigateHome={() => navigateTo('home')} onNavigateDocs={() => navigateTo('docs')} />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
   /* Full Landing Showcase Experience */
   return (
     <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased">
@@ -404,5 +444,39 @@ export default function App() {
       <Quickstart />
       <Footer onNavigate={navigateTo} />
     </div>
+  );
+}
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Kernel trapped exception:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] font-sans antialiased flex flex-col justify-between">
+          <ErrorView code={500} onNavigateHome={() => window.location.href = '/'} onNavigateDocs={() => window.location.href = '/docs'} />
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+export default function Root() {
+  return (
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   );
 }
