@@ -4,7 +4,7 @@ import { Grid, Eye } from 'lucide-react';
 export default function WeightHeatmap() {
   const [hoveredWeight, setHoveredWeight] = useState(null);
 
-  /* 5 inputs x 8 hidden neurons weight matrix W1 */
+  /* 5 inputs by 8 hidden neurons weight matrix W1 */
   const features = ['wait_ticks', 'remaining_burst', 'priority', 'io_bound', 'io_yield_count'];
   const neurons = ['H0', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7'];
 
@@ -27,7 +27,7 @@ export default function WeightHeatmap() {
   };
 
   return (
-    <div className="appleCardDark bg-[#1d1d1f] p-7 space-y-6 border border-[rgba(255,255,255,0.1)]">
+    <div className="appleCardDark bg-[#1d1d1f] p-5 sm:p-7 space-y-6 border border-[rgba(255,255,255,0.1)]">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-4 border-b border-[rgba(255,255,255,0.08)]">
         <div className="space-y-1">
           <div className="text-[12px] font-semibold text-[#3b82f6] uppercase tracking-wider flex items-center gap-1.5">
@@ -35,7 +35,7 @@ export default function WeightHeatmap() {
             <span>Layer 1 Parameter Weights</span>
           </div>
           <h3 className="text-[21px] font-semibold text-white tracking-tight">
-            5×8 Synaptic Weight Matrix (W1)
+            5 by 8 Synaptic Weight Matrix (W1)
           </h3>
         </div>
         <div className="text-[13px] text-[#86868b]">
@@ -93,7 +93,7 @@ export default function WeightHeatmap() {
             <Eye className="w-4 h-4 text-[#3b82f6]" />
             <div>
               <span className="text-[#86868b]">Synapse: </span>
-              <strong className="text-[#3b82f6] font-mono">{hoveredWeight.feat}</strong> → <strong className="text-white font-mono">{hoveredWeight.neuron}</strong>
+              <strong className="text-[#3b82f6] font-mono">{hoveredWeight.feat}</strong> to <strong className="text-white font-mono">{hoveredWeight.neuron}</strong>
               <span className="text-[#86868b] ml-4">Weight: </span>
               <strong className="text-white font-mono">{hoveredWeight.val > 0 ? `+${hoveredWeight.val}` : hoveredWeight.val}</strong>
             </div>
