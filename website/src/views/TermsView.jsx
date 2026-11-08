@@ -8,13 +8,14 @@ export default function TermsView({ onNavigate }) {
       <section className="bg-[#ffffff] border-b border-[#e0e0e0] pt-12 pb-14 px-4 lg:px-8">
         <div className="max-w-4xl mx-auto space-y-4">
           <div className="flex items-center gap-2 text-[13px] text-[#86868b]">
-            <button 
-              onClick={() => onNavigate('home')} 
+            <a 
+              href="/"
+              onClick={(e) => { e.preventDefault(); onNavigate('home'); }} 
               className="hover:text-[#1d4ed8] flex items-center gap-1 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Home</span>
-            </button>
+            </a>
             <span>/</span>
             <span className="text-[#1d1d1f] font-medium">Terms & Conditions</span>
           </div>

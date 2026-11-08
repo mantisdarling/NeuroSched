@@ -34,9 +34,10 @@ export default function HomeView({ currentMode, setMode, onNavigate }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             {/* Tile 1: Architecture */}
-            <div 
-              onClick={() => onNavigate('architecture')}
-              className="appleCardLight p-7 space-y-4 cursor-pointer hover:border-[#1d4ed8] hover:shadow-lg transition-all group"
+            <a 
+              href="/architecture"
+              onClick={(e) => { e.preventDefault(); onNavigate('architecture'); }}
+              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
             >
               <div className="w-10 h-10 rounded-full bg-[#1d4ed8]/10 text-[#1d4ed8] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Cpu className="w-5 h-5" />
@@ -54,12 +55,13 @@ export default function HomeView({ currentMode, setMode, onNavigate }) {
                 <span>View Architecture Page</span>
                 <span>→</span>
               </div>
-            </div>
+            </a>
 
             {/* Tile 2: Live Simulator */}
-            <div 
-              onClick={() => onNavigate('simulator')}
-              className="appleCardLight p-7 space-y-4 cursor-pointer hover:border-[#1d4ed8] hover:shadow-lg transition-all group"
+            <a 
+              href="/simulator"
+              onClick={(e) => { e.preventDefault(); onNavigate('simulator'); }}
+              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
             >
               <div className="w-10 h-10 rounded-full bg-[#16a34a]/10 text-[#16a34a] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Activity className="w-5 h-5" />
@@ -77,12 +79,13 @@ export default function HomeView({ currentMode, setMode, onNavigate }) {
                 <span>Launch Interactive Simulator</span>
                 <span>→</span>
               </div>
-            </div>
+            </a>
 
             {/* Tile 3: Benchmarks */}
-            <div 
-              onClick={() => onNavigate('benchmarks')}
-              className="appleCardLight p-7 space-y-4 cursor-pointer hover:border-[#1d4ed8] hover:shadow-lg transition-all group"
+            <a 
+              href="/benchmarks"
+              onClick={(e) => { e.preventDefault(); onNavigate('benchmarks'); }}
+              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
             >
               <div className="w-10 h-10 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <TrendingUp className="w-5 h-5" />
@@ -100,12 +103,13 @@ export default function HomeView({ currentMode, setMode, onNavigate }) {
                 <span>Explore Benchmark Metrics</span>
                 <span>→</span>
               </div>
-            </div>
+            </a>
 
             {/* Tile 4: Technical Documentation */}
-            <div 
-              onClick={() => onNavigate('docs')}
-              className="appleCardLight p-7 space-y-4 cursor-pointer hover:border-[#1d4ed8] hover:shadow-lg transition-all group"
+            <a 
+              href="/docs"
+              onClick={(e) => { e.preventDefault(); onNavigate('docs'); }}
+              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
             >
               <div className="w-10 h-10 rounded-full bg-[#f59e0b]/10 text-[#f59e0b] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <BookOpen className="w-5 h-5" />
@@ -123,12 +127,13 @@ export default function HomeView({ currentMode, setMode, onNavigate }) {
                 <span>Open Documentation Engine</span>
                 <span>→</span>
               </div>
-            </div>
+            </a>
 
             {/* Tile 5: FAQ & Knowledge Base */}
-            <div 
-              onClick={() => onNavigate('faq')}
-              className="appleCardLight p-7 space-y-4 cursor-pointer hover:border-[#1d4ed8] hover:shadow-lg transition-all group"
+            <a 
+              href="/faq"
+              onClick={(e) => { e.preventDefault(); onNavigate('faq'); }}
+              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
             >
               <div className="w-10 h-10 rounded-full bg-[#8b5cf6]/10 text-[#8b5cf6] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <ShieldCheck className="w-5 h-5" />
@@ -146,13 +151,13 @@ export default function HomeView({ currentMode, setMode, onNavigate }) {
                 <span>View Knowledge Base</span>
                 <span>→</span>
               </div>
-            </div>
+            </a>
 
             {/* Tile 6: Source Code Explorer */}
             <a 
               href="https://github.com/mantisdarling/NeuroSched"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group"
             >
               <div className="w-10 h-10 rounded-full bg-[#111827]/10 text-[#111827] flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -248,8 +253,8 @@ export default function HomeView({ currentMode, setMode, onNavigate }) {
               This limitation catalyzed the creation of the <strong>ai operating system</strong>. NeuroSched is an experimental, bare-metal 32-bit x86 <strong>ai operating system</strong> kernel where CPU scheduling decisions are predicted dynamically by an embedded neural network inference engine running in freestanding C. Rather than relying on rigid formulas, NeuroSched extracts a real-time 5-dimensional process state vector at every timer interrupt tick:
             </p>
 
-            <div className="border border-[#e0e0e0] rounded-[12px] overflow-hidden my-4">
-              <table className="w-full text-left text-[14px]">
+            <div className="border border-[#e0e0e0] rounded-[12px] overflow-x-auto my-4">
+              <table className="w-full text-left text-[14px] min-w-[520px]">
                 <thead className="bg-[#f5f5f7] border-b border-[#e0e0e0] text-[#1d1d1f]">
                   <tr>
                     <th className="p-3.5 font-semibold">Input Feature</th>

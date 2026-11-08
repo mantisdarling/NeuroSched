@@ -32,13 +32,14 @@ export default function ServerErrorView({ onNavigate }) {
             <span>Reload Application</span>
           </button>
           
-          <button
-            onClick={() => onNavigate('home')}
+          <a
+            href="/"
+            onClick={(e) => { e.preventDefault(); onNavigate('home'); }}
             className="appleBtnSecondary text-[15px] flex items-center gap-2"
           >
             <Home className="w-4 h-4" />
             <span>Safe Reboot to Home</span>
-          </button>
+          </a>
         </div>
 
       </div>

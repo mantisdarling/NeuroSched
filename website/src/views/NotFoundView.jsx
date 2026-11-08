@@ -24,44 +24,47 @@ export default function NotFoundView({ onNavigate }) {
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <button
-            onClick={() => onNavigate('home')}
+          <a
+            href="/"
+            onClick={(e) => { e.preventDefault(); onNavigate('home'); }}
             className="appleBtnPrimary text-[15px] flex items-center gap-2"
           >
             <Home className="w-4 h-4" />
             <span>Return to Home</span>
-          </button>
+          </a>
           
-          <button
-            onClick={() => onNavigate('docs')}
+          <a
+            href="/docs"
+            onClick={(e) => { e.preventDefault(); onNavigate('docs'); }}
             className="appleBtnSecondary text-[15px] flex items-center gap-2"
           >
             <BookOpen className="w-4 h-4" />
             <span>Open Documentation</span>
-          </button>
+          </a>
 
-          <button
-            onClick={() => onNavigate('simulator')}
+          <a
+            href="/simulator"
+            onClick={(e) => { e.preventDefault(); onNavigate('simulator'); }}
             className="appleBtnSecondary text-[15px] flex items-center gap-2"
           >
             <Activity className="w-4 h-4" />
             <span>Launch Simulator</span>
-          </button>
+          </a>
         </div>
 
         {/* Search Suggestion Directory */}
         <div className="pt-8 border-t border-[#e0e0e0] text-[13px] text-[#86868b] space-y-2">
           <div>Popular routes you might be looking for:</div>
           <div className="flex flex-wrap items-center justify-center gap-3 text-[#1d4ed8]">
-            <button onClick={() => onNavigate('architecture')} className="hover:underline">/architecture</button>
+            <a href="/architecture" onClick={(e) => { e.preventDefault(); onNavigate('architecture'); }} className="hover:underline">/architecture</a>
             <span>•</span>
-            <button onClick={() => onNavigate('benchmarks')} className="hover:underline">/benchmarks</button>
+            <a href="/benchmarks" onClick={(e) => { e.preventDefault(); onNavigate('benchmarks'); }} className="hover:underline">/benchmarks</a>
             <span>•</span>
-            <button onClick={() => onNavigate('faq')} className="hover:underline">/faq</button>
+            <a href="/faq" onClick={(e) => { e.preventDefault(); onNavigate('faq'); }} className="hover:underline">/faq</a>
             <span>•</span>
-            <button onClick={() => onNavigate('about')} className="hover:underline">/about</button>
+            <a href="/about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} className="hover:underline">/about</a>
             <span>•</span>
-            <button onClick={() => onNavigate('contact')} className="hover:underline">/contact</button>
+            <a href="/contact" onClick={(e) => { e.preventDefault(); onNavigate('contact'); }} className="hover:underline">/contact</a>
           </div>
         </div>
 

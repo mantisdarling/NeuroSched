@@ -54,7 +54,7 @@ export default function Navbar({ currentView = 'home', currentMode, toggleMode, 
             <a
               href="https://github.com/mantisdarling/NeuroSched"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-white transition-colors flex items-center gap-1 text-[12px]"
             >
               <Github className="w-3.5 h-3.5" />
@@ -64,7 +64,7 @@ export default function Navbar({ currentView = 'home', currentMode, toggleMode, 
             <a
               href="https://github.com/mantisdarling/NeuroSched/blob/main/INFO.md"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-white transition-colors text-[12px] hidden md:inline-block"
             >
               Project Info
@@ -197,7 +197,7 @@ export default function Navbar({ currentView = 'home', currentMode, toggleMode, 
             <a
               href="https://github.com/mantisdarling/NeuroSched"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="block py-2 text-[#1d4ed8] font-medium"
             >
               View on GitHub ↗

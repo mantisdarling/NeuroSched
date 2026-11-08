@@ -11,13 +11,14 @@ export default function FAQView({ onNavigate }) {
           
           {/* Breadcrumb Navigation */}
           <div className="flex items-center gap-2 text-[13px] text-[#86868b]">
-            <button 
-              onClick={() => onNavigate('home')} 
+            <a 
+              href="/"
+              onClick={(e) => { e.preventDefault(); onNavigate('home'); }} 
               className="hover:text-[#1d4ed8] flex items-center gap-1 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Home</span>
-            </button>
+            </a>
             <span>/</span>
             <span className="text-[#1d1d1f] font-medium">FAQ</span>
           </div>
@@ -54,9 +55,10 @@ export default function FAQView({ onNavigate }) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <button
-              onClick={() => onNavigate('docs')}
-              className="appleCardLight p-6 text-left hover:border-[#1d4ed8] transition-all group"
+            <a
+              href="/docs"
+              onClick={(e) => { e.preventDefault(); onNavigate('docs'); }}
+              className="appleCardLight p-6 text-left hover:border-[#1d4ed8] transition-all group block"
             >
               <div className="flex items-center justify-between pb-2">
                 <span className="text-[13px] font-mono text-[#1d4ed8] font-semibold">Docs Engine</span>
@@ -64,12 +66,12 @@ export default function FAQView({ onNavigate }) {
               </div>
               <h3 className="text-[17px] font-semibold text-[#1d1d1f]">Read 3-Column Kernel Specs</h3>
               <p className="text-[#86868b] text-[13.5px] mt-1">Full documentation with code snippets, registers, and CLI execution tabs.</p>
-            </button>
+            </a>
 
             <a
               href="https://github.com/mantisdarling/NeuroSched"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="appleCardLight p-6 text-left hover:border-[#1d4ed8] transition-all group"
             >
               <div className="flex items-center justify-between pb-2">

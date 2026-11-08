@@ -14,13 +14,14 @@ export default function SimulatorView({ onNavigate }) {
           
           {/* Breadcrumb Navigation */}
           <div className="flex items-center gap-2 text-[13px] text-[#86868b]">
-            <button 
-              onClick={() => onNavigate('home')} 
+            <a 
+              href="/"
+              onClick={(e) => { e.preventDefault(); onNavigate('home'); }} 
               className="hover:text-[#1d4ed8] flex items-center gap-1 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Home</span>
-            </button>
+            </a>
             <span>/</span>
             <span className="text-[#1d1d1f] font-medium">Simulator</span>
           </div>
@@ -103,13 +104,14 @@ export default function SimulatorView({ onNavigate }) {
             Discover how the forward pass is coded without math.h in pure freestanding C.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <button
-              onClick={() => onNavigate('docs')}
+            <a
+              href="/docs"
+              onClick={(e) => { e.preventDefault(); onNavigate('docs'); }}
               className="appleBtnPrimary text-[14px]"
             >
               <span>Open Documentation</span>
               <ChevronRight className="w-4 h-4 ml-1" />
-            </button>
+            </a>
           </div>
         </div>
       </section>

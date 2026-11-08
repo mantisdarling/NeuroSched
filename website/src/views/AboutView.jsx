@@ -8,13 +8,14 @@ export default function AboutView({ onNavigate }) {
       <section className="bg-[#ffffff] border-b border-[#e0e0e0] pt-12 pb-14 px-4 lg:px-8">
         <div className="max-w-4xl mx-auto space-y-4">
           <div className="flex items-center gap-2 text-[13px] text-[#86868b]">
-            <button 
-              onClick={() => onNavigate('home')} 
+            <a 
+              href="/"
+              onClick={(e) => { e.preventDefault(); onNavigate('home'); }} 
               className="hover:text-[#1d4ed8] flex items-center gap-1 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Home</span>
-            </button>
+            </a>
             <span>/</span>
             <span className="text-[#1d1d1f] font-medium">About Us</span>
           </div>
@@ -96,24 +97,25 @@ export default function AboutView({ onNavigate }) {
           <div className="appleCardLight p-8 space-y-4 bg-white border border-[#e0e0e0]">
             <h2 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight">Project Governance & Author</h2>
             <p className="text-[16px] text-[#52525b] leading-[1.8]">
-              NeuroSched is conceived, architected, and maintained by <strong>MANTIS</strong> (<a href="https://github.com/mantisdarling" target="_blank" rel="noreferrer" className="text-[#1d4ed8] underline underline-offset-2">@mantisdarling</a>). All contributions, issue disclosures, and pull requests adhere to Developer Certificate of Origin (DCO 1.1) standards.
+              NeuroSched is conceived, architected, and maintained by <strong>MANTIS</strong> (<a href="https://github.com/mantisdarling" target="_blank" rel="noopener noreferrer" className="text-[#1d4ed8] underline underline-offset-2">@mantisdarling</a>). All contributions, issue disclosures, and pull requests adhere to Developer Certificate of Origin (DCO 1.1) standards.
             </p>
             <div className="pt-2 flex flex-wrap gap-4">
               <a 
                 href="https://github.com/mantisdarling/NeuroSched"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="appleBtnPrimary text-[14px]"
               >
                 <Github className="w-4 h-4 mr-1.5" />
                 <span>GitHub Repository</span>
               </a>
-              <button
-                onClick={() => onNavigate('contact')}
+              <a
+                href="/contact"
+                onClick={(e) => { e.preventDefault(); onNavigate('contact'); }}
                 className="appleBtnSecondary text-[14px]"
               >
                 <span>Contact the Maintainer</span>
-              </button>
+              </a>
             </div>
           </div>
 
