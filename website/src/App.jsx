@@ -80,7 +80,10 @@ const SEO_META = {
 
 const getRouteFromLocation = () => {
   if (typeof window === 'undefined') return 'home';
-  const path = window.location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  let path = window.location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  if (path.endsWith('.html')) path = path.replace(/\.html$/, '');
+  if (path === '' || path === '/' || path === '/index') return 'home';
+
   const hash = window.location.hash.toLowerCase().replace(/\/+$/, '');
 
   if (path === '/docs' || hash === '#docs' || hash === '#/docs') return 'docs';
@@ -95,8 +98,7 @@ const getRouteFromLocation = () => {
   if (path === '/404' || hash === '#404' || hash === '#/404') return '404';
   if (path === '/500' || hash === '#500' || hash === '#/500') return '500';
 
-  if (path === '' || path === '/') return 'home';
-  return '404';
+  return 'home';
 };
 
 const updatePageSEO = (view) => {

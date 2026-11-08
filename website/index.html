@@ -7,10 +7,14 @@
     <!-- Google Analytics (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+      try {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+      } catch (err) {
+        /* analytics blocked or offline */
+      }
     </script>
 
     <!-- Core Search Engine Optimization (SEO) -->
@@ -225,180 +229,19 @@
     }
     </script>
   </head>
-  <body class="bg-[#f5f5f7] text-[#1d1d1f] font-sans antialiased selection:bg-[#0066cc] selection:text-white min-h-screen overflow-x-hidden">
-    <!-- 
-      Semantic Pre-rendered Crawlable Shell
-      This semantic content is instantly parsed by search engine crawlers (Googlebot, Bingbot, DuckDuckGo)
-      even before client-side JavaScript executes. When React mounts, hydrate/replace mounts smoothly.
-    -->
+  <body class="bg-[#f5f5f7] text-[#1d1d1f] font-sans antialiased selection:bg-[#1d4ed8] selection:text-white min-h-screen overflow-x-hidden">
     <div id="root">
-      <main style="padding: 40px 20px; max-width: 1100px; margin: 0 auto; font-family: system-ui, sans-serif;">
-        <header>
-          <p style="color: #1d4ed8; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Operating System Engineering & Neural Scheduling</p>
-          <h1 style="font-size: 38px; line-height: 1.15; margin: 8px 0 16px 0; color: #111827;">Operating System: NeuroSched 32-Bit x86 AI Operating System</h1>
-          <p style="font-size: 19px; line-height: 1.5; color: #4b5563;">
-            NeuroSched is an experimental, bare-metal 32-bit x86 operating system kernel that replaces static Round Robin heuristics with a trained, freestanding C neural network (5-8-1 Multi-Layer Perceptron). Designed with 0 Bytes dynamic heap allocation, native x87 FPU hardware acceleration, and a deterministic confidence fallback gate.
-          </p>
-        </header>
-
-        <section style="margin-top: 36px; line-height: 1.8; color: #374151;">
-          <h2 style="font-size: 26px; color: #111827;">Operating System Definition and Architecture</h2>
-          <p>
-            An <strong>operating system</strong> (OS) is the foundational system software that manages computer hardware components, coordinates memory and CPU execution, and provides standardized execution environments for user applications. When evaluating what is an operating system, computer scientists divide its architecture into essential subsystems: process management, memory paging, interrupt handlers, device driver interfaces, and file storage. Without an operating system, user programs would require hardcoded drivers for every specific motherboard chipset, storage controller, and display adapter.
-          </p>
-          <p style="margin-top: 14px;">
-            In modern computer systems, the <strong>operating system in computer</strong> architecture serves as the ultimate resource arbitrator. Operating system examples include the <strong>Linux operating system</strong>, which dominates modern cloud data centers, high-performance computing clusters, and enterprise server farms; the <strong>Android operating system</strong>, which manages low-power mobile devices and sensor networks; and consumer desktop platforms like Microsoft Windows. While these systems provide unmatched general-purpose versatility, their monolithic complexity introduces multi-megabyte memory footprints, non-deterministic scheduling latency, and heap fragmentation.
-          </p>
-          <p style="margin-top: 14px;">
-            This fundamental challenge gave rise to the concept of an <strong>ai operating system</strong>. NeuroSched is an open-source, bare-metal 32-bit x86 operating system designed to explore whether neural network inference can directly replace traditional CPU process scheduling heuristics at the timer tick interrupt level. By running a compact Multi-Layer Perceptron (MLP) within protected mode ring 0, NeuroSched continuously scores task urgency and achieves a 16.8% reduction in average task wait times compared to standard Round Robin.
-          </p>
-        </section>
-
-        <section style="margin-top: 36px;">
-          <h2 style="font-size: 24px; color: #111827;">Core Kernel Verification Metrics</h2>
-          <table style="width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 15px;">
-            <thead>
-              <tr style="border-bottom: 2px solid #e5e7eb; text-align: left;">
-                <th style="padding: 10px;">Metric</th>
-                <th style="padding: 10px;">Round Robin Baseline</th>
-                <th style="padding: 10px;">NeuroSched (Neural + Fallback)</th>
-                <th style="padding: 10px;">Empirical Delta</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid #e5e7eb;">
-                <td style="padding: 10px; font-weight: 600;">Average Process Wait Time</td>
-                <td style="padding: 10px;">34.40 ticks</td>
-                <td style="padding: 10px; color: #1d4ed8; font-weight: 600;">28.60 ticks</td>
-                <td style="padding: 10px; color: #16a34a; font-weight: 600;">-16.8% faster response</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #e5e7eb;">
-                <td style="padding: 10px; font-weight: 600;">Average Turnaround Time</td>
-                <td style="padding: 10px;">40.80 ticks</td>
-                <td style="padding: 10px; color: #1d4ed8; font-weight: 600;">35.00 ticks</td>
-                <td style="padding: 10px; color: #16a34a; font-weight: 600;">-14.2% faster completion</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #e5e7eb;">
-                <td style="padding: 10px; font-weight: 600;">Kernel Heap Allocations</td>
-                <td style="padding: 10px;">0 Bytes</td>
-                <td style="padding: 10px; font-weight: 600;">0 Bytes (Zero Malloc)</td>
-                <td style="padding: 10px; color: #16a34a;">100% Static .rodata Layout</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; font-weight: 600;">Fallback Safety Gate</td>
-                <td style="padding: 10px;">N/A</td>
-                <td style="padding: 10px;">c &lt; 0.65f boundary</td>
-                <td style="padding: 10px; color: #16a34a; font-weight: 600;">100% Kernel Stability</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section style="margin-top: 36px;">
-          <h2 style="font-size: 24px; color: #111827;">System Architecture & Hardware Specifications</h2>
-          <ul style="line-height: 1.8; color: #374151; font-size: 16px;">
-            <li><strong>Protected Mode & Bootloader:</strong> Multiboot2 handshake verification (magic <code>0x36D76289</code> in register <code>EAX</code>), 16 KiB reserved System V ABI stack.</li>
-            <li><strong>Hardware FPU Coprocessor:</strong> x87 FPU enabled via Control Register 0 flags (<code>CR0.EM=0</code>, <code>CR0.MP=1</code>, <code>CR0.NE=1</code>) to eliminate Interrupt 7 (#NM) traps.</li>
-            <li><strong>Freestanding Neural Engine:</strong> 5 inputs → 8 hidden neurons (ReLU) → 1 output score (Sigmoid). Weight matrix comprises exactly 57 static floats (228 bytes) in <code>.rodata</code>.</li>
-            <li><strong>Approximation Mathematics:</strong> 6-term Taylor series polynomial expansion of <code>exp(x)</code> clamped to <code>[-10.0f, +10.0f]</code>.</li>
-            <li><strong>Real-time Telemetry:</strong> 16550 UART serial driver streaming CSV execution rows over COM1 (<code>0x3F8</code>, 38,400 baud, 8N1).</li>
-          </ul>
-        </section>
-
-        <section style="margin-top: 36px;">
-          <h2 style="font-size: 24px; color: #111827;">Frequently Asked Questions (Operating System FAQ)</h2>
-          <div style="margin-top: 16px; line-height: 1.7; color: #374151;">
-            <p><strong>Q: What is an operating system?</strong></p>
-            <p>A: An operating system is the system software that manages computer hardware and software resources, providing abstraction layers and resource scheduling for applications.</p>
-            <p style="margin-top: 14px;"><strong>Q: What is an operating system example?</strong></p>
-            <p>A: Examples include the Linux operating system, Android operating system, Windows, and experimental AI kernels like NeuroSched.</p>
-            <p style="margin-top: 14px;"><strong>Q: What is OS type in BIOS?</strong></p>
-            <p>A: 'OS Type' in BIOS/UEFI firmware configures whether the system initializes in modern UEFI mode (with Secure Boot) or Legacy CSM mode for custom operating system kernels.</p>
-            <p style="margin-top: 14px;"><strong>Q: What is an AI operating system?</strong></p>
-            <p>A: An operating system that uses machine learning models instead of static heuristic algorithms for critical operations like CPU scheduling and cache management.</p>
-          </div>
-        </section>
-
-        <footer style="margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280;">
-          <p>Author & Maintainer: <strong>MANTIS</strong> (mantisdarling) | Open Source under MIT License</p>
-          <p>Official Repository: <a href="https://github.com/mantisdarling/NeuroSched" style="color: #1d4ed8;">github.com/mantisdarling/NeuroSched</a></p>
-        </footer>
-      </main>
-    </div>
-
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
-        </header>
-
-        <section style="margin-top: 36px;">
-          <h2 style="font-size: 24px; color: #111827;">Core Kernel Verification Metrics</h2>
-          <table style="width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 15px;">
-            <thead>
-              <tr style="border-bottom: 2px solid #e5e7eb; text-align: left;">
-                <th style="padding: 10px;">Metric</th>
-                <th style="padding: 10px;">Round Robin Baseline</th>
-                <th style="padding: 10px;">NeuroSched (Neural + Fallback)</th>
-                <th style="padding: 10px;">Empirical Delta</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid #e5e7eb;">
-                <td style="padding: 10px; font-weight: 600;">Average Process Wait Time</td>
-                <td style="padding: 10px;">34.40 ticks</td>
-                <td style="padding: 10px; color: #1d4ed8; font-weight: 600;">28.60 ticks</td>
-                <td style="padding: 10px; color: #16a34a; font-weight: 600;">-16.8% faster response</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #e5e7eb;">
-                <td style="padding: 10px; font-weight: 600;">Average Turnaround Time</td>
-                <td style="padding: 10px;">40.80 ticks</td>
-                <td style="padding: 10px; color: #1d4ed8; font-weight: 600;">35.00 ticks</td>
-                <td style="padding: 10px; color: #16a34a; font-weight: 600;">-14.2% faster completion</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #e5e7eb;">
-                <td style="padding: 10px; font-weight: 600;">Kernel Heap Allocations</td>
-                <td style="padding: 10px;">0 Bytes</td>
-                <td style="padding: 10px; font-weight: 600;">0 Bytes (Zero Malloc)</td>
-                <td style="padding: 10px; color: #16a34a;">100% Static .rodata Layout</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; font-weight: 600;">Fallback Safety Gate</td>
-                <td style="padding: 10px;">N/A</td>
-                <td style="padding: 10px;">c &lt; 0.65f boundary</td>
-                <td style="padding: 10px; color: #16a34a; font-weight: 600;">100% Kernel Stability</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section style="margin-top: 36px;">
-          <h2 style="font-size: 24px; color: #111827;">System Architecture & Hardware Specifications</h2>
-          <ul style="line-height: 1.8; color: #374151; font-size: 16px;">
-            <li><strong>Protected Mode & Bootloader:</strong> Multiboot2 handshake verification (magic <code>0x36D76289</code> in register <code>EAX</code>), 16 KiB reserved System V ABI stack.</li>
-            <li><strong>Hardware FPU Coprocessor:</strong> x87 FPU enabled via Control Register 0 flags (<code>CR0.EM=0</code>, <code>CR0.MP=1</code>, <code>CR0.NE=1</code>) to eliminate Interrupt 7 (#NM) traps.</li>
-            <li><strong>Freestanding Neural Engine:</strong> 5 inputs → 8 hidden neurons (ReLU) → 1 output score (Sigmoid). Weight matrix comprises exactly 57 static floats (228 bytes) in <code>.rodata</code>.</li>
-            <li><strong>Approximation Mathematics:</strong> 6-term Taylor series polynomial expansion of <code>exp(x)</code> clamped to <code>[-10.0f, +10.0f]</code>.</li>
-            <li><strong>Real-time Telemetry:</strong> 16550 UART serial driver streaming CSV execution rows over COM1 (<code>0x3F8</code>, 38,400 baud, 8N1).</li>
-          </ul>
-        </section>
-
-        <section style="margin-top: 36px;">
-          <h2 style="font-size: 24px; color: #111827;">Frequently Asked Questions (FAQ)</h2>
-          <div style="margin-top: 16px; line-height: 1.7; color: #374151;">
-            <p><strong>Q: What makes NeuroSched different from traditional schedulers like Linux CFS or Round Robin?</strong></p>
-            <p>A: NeuroSched replaces static heuristic rules with an embedded Multi-Layer Perceptron evaluating a 5-element runtime state vector, reducing process wait time by 16.8%.</p>
-            <p style="margin-top: 14px;"><strong>Q: How does NeuroSched achieve zero dynamic memory allocation?</strong></p>
-            <p>A: All 57 model weights are compiled statically into the <code>.rodata</code> binary section. Activations execute on the thread stack with zero calls to <code>malloc()</code>.</p>
-            <p style="margin-top: 14px;"><strong>Q: What happens if neural confidence drops?</strong></p>
-            <p>A: If prediction confidence drops below <code>0.65f</code>, the scheduler automatically defers to Round Robin for that timer tick, preventing kernel panics.</p>
-          </div>
-        </section>
-
-        <footer style="margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280;">
-          <p>Author & Maintainer: <strong>MANTIS</strong> (mantisdarling) | Open Source under MIT License</p>
-          <p>Official Repository: <a href="https://github.com/mantisdarling/NeuroSched" style="color: #1d4ed8;">github.com/mantisdarling/NeuroSched</a></p>
-        </footer>
-      </main>
+      <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <div style="text-align: center; color: #1d1d1f;">
+          <div style="display: inline-block; width: 36px; height: 36px; border: 3px solid #e0e0e0; border-top-color: #1d4ed8; border-radius: 50%; animation: ns-spin 0.8s linear infinite;"></div>
+          <p style="margin-top: 14px; font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: #86868b;">Loading NeuroSched OS Kernel...</p>
+        </div>
+      </div>
+      <style>
+        @keyframes ns-spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
     </div>
 
     <script type="module" src="/src/main.jsx"></script>
