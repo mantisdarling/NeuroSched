@@ -1,95 +1,57 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Dual-layer animated film grain canvas overlay.
+ * Static film grain canvas overlay.
  *
- * Layer 1 (multiply): darkens bright/light surfaces — makes grain visible on white backgrounds.
- * Layer 2 (screen):   lightens dark surfaces — makes grain visible on black/dark backgrounds.
+ * Draws once on mount — no animation, no RAF loop.
+ * No blend mode: pure alpha compositing so underlying colors stay bold and true.
+ * White stays white, black stays black — only a fine paper-like grain texture is added.
  *
- * This combination produces consistent tactile grain across all background luminances,
- * matching the aesthetic of Awwwards SOTD and Basement Studio style sites.
- *
- * Redraws every ~80ms. pointer-events: none; z-index: 9999 — never blocks interaction.
+ * Regenerates on viewport resize to fill the new dimensions.
  */
 export default function GrainCanvas() {
-  const multiplyRef = useRef(null);
-  const screenRef = useRef(null);
-  const rafRef = useRef(null);
-  const lastRef = useRef(0);
+  const canvasRef = useRef(null);
 
-  useEffect(() => {
-    const cMul = multiplyRef.current;
-    const cScr = screenRef.current;
-    if (!cMul || !cScr) return;
-
-    const ctxMul = cMul.getContext('2d');
-    const ctxScr = cScr.getContext('2d');
-    let w = window.innerWidth;
-    let h = window.innerHeight;
-
-    const resize = () => {
-      w = window.innerWidth;
-      h = window.innerHeight;
-      cMul.width = w;  cMul.height = h;
-      cScr.width = w;  cScr.height = h;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const drawGrain = (ts) => {
-      if (ts - lastRef.current < 80) {
-        rafRef.current = requestAnimationFrame(drawGrain);
-        return;
-      }
-      lastRef.current = ts;
-
-      const total = w * h * 4;
-
-      // Multiply layer: dark pixels only (0-180) — shows up on light backgrounds
-      const mulData = ctxMul.createImageData(w, h);
-      const md = mulData.data;
-      for (let i = 0; i < total; i += 4) {
-        const v = (Math.random() * 180) | 0;
-        md[i] = v; md[i + 1] = v; md[i + 2] = v;
-        md[i + 3] = 38;
-      }
-      ctxMul.putImageData(mulData, 0, 0);
-
-      // Screen layer: light pixels only (80-255) — shows up on dark backgrounds
-      const scrData = ctxScr.createImageData(w, h);
-      const sd = scrData.data;
-      for (let i = 0; i < total; i += 4) {
-        const v = 80 + ((Math.random() * 175) | 0);
-        sd[i] = v; sd[i + 1] = v; sd[i + 2] = v;
-        sd[i + 3] = 32;
-      }
-      ctxScr.putImageData(scrData, 0, 0);
-
-      rafRef.current = requestAnimationFrame(drawGrain);
-    };
-
-    rafRef.current = requestAnimationFrame(drawGrain);
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-  const baseStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100vw',
-    height: '100vh',
-    pointerEvents: 'none',
-    zIndex: 9999,
+  const draw = (canvas) => {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    const imageData = ctx.createImageData(w, h);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const v = (Math.random() * 255) | 0;
+      data[i]     = v;
+      data[i + 1] = v;
+      data[i + 2] = v;
+      data[i + 3] = 22; // ~8.6% alpha — visible texture, no color distortion
+    }
+    ctx.putImageData(imageData, 0, 0);
   };
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    draw(canvas);
+    const onResize = () => draw(canvas);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   return (
-    <>
-      <canvas ref={multiplyRef} aria-hidden="true" style={{ ...baseStyle, mixBlendMode: 'multiply' }} />
-      <canvas ref={screenRef}   aria-hidden="true" style={{ ...baseStyle, mixBlendMode: 'screen' }} />
-    </>
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        pointerEvents: 'none',
+        zIndex: 9999,
+      }}
+    />
   );
 }
