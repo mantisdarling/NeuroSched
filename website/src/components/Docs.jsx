@@ -192,7 +192,7 @@ export default function Docs({ onNavigateHome }) {
                 <span className="text-[#52525b] font-bold">▪</span>
                 <span>
                   <strong className="text-[#d4d4d8] font-medium">NumPy Trainer: </strong>
-                  <a href="#cli" onClick={() => setActiveTab('train')} className="underline underline-offset-3 hover:text-[#60a5fa] text-white">5-8-1 MLP</a> | <a href="#cli" onClick={() => setActiveTab('train')} className="underline underline-offset-3 hover:text-[#60a5fa] text-white">SGD Optimizer</a> | <span className="text-[#71717a]">Header Export</span>
+                  <a href="#cli" onClick={() => setActiveTab('train')} className="underline underline-offset-3 hover:text-[#60a5fa] text-white">5 to 8 to 1 MLP</a> | <a href="#cli" onClick={() => setActiveTab('train')} className="underline underline-offset-3 hover:text-[#60a5fa] text-white">SGD Optimizer</a> | <span className="text-[#71717a]">Header Export</span>
                 </span>
               </li>
             </ul>

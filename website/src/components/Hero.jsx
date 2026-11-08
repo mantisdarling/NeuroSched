@@ -123,7 +123,7 @@ export default function Hero({ currentMode }) {
               </div>
               <div className="text-[13px] font-mono text-[#86868b] flex items-center gap-2">
                 <Terminal className="w-3.5 h-3.5 text-[#1d4ed8]" />
-                <span>COM1 Serial Console — QEMU i386 Target</span>
+                <span>COM1 Serial Console: QEMU i386 Target</span>
               </div>
               <button 
                 onClick={() => setTerminalStep(0)}
