@@ -1,7 +1,13 @@
 import React from 'react';
 import { Github, ExternalLink, ShieldCheck } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
+  const handleNav = (view, e) => {
+    if (onNavigate) {
+      if (e) e.preventDefault();
+      onNavigate(view);
+    }
+  };
   return (
     <footer className="py-16 px-4 lg:px-8 bg-[#f5f5f7] border-t border-[#e0e0e0] text-[#86868b] text-[12px] leading-relaxed">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -21,10 +27,11 @@ export default function Footer() {
           <div className="space-y-2.5">
             <h4 className="font-semibold text-[#1d1d1f]">Kernel Core</h4>
             <ul className="space-y-2 text-[#86868b]">
-              <li><a href="#architecture" className="hover:text-[#1d1d1f] transition-colors">x86 Architecture</a></li>
-              <li><a href="#simulator" className="hover:text-[#1d1d1f] transition-colors">Neural Scheduler</a></li>
-              <li><a href="#code" className="hover:text-[#1d1d1f] transition-colors">Freestanding C Engine</a></li>
-              <li><a href="#benchmarks" className="hover:text-[#1d1d1f] transition-colors">QEMU Telemetry</a></li>
+              <li><a href="/architecture" onClick={(e) => handleNav('architecture', e)} className="hover:text-[#1d1d1f] transition-colors">x86 Architecture</a></li>
+              <li><a href="/simulator" onClick={(e) => handleNav('simulator', e)} className="hover:text-[#1d1d1f] transition-colors">Neural Simulator</a></li>
+              <li><a href="/docs" onClick={(e) => handleNav('docs', e)} className="hover:text-[#1d1d1f] transition-colors">Docs Engine</a></li>
+              <li><a href="/benchmarks" onClick={(e) => handleNav('benchmarks', e)} className="hover:text-[#1d1d1f] transition-colors">QEMU Benchmarks</a></li>
+              <li><a href="/faq" onClick={(e) => handleNav('faq', e)} className="hover:text-[#1d1d1f] transition-colors">Technical FAQ</a></li>
             </ul>
           </div>
 
@@ -39,8 +46,12 @@ export default function Footer() {
           </div>
 
           <div className="space-y-2.5">
-            <h4 className="font-semibold text-[#1d1d1f]">Governance</h4>
+            <h4 className="font-semibold text-[#1d1d1f]">Governance & Legal</h4>
             <ul className="space-y-2 text-[#86868b]">
+              <li><a href="/about" onClick={(e) => handleNav('about', e)} className="hover:text-[#1d4ed8] transition-colors">About Project</a></li>
+              <li><a href="/contact" onClick={(e) => handleNav('contact', e)} className="hover:text-[#1d4ed8] transition-colors">Contact Maintainers</a></li>
+              <li><a href="/privacy" onClick={(e) => handleNav('privacy', e)} className="hover:text-[#1d4ed8] transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" onClick={(e) => handleNav('terms', e)} className="hover:text-[#1d4ed8] transition-colors">Terms & Conditions</a></li>
               <li>
                 <a
                   href="https://github.com/mantisdarling/NeuroSched/blob/main/CERTIFICATE.md"
@@ -60,26 +71,6 @@ export default function Footer() {
                   className="hover:text-[#1d4ed8] transition-colors"
                 >
                   Project Info
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/mantisdarling/NeuroSched/blob/main/CONTRIBUTING.md"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#1d4ed8] transition-colors"
-                >
-                  Contributing (DCO 1.1)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/mantisdarling/NeuroSched/blob/main/SECURITY.md"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#1d4ed8] transition-colors"
-                >
-                  Security Policy
                 </a>
               </li>
             </ul>

@@ -1,8 +1,23 @@
 import React, { useState } from 'react';
-import { Cpu, Terminal, Github, ExternalLink, Activity, Menu, X } from 'lucide-react';
+import { Cpu, Terminal, Github, ExternalLink, Activity, Menu, X, ChevronRight } from 'lucide-react';
 
-export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
+export default function Navbar({ currentView = 'home', currentMode, toggleMode, onNavigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleLinkClick = (view, e) => {
+    if (e) e.preventDefault();
+    setMobileMenuOpen(false);
+    if (onNavigate) onNavigate(view);
+  };
+
+  const navItems = [
+    { id: 'home', label: 'Home', href: '/' },
+    { id: 'architecture', label: 'Architecture', href: '/architecture' },
+    { id: 'simulator', label: 'Simulator', href: '/simulator' },
+    { id: 'benchmarks', label: 'Benchmarks', href: '/benchmarks' },
+    { id: 'faq', label: 'FAQ', href: '/faq' },
+    { id: 'docs', label: 'Docs', href: '/docs' }
+  ];
 
   return (
     <>
@@ -10,7 +25,11 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
       <div className="bg-[#000000] text-white text-[12px] tracking-[-0.12px] h-[44px] flex items-center px-4 lg:px-8 border-b border-[#222222] z-50 relative">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <a href="#" className="font-semibold text-white tracking-tight">
+            <a 
+              href="/" 
+              onClick={(e) => handleLinkClick('home', e)} 
+              className="font-semibold text-white tracking-tight hover:text-[#60a5fa] transition-colors"
+            >
               <span className="text-[14px] font-medium tracking-tight text-white">NeuroSched</span>
             </a>
             <span className="hidden sm:inline-block text-[#7a7a7a]">|</span>
@@ -18,6 +37,20 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
           </div>
 
           <div className="flex items-center gap-5 text-[#86868b]">
+            <a
+              href="/about"
+              onClick={(e) => handleLinkClick('about', e)}
+              className="hover:text-white transition-colors text-[12px] hidden sm:inline-block"
+            >
+              About
+            </a>
+            <a
+              href="/contact"
+              onClick={(e) => handleLinkClick('contact', e)}
+              className="hover:text-white transition-colors text-[12px] hidden sm:inline-block"
+            >
+              Contact
+            </a>
             <a
               href="https://github.com/mantisdarling/NeuroSched"
               target="_blank"
@@ -46,7 +79,11 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
           
           {/* Sub nav product title */}
           <div className="flex items-center gap-3">
-            <a href="#" className="text-[21px] font-semibold text-[#1d1d1f] tracking-tight leading-none hover:opacity-80 transition-opacity">
+            <a 
+              href="/" 
+              onClick={(e) => handleLinkClick('home', e)}
+              className="text-[21px] font-semibold text-[#1d1d1f] tracking-tight leading-none hover:opacity-80 transition-opacity"
+            >
               NeuroSched
             </a>
             <span className="text-[11px] font-medium bg-[#e5e5ea] text-[#1d1d1f] px-2 py-0.5 rounded-full uppercase tracking-wider">
@@ -57,34 +94,23 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
           {/* Desktop Nav Links & Action Blue Pill */}
           <div className="hidden md:flex items-center gap-7 text-[14px]">
             <nav className="flex items-center gap-6 text-[#1d1d1f]">
-              <a href="#howtouse" className="hover:text-[#1d4ed8] transition-colors">
-                How to Use
-              </a>
-              <a href="#simulator" className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1">
-                <span>Simulator</span>
-              </a>
-              <a href="#architecture" className="hover:text-[#1d4ed8] transition-colors">
-                Architecture
-              </a>
-              <a
-                href="#/docs"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (onNavigateDocs) onNavigateDocs();
-                }}
-                className="hover:text-[#1d4ed8] transition-colors"
-              >
-                Docs
-              </a>
-              <a href="#code" className="hover:text-[#1d4ed8] transition-colors">
-                Code
-              </a>
-              <a href="#benchmarks" className="hover:text-[#1d4ed8] transition-colors">
-                Benchmarks
-              </a>
-              <a href="#faq" className="hover:text-[#1d4ed8] transition-colors">
-                FAQ
-              </a>
+              {navItems.map((item) => {
+                const isActive = currentView === item.id;
+                return (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    onClick={(e) => handleLinkClick(item.id, e)}
+                    className={`transition-colors py-1 ${
+                      isActive
+                        ? 'text-[#1d4ed8] font-semibold border-b-2 border-[#1d4ed8]'
+                        : 'text-[#1d1d1f] hover:text-[#1d4ed8]'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
             </nav>
 
             <div className="flex items-center gap-3 pl-3 border-l border-[#e0e0e0]">
@@ -101,12 +127,12 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
               </button>
 
               {/* Action Blue Primary Pill */}
-              <a
-                href="#simulator"
-                className="appleBtnPrimary text-[14px] !py-1.5 !px-4 shadow-none"
+              <button
+                onClick={(e) => handleLinkClick('simulator', e)}
+                className="appleBtnPrimary text-[14px] !py-1.5 !px-4 shadow-none cursor-pointer"
               >
                 <span>Launch</span>
-              </a>
+              </button>
             </div>
           </div>
 
@@ -130,70 +156,53 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu (Responsive for Phones and Tablets) */}
       {mobileMenuOpen && (
-        <div className="md:hidden sticky top-[96px] z-30 bg-[#ffffff] border-b border-[#e0e0e0] px-6 py-6 space-y-4 text-[17px] text-[#1d1d1f]">
-          <a
-            href="#howtouse"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
-          >
-            How to Use
-          </a>
-          <a
-            href="#simulator"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
-          >
-            Simulator
-          </a>
-          <a
-            href="#architecture"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
-          >
-            Architecture
-          </a>
-          <a
-            href="#/docs"
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileMenuOpen(false);
-              if (onNavigateDocs) onNavigateDocs();
-            }}
-            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
-          >
-            Docs
-          </a>
-          <a
-            href="#code"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
-          >
-            Code
-          </a>
-          <a
-            href="#benchmarks"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
-          >
-            Benchmarks
-          </a>
-          <a
-            href="#faq"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
-          >
-            FAQ
-          </a>
-          <a
-            href="https://github.com/mantisdarling/NeuroSched"
-            target="_blank"
-            rel="noreferrer"
-            className="block py-2 text-[#1d4ed8] font-medium"
-          >
-            View on GitHub →
-          </a>
+        <div className="md:hidden sticky top-[96px] z-30 bg-[#ffffff] border-b border-[#e0e0e0] px-6 py-6 space-y-3 text-[17px] text-[#1d1d1f] max-h-[80vh] overflow-y-auto">
+          <div className="text-[11px] font-bold text-[#86868b] uppercase tracking-wider pb-1">
+            Navigation Pages
+          </div>
+          {navItems.map((item) => {
+            const isActive = currentView === item.id;
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                onClick={(e) => handleLinkClick(item.id, e)}
+                className={`flex items-center justify-between py-2.5 border-b border-[#f0f0f0] transition-colors ${
+                  isActive ? 'text-[#1d4ed8] font-bold pl-2 border-l-4 border-l-[#1d4ed8]' : 'hover:text-[#1d4ed8]'
+                }`}
+              >
+                <span>{item.label}</span>
+                <ChevronRight className="w-4 h-4 text-[#86868b]" />
+              </a>
+            );
+          })}
+          
+          <div className="pt-2 space-y-1">
+            <a
+              href="/about"
+              onClick={(e) => handleLinkClick('about', e)}
+              className="block py-2 text-[#52525b] hover:text-[#1d4ed8]"
+            >
+              About Project →
+            </a>
+            <a
+              href="/contact"
+              onClick={(e) => handleLinkClick('contact', e)}
+              className="block py-2 text-[#52525b] hover:text-[#1d4ed8]"
+            >
+              Contact Us →
+            </a>
+            <a
+              href="https://github.com/mantisdarling/NeuroSched"
+              target="_blank"
+              rel="noreferrer"
+              className="block py-2 text-[#1d4ed8] font-medium"
+            >
+              View on GitHub ↗
+            </a>
+          </div>
         </div>
       )}
     </>
