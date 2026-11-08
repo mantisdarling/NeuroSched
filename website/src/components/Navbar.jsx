@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
-import { Cpu, Terminal, Github, ExternalLink, Activity, Menu, X } from 'lucide-react';
+import { Github, ExternalLink, Menu, X } from 'lucide-react';
 
-export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
+export default function Navbar({ currentMode, toggleMode, onNavigateDocs, onNavigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleLink = (targetView, anchorId, e) => {
+    if (typeof window === 'undefined') return;
+    const isHome = window.location.pathname === '/' || window.location.pathname === '';
+    
+    if (isHome && anchorId) {
+      /* If on home, let default smooth anchor jump happen */
+      setMobileMenuOpen(false);
+      return;
+    }
+
+    if (e) e.preventDefault();
+    setMobileMenuOpen(false);
+    if (onNavigate) {
+      onNavigate(targetView);
+    }
+  };
 
   return (
     <>
@@ -10,7 +27,11 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
       <div className="bg-[#000000] text-white text-[12px] tracking-[-0.12px] h-[44px] flex items-center px-4 lg:px-8 border-b border-[#222222] z-50 relative">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <a href="#" className="font-semibold text-white tracking-tight">
+            <a 
+              href="/" 
+              onClick={(e) => handleLink('home', null, e)}
+              className="font-semibold text-white tracking-tight hover:opacity-80 transition-opacity"
+            >
               <span className="text-[14px] font-medium tracking-tight text-white">NeuroSched</span>
             </a>
             <span className="hidden sm:inline-block text-[#7a7a7a]">|</span>
@@ -46,7 +67,11 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
           
           {/* Sub nav product title */}
           <div className="flex items-center gap-3">
-            <a href="#" className="text-[21px] font-semibold text-[#1d1d1f] tracking-tight leading-none hover:opacity-80 transition-opacity">
+            <a 
+              href="/" 
+              onClick={(e) => handleLink('home', null, e)}
+              className="text-[21px] font-semibold text-[#1d1d1f] tracking-tight leading-none hover:opacity-80 transition-opacity"
+            >
               NeuroSched
             </a>
             <span className="text-[11px] font-medium bg-[#e5e5ea] text-[#1d1d1f] px-2 py-0.5 rounded-full uppercase tracking-wider">
@@ -54,35 +79,60 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
             </span>
           </div>
 
-          {/* Desktop Nav Links & Action Blue Pill */}
+          {/* Desktop Nav Links and Action Blue Pill */}
           <div className="hidden md:flex items-center gap-7 text-[14px]">
             <nav className="flex items-center gap-6 text-[#1d1d1f]">
-              <a href="#howtouse" className="hover:text-[#1d4ed8] transition-colors">
+              <a 
+                href="/#howtouse" 
+                onClick={(e) => handleLink('home', 'howtouse', e)}
+                className="hover:text-[#1d4ed8] transition-colors"
+              >
                 How to Use
               </a>
-              <a href="#simulator" className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1">
+              <a 
+                href="/simulator" 
+                onClick={(e) => handleLink('simulator', 'simulator', e)}
+                className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1"
+              >
                 <span>Simulator</span>
               </a>
-              <a href="#architecture" className="hover:text-[#1d4ed8] transition-colors">
+              <a 
+                href="/architecture" 
+                onClick={(e) => handleLink('architecture', 'architecture', e)}
+                className="hover:text-[#1d4ed8] transition-colors"
+              >
                 Architecture
               </a>
               <a
-                href="#/docs"
+                href="/docs"
                 onClick={(e) => {
                   e.preventDefault();
                   if (onNavigateDocs) onNavigateDocs();
+                  else if (onNavigate) onNavigate('docs');
                 }}
                 className="hover:text-[#1d4ed8] transition-colors"
               >
                 Docs
               </a>
-              <a href="#code" className="hover:text-[#1d4ed8] transition-colors">
+              <a 
+                href="/#code" 
+                onClick={(e) => handleLink('home', 'code', e)}
+                className="hover:text-[#1d4ed8] transition-colors"
+              >
                 Code
               </a>
-              <a href="#benchmarks" className="hover:text-[#1d4ed8] transition-colors">
+              <a 
+                href="/benchmarks" 
+                onClick={(e) => handleLink('benchmarks', 'benchmarks', e)}
+                className="hover:text-[#1d4ed8] transition-colors"
+              >
                 Benchmarks
               </a>
-              <a href="#faq" className="hover:text-[#1d4ed8] transition-colors">
+              <a 
+                href="/faq" 
+                onClick={(e) => handleLink('faq', 'faq', e)}
+                className="hover:text-[#1d4ed8] transition-colors"
+              >
                 FAQ
               </a>
             </nav>
@@ -102,7 +152,8 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
 
               {/* Action Blue Primary Pill */}
               <a
-                href="#simulator"
+                href="/simulator"
+                onClick={(e) => handleLink('simulator', 'simulator', e)}
                 className="appleBtnPrimary text-[14px] !py-1.5 !px-4 shadow-none"
               >
                 <span>Launch</span>
@@ -134,54 +185,55 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
       {mobileMenuOpen && (
         <div className="md:hidden sticky top-[96px] z-30 bg-[#ffffff] border-b border-[#e0e0e0] px-6 py-6 space-y-4 text-[17px] text-[#1d1d1f]">
           <a
-            href="#howtouse"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/#howtouse"
+            onClick={(e) => handleLink('home', 'howtouse', e)}
             className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
           >
             How to Use
           </a>
           <a
-            href="#simulator"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/simulator"
+            onClick={(e) => handleLink('simulator', 'simulator', e)}
             className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
           >
             Simulator
           </a>
           <a
-            href="#architecture"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/architecture"
+            onClick={(e) => handleLink('architecture', 'architecture', e)}
             className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
           >
             Architecture
           </a>
           <a
-            href="#/docs"
+            href="/docs"
             onClick={(e) => {
               e.preventDefault();
               setMobileMenuOpen(false);
               if (onNavigateDocs) onNavigateDocs();
+              else if (onNavigate) onNavigate('docs');
             }}
             className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
           >
             Docs
           </a>
           <a
-            href="#code"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/#code"
+            onClick={(e) => handleLink('home', 'code', e)}
             className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
           >
             Code
           </a>
           <a
-            href="#benchmarks"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/benchmarks"
+            onClick={(e) => handleLink('benchmarks', 'benchmarks', e)}
             className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
           >
             Benchmarks
           </a>
           <a
-            href="#faq"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/faq"
+            onClick={(e) => handleLink('faq', 'faq', e)}
             className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
           >
             FAQ

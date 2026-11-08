@@ -14,32 +14,84 @@ import Benchmarks from './components/Benchmarks';
 import OSKnowledgeBase from './components/OSKnowledgeBase';
 import Quickstart from './components/Quickstart';
 import Footer from './components/Footer';
+import { ArrowLeft, Cpu, Activity, TrendingUp, HelpCircle } from 'lucide-react';
 
-const isDocsRoute = () => {
-  if (typeof window === 'undefined') return false;
+const SEO_MAP = {
+  home: {
+    title: "Operating System: NeuroSched x86 AI Operating System",
+    description: "Operating system definition, architecture, and live simulation of NeuroSched, the open source 32 bit x86 AI operating system kernel with embedded neural scheduling, zero malloc, and verified benchmarks.",
+    canonical: "https://neurosched.vercel.app/"
+  },
+  simulator: {
+    title: "Interactive Kernel Simulator: NeuroSched Operating System",
+    description: "Simulate the NeuroSched operating system kernel in your browser. Live 60 FPS neural canvas forward pass visualizer, confidence fallback threshold, and COM1 serial console.",
+    canonical: "https://neurosched.vercel.app/simulator"
+  },
+  architecture: {
+    title: "Kernel Architecture: 32 Bit x86 Neural Engine | NeuroSched",
+    description: "In depth breakdown of the NeuroSched operating system architecture: 5 element PCB state vector, MLP layer topology, Taylor sigmoid polynomial, and zero dynamic heap design.",
+    canonical: "https://neurosched.vercel.app/architecture"
+  },
+  benchmarks: {
+    title: "Verified Benchmarks: QEMU Empirical Performance | NeuroSched",
+    description: "Empirical performance benchmarks comparing NeuroSched against standard Round Robin across 64 ticks: 16.8 percent lower wait time, 14.2 percent faster turnaround.",
+    canonical: "https://neurosched.vercel.app/benchmarks"
+  },
+  faq: {
+    title: "Operating System FAQ: What is an Operating System | NeuroSched",
+    description: "Comprehensive operating system FAQ: what is an operating system, what is an operating system example, What is OS type in BIOS, Linux operating system, and AI operating system architecture.",
+    canonical: "https://neurosched.vercel.app/faq"
+  },
+  docs: {
+    title: "Documentation: NeuroSched Kernel Architecture and Freestanding C Engine",
+    description: "Complete technical specifications for the NeuroSched 32 bit x86 kernel: Multiboot2 handshake, x87 FPU setup, 5 8 1 MLP forward pass, Taylor sigmoid math, and zero malloc layout.",
+    canonical: "https://neurosched.vercel.app/docs"
+  }
+};
+
+const getRouteFromLocation = () => {
+  if (typeof window === 'undefined') return 'home';
+  const path = window.location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
   const hash = window.location.hash.toLowerCase();
-  const path = window.location.pathname.toLowerCase();
-  return (
-    hash === '#docs' ||
-    hash === '#/docs' ||
-    hash.startsWith('#/docs/') ||
-    hash.startsWith('#docs/') ||
-    path === '/docs' ||
-    path.startsWith('/docs/')
-  );
+
+  if (path === '/docs' || hash === '#/docs' || hash === '#docs') return 'docs';
+  if (path === '/simulator') return 'simulator';
+  if (path === '/architecture') return 'architecture';
+  if (path === '/benchmarks') return 'benchmarks';
+  if (path === '/faq') return 'faq';
+
+  return 'home';
+};
+
+const updatePageSEO = (view) => {
+  if (typeof document === 'undefined') return;
+  const meta = SEO_MAP[view] || SEO_MAP.home;
+  document.title = meta.title;
+
+  const descEl = document.querySelector('meta[name="description"]');
+  if (descEl) descEl.setAttribute('content', meta.description);
+
+  let canonEl = document.querySelector('link[rel="canonical"]');
+  if (canonEl) canonEl.setAttribute('href', meta.canonical);
+
+  const ogTitleEl = document.querySelector('meta[property="og:title"]');
+  if (ogTitleEl) ogTitleEl.setAttribute('content', meta.title);
+
+  const ogDescEl = document.querySelector('meta[property="og:description"]');
+  if (ogDescEl) ogDescEl.setAttribute('content', meta.description);
+
+  const ogUrlEl = document.querySelector('meta[property="og:url"]');
+  if (ogUrlEl) ogUrlEl.setAttribute('content', meta.canonical);
 };
 
 export default function App() {
-  const [currentView, setCurrentView] = useState(() => (isDocsRoute() ? 'docs' : 'home'));
+  const [currentView, setCurrentView] = useState(() => getRouteFromLocation());
   const [currentMode, setCurrentMode] = useState('architect');
 
   useEffect(() => {
     const handleLocationChange = () => {
-      if (isDocsRoute()) {
-        setCurrentView('docs');
-      } else {
-        setCurrentView('home');
-      }
+      const nextView = getRouteFromLocation();
+      setCurrentView(nextView);
     };
 
     window.addEventListener('popstate', handleLocationChange);
@@ -51,6 +103,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    updatePageSEO(currentView);
+
     if (currentView === 'docs') {
       document.body.style.backgroundColor = '#000000';
       document.documentElement.style.backgroundColor = '#000000';
@@ -60,51 +114,185 @@ export default function App() {
     }
   }, [currentView]);
 
-  const navigateToDocs = () => {
-    window.location.hash = '#/docs';
-    setCurrentView('docs');
-    window.scrollTo(0, 0);
-  };
-
-  const navigateToHome = () => {
-    window.location.hash = '';
-    setCurrentView('home');
-    window.scrollTo(0, 0);
-  };
-
-  const launchSimulatorFromDocs = () => {
-    window.location.hash = '#simulator';
-    setCurrentView('home');
-    setTimeout(() => {
-      const el = document.getElementById('simulator');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+  const navigateTo = (view) => {
+    const targetPath = view === 'home' ? '/' : `/${view}`;
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
+    setCurrentView(view);
+    updatePageSEO(view);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const toggleMode = () => {
     setCurrentMode((prev) => (prev === 'architect' ? 'beginner' : 'architect'));
   };
 
-  // If on docs route, ONLY render the standalone OpenCode-style Docs page
+  /* Standalone OpenCode Terminal Docs Page */
   if (currentView === 'docs') {
     return (
       <Docs
-        onNavigateHome={navigateToHome}
-        onLaunchSimulator={launchSimulatorFromDocs}
+        onNavigateHome={() => navigateTo('home')}
+        onLaunchSimulator={() => {
+          navigateTo('simulator');
+        }}
       />
     );
   }
 
-  // Otherwise render the full landing showcase page
+  /* Dedicated Simulator Deep Dive Page */
+  if (currentView === 'simulator') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          
+          <div className="bg-white border-b border-[#e0e0e0] py-6 px-4 lg:px-8">
+            <div className="max-w-6xl mx-auto flex items-center justify-between">
+              <button
+                onClick={() => navigateTo('home')}
+                className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d4ed8] hover:underline"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Return to Full Showcase</span>
+              </button>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#16a34a]/10 text-[#16a34a] rounded-full text-[12px] font-semibold">
+                <Activity className="w-3.5 h-3.5" />
+                <span>Live Interactive Simulator</span>
+              </div>
+            </div>
+          </div>
+
+          <Simulator />
+
+          <section className="py-20 px-4 lg:px-8 border-b border-[#3a3a3c] bg-[#252527] text-white">
+            <div className="max-w-6xl mx-auto space-y-12">
+              <div className="text-center space-y-3 max-w-3xl mx-auto">
+                <div className="text-[13px] font-semibold text-[#3b82f6] uppercase tracking-wider">
+                  Kernel Telemetry and Neural Analysis
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-semibold text-white tracking-tight leading-tight">
+                  Interactive Shell and Model Inspector.
+                </h2>
+                <p className="text-[17px] text-[#86868b] leading-relaxed">
+                  Test low level kernel routines in the serial console, inspect individual MLP synaptic weights, and evaluate benchmark outcomes.
+                </p>
+              </div>
+
+              <div className="space-y-8">
+                <SerialTerminal />
+                <WeightHeatmap />
+                <MultiAlgoComparison />
+              </div>
+            </div>
+          </section>
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* Dedicated Architecture Deep Dive Page */
+  if (currentView === 'architecture') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          
+          <div className="bg-white border-b border-[#e0e0e0] py-6 px-4 lg:px-8">
+            <div className="max-w-6xl mx-auto flex items-center justify-between">
+              <button
+                onClick={() => navigateTo('home')}
+                className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d4ed8] hover:underline"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Return to Full Showcase</span>
+              </button>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1d4ed8]/10 text-[#1d4ed8] rounded-full text-[12px] font-semibold">
+                <Cpu className="w-3.5 h-3.5" />
+                <span>Kernel Architecture</span>
+              </div>
+            </div>
+          </div>
+
+          <Architecture currentMode={currentMode} />
+          <CodeExplorer />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* Dedicated Benchmarks Deep Dive Page */
+  if (currentView === 'benchmarks') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          
+          <div className="bg-white border-b border-[#e0e0e0] py-6 px-4 lg:px-8">
+            <div className="max-w-6xl mx-auto flex items-center justify-between">
+              <button
+                onClick={() => navigateTo('home')}
+                className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d4ed8] hover:underline"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Return to Full Showcase</span>
+              </button>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#3b82f6]/10 text-[#3b82f6] rounded-full text-[12px] font-semibold">
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>Verified Benchmarks</span>
+              </div>
+            </div>
+          </div>
+
+          <Benchmarks />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* Dedicated FAQ Knowledge Base Page */
+  if (currentView === 'faq') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+        <div>
+          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
+          
+          <div className="bg-white border-b border-[#e0e0e0] py-6 px-4 lg:px-8">
+            <div className="max-w-7xl mx-auto flex items-center justify-between">
+              <button
+                onClick={() => navigateTo('home')}
+                className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#1d4ed8] hover:underline"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Return to Full Showcase</span>
+              </button>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1d4ed8]/10 text-[#1d4ed8] rounded-full text-[12px] font-semibold">
+                <HelpCircle className="w-3.5 h-3.5" />
+                <span>Knowledge Base</span>
+              </div>
+            </div>
+          </div>
+
+          <OSKnowledgeBase />
+        </div>
+        <Footer onNavigate={navigateTo} />
+      </div>
+    );
+  }
+
+  /* Full Landing Showcase Experience */
   return (
     <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased">
-      <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={navigateToDocs} />
+      <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
       <Hero currentMode={currentMode} />
       <AudienceToggle currentMode={currentMode} setMode={setCurrentMode} />
       <HowToUse />
       <Simulator />
       
-      {/* Interactive Shell & Neural Inspector Section */}
+      {/* Interactive Shell and Neural Inspector Section */}
       <section className="py-20 px-4 lg:px-8 border-b border-[#3a3a3c] bg-[#252527] text-white">
         <div className="max-w-6xl mx-auto space-y-12">
           
@@ -134,7 +322,7 @@ export default function App() {
       <Benchmarks />
       <OSKnowledgeBase />
       <Quickstart />
-      <Footer />
+      <Footer onNavigate={navigateTo} />
     </div>
   );
 }

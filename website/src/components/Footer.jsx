@@ -1,7 +1,14 @@
 import React from 'react';
-import { Github, ExternalLink, ShieldCheck } from 'lucide-react';
+import { Github, ShieldCheck } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
+  const handleNav = (target, e) => {
+    if (onNavigate) {
+      if (e) e.preventDefault();
+      onNavigate(target);
+    }
+  };
+
   return (
     <footer className="py-16 px-4 lg:px-8 bg-[#f5f5f7] border-t border-[#e0e0e0] text-[#86868b] text-[12px] leading-relaxed">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -21,10 +28,51 @@ export default function Footer() {
           <div className="space-y-2.5">
             <h4 className="font-semibold text-[#1d1d1f]">Kernel Core</h4>
             <ul className="space-y-2 text-[#86868b]">
-              <li><a href="#architecture" className="hover:text-[#1d1d1f] transition-colors">x86 Architecture</a></li>
-              <li><a href="#simulator" className="hover:text-[#1d1d1f] transition-colors">Neural Scheduler</a></li>
-              <li><a href="#code" className="hover:text-[#1d1d1f] transition-colors">Freestanding C Engine</a></li>
-              <li><a href="#benchmarks" className="hover:text-[#1d1d1f] transition-colors">QEMU Telemetry</a></li>`r`n              <li><a href="#faq" className="hover:text-[#1d1d1f] transition-colors">Knowledge Base FAQ</a></li>
+              <li>
+                <a 
+                  href="/architecture" 
+                  onClick={(e) => handleNav('architecture', e)} 
+                  className="hover:text-[#1d1d1f] transition-colors"
+                >
+                  x86 Architecture
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/simulator" 
+                  onClick={(e) => handleNav('simulator', e)} 
+                  className="hover:text-[#1d1d1f] transition-colors"
+                >
+                  Neural Simulator
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/docs" 
+                  onClick={(e) => handleNav('docs', e)} 
+                  className="hover:text-[#1d1d1f] transition-colors"
+                >
+                  Freestanding C Docs
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/benchmarks" 
+                  onClick={(e) => handleNav('benchmarks', e)} 
+                  className="hover:text-[#1d1d1f] transition-colors"
+                >
+                  QEMU Telemetry
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/faq" 
+                  onClick={(e) => handleNav('faq', e)} 
+                  className="hover:text-[#1d1d1f] transition-colors"
+                >
+                  Knowledge Base FAQ
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -34,7 +82,7 @@ export default function Footer() {
               <li><span className="text-[#1d1d1f]">Multiboot2</span> Spec 0x36D76289</li>
               <li><span className="text-[#1d1d1f]">FPU</span> x87 Hardware Acceleration</li>
               <li><span className="text-[#1d1d1f]">COM1</span> 38400 8N1 @ 0x3F8</li>
-              <li><span className="text-[#1d1d1f]">VGA</span> 80×25 Color @ 0xB8000</li>
+              <li><span className="text-[#1d1d1f]">VGA</span> 80 by 25 Color @ 0xB8000</li>
             </ul>
           </div>
 
@@ -123,10 +171,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Legal & Attribution Row (No dots) */}
+        {/* Legal and Attribution Row */}
         <div className="pt-6 border-t border-[#e0e0e0] flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-[#86868b]">
           <div>
-            Copyright © 2026 <strong className="text-[#1d1d1f] font-semibold">MANTIS</strong> (mantisdarling). All rights reserved.
+            Copyright 2026 <strong className="text-[#1d1d1f] font-semibold">MANTIS</strong> (mantisdarling). All rights reserved.
           </div>
           <div className="flex items-center gap-3">
             <a href="https://github.com/mantisdarling/NeuroSched" target="_blank" rel="noreferrer" className="hover:text-[#1d1d1f]">
