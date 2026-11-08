@@ -1,170 +1,161 @@
 import React from 'react';
-import { Github, ExternalLink, ShieldCheck } from 'lucide-react';
+import { Github, ShieldCheck } from 'lucide-react';
 
 export default function Footer({ onNavigate }) {
-  const handleNav = (view, e) => {
-    if (onNavigate) {
-      if (e) e.preventDefault();
-      onNavigate(view);
-    }
+  const go = (view, e) => {
+    if (e) e.preventDefault();
+    if (onNavigate) onNavigate(view);
   };
 
+  const cols = [
+    {
+      heading: 'Kernel',
+      links: [
+        { label: 'Architecture',    view: 'architecture' },
+        { label: 'Hardware Simulator', view: 'simulator' },
+        { label: 'QEMU Benchmarks', view: 'benchmarks' },
+        { label: 'Technical Docs',  view: 'docs' },
+      ],
+    },
+    {
+      heading: 'Learn',
+      links: [
+        { label: 'Operating System FAQ', view: 'faq' },
+        { label: 'What is an OS',        view: 'faq' },
+        { label: 'Linux vs NeuroSched',  view: 'faq' },
+        { label: 'OS in BIOS',           view: 'faq' },
+      ],
+    },
+    {
+      heading: 'Project',
+      links: [
+        { label: 'About NeuroSched',   view: 'about' },
+        { label: 'Contact',            view: 'contact' },
+        { label: 'Privacy Policy',     view: 'privacy' },
+        { label: 'Terms of Service',   view: 'terms' },
+      ],
+    },
+    {
+      heading: 'Open Source',
+      external: [
+        { label: 'GitHub Repository',    href: 'https://github.com/mantisdarling/NeuroSched' },
+        { label: 'MIT License',          href: 'https://github.com/mantisdarling/NeuroSched/blob/main/LICENSE' },
+        { label: 'Contributing Guide',   href: 'https://github.com/mantisdarling/NeuroSched/blob/main/CONTRIBUTING.md' },
+        { label: 'Security Policy',      href: 'https://github.com/mantisdarling/NeuroSched/blob/main/SECURITY.md' },
+      ],
+    },
+  ];
+
   return (
-    <footer className="py-14 px-4 lg:px-8 bg-[#f5f5f7] border-t border-[#e0e0e0] text-[#86868b] text-[12px] leading-relaxed select-none">
-      <div className="max-w-6xl mx-auto space-y-10">
-        
-        {/* Footnote Disclaimers */}
-        <div className="space-y-2 text-[#86868b] text-[11.5px] border-b border-[#e0e0e0] pb-6 leading-normal">
+    <footer className="footer">
+      <div className="max-w-[980px] mx-auto">
+
+        {/* Fine-print footnotes */}
+        <div
+          className="border-b border-[#e0e0e0] pb-6 mb-10 space-y-1.5"
+          style={{ fontSize: 12, lineHeight: 1.5, color: '#7a7a7a' }}
+        >
           <p>
-            1. Average process wait time reduction of 16.8% was benchmarked under headless QEMU i386 emulation comparing the embedded 5-8-1 MLP neural inference engine against circular Round Robin across 64 CPU timer ticks.
+            1. The 16.8% average process wait-time reduction was measured under
+            headless QEMU i386 emulation comparing the embedded 5–8–1 MLP neural
+            inference engine against circular Round Robin across 64 CPU timer ticks.
           </p>
           <p>
-            2. Zero dynamic heap allocation refers to freestanding C execution without <code className="font-mono text-[11px] text-[#1d1d1f]">malloc()</code>; all model weights are compiled into <code className="font-mono text-[11px] text-[#1d1d1f]">.rodata</code> and execution activations remain strictly on the execution stack.
+            2. Zero dynamic heap allocation means freestanding C execution without{' '}
+            <code className="mono" style={{ fontSize: 11, color: '#1d1d1f' }}>malloc()</code>.
+            All 57 model weights (228 bytes) reside in{' '}
+            <code className="mono" style={{ fontSize: 11, color: '#1d1d1f' }}>.rodata</code>;
+            activations live on the kernel execution stack.
           </p>
         </div>
 
-        {/* Directory Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-[13px]">
-          
-          {/* Column 1: Kernel Architecture */}
-          <div className="space-y-3">
-            <h4 className="font-semibold text-[#1d1d1f] tracking-tight">Kernel Architecture</h4>
-            <ul className="space-y-2 text-[#6e6e73]">
-              <li>
-                <a href="/architecture" onClick={(e) => handleNav('architecture', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  x86 Kernel Design
-                </a>
-              </li>
-              <li>
-                <a href="/simulator" onClick={(e) => handleNav('simulator', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  Neural Simulator
-                </a>
-              </li>
-              <li>
-                <a href="/docs" onClick={(e) => handleNav('docs', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  Freestanding C Docs
-                </a>
-              </li>
-              <li>
-                <a href="/benchmarks" onClick={(e) => handleNav('benchmarks', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  QEMU Benchmarks
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 2: Knowledge Base */}
-          <div className="space-y-3">
-            <h4 className="font-semibold text-[#1d1d1f] tracking-tight">Knowledge Base</h4>
-            <ul className="space-y-2 text-[#6e6e73]">
-              <li>
-                <a href="/faq" onClick={(e) => handleNav('faq', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  Operating System FAQ
-                </a>
-              </li>
-              <li>
-                <a href="/faq" onClick={(e) => handleNav('faq', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  BIOS OS Type Guide
-                </a>
-              </li>
-              <li>
-                <span className="text-[#1d1d1f] font-mono text-[11.5px]">Multiboot2 0x36D76289</span>
-              </li>
-              <li>
-                <span className="text-[#1d1d1f] font-mono text-[11.5px]">COM1 38400 8N1 @ 0x3F8</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Legal & Governance */}
-          <div className="space-y-3">
-            <h4 className="font-semibold text-[#1d1d1f] tracking-tight">Governance & Legal</h4>
-            <ul className="space-y-2 text-[#6e6e73]">
-              <li>
-                <a href="/about" onClick={(e) => handleNav('about', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  About NeuroSched
-                </a>
-              </li>
-              <li>
-                <a href="/contact" onClick={(e) => handleNav('contact', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  Contact Maintainers
-                </a>
-              </li>
-              <li>
-                <a href="/privacy" onClick={(e) => handleNav('privacy', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  Privacy & Cookie Policy
-                </a>
-              </li>
-              <li>
-                <a href="/terms" onClick={(e) => handleNav('terms', e)} className="hover:text-[#1d4ed8] transition-colors">
-                  Terms & Conditions
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 4: Open Source Repository */}
-          <div className="space-y-3">
-            <h4 className="font-semibold text-[#1d1d1f] tracking-tight">Open Source</h4>
-            <ul className="space-y-2 text-[#6e6e73]">
-              <li>
-                <a
-                  href="https://github.com/mantisdarling/NeuroSched"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1.5"
-                >
-                  <Github className="w-3.5 h-3.5" />
-                  <span>GitHub Repository</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/mantisdarling/NeuroSched/blob/main/CERTIFICATE.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1.5 font-medium text-[#1d1d1f]"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#1d4ed8]" />
-                  <span>Project Certificate</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/mantisdarling/NeuroSched/blob/main/LICENSE"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#1d4ed8] transition-colors"
-                >
-                  MIT License
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/mantisdarling/NeuroSched/blob/main/INFO.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#1d4ed8] transition-colors"
-                >
-                  Project Technical Info
-                </a>
-              </li>
-            </ul>
-          </div>
-
+        {/* Directory grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+          {cols.map((col) => (
+            <div key={col.heading}>
+              <h4
+                style={{
+                  fontSize: 14,
+                  fontWeight: 600,
+                  lineHeight: 1.29,
+                  letterSpacing: '-0.224px',
+                  color: '#1d1d1f',
+                  marginBottom: 12,
+                }}
+              >
+                {col.heading}
+              </h4>
+              <ul className="space-y-2">
+                {col.links?.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={`/${l.view === 'home' ? '' : l.view}`}
+                      onClick={(e) => go(l.view, e)}
+                      className="link"
+                      style={{ fontSize: 12, lineHeight: 2.41 }}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+                {col.external?.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link"
+                      style={{ fontSize: 12, lineHeight: 2.41 }}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Attribution Row */}
-        <div className="pt-6 border-t border-[#e0e0e0] flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-[#86868b]">
+        {/* Attribution row */}
+        <div
+          className="border-t border-[#e0e0e0] pt-6 flex flex-col sm:flex-row
+                     items-start sm:items-center justify-between gap-3"
+          style={{ fontSize: 12, color: '#7a7a7a' }}
+        >
           <div>
-            Copyright © 2026 <strong className="text-[#1d1d1f] font-semibold">MANTIS</strong> (<a href="https://github.com/mantisdarling" target="_blank" rel="noopener noreferrer" className="hover:text-[#1d4ed8] underline">@mantisdarling</a>). All rights reserved.
-          </div>
-          <div className="flex items-center gap-3">
-            <a href="https://github.com/mantisdarling/NeuroSched" target="_blank" rel="noopener noreferrer" className="hover:text-[#1d1d1f]">
-              mantisdarling/NeuroSched
+            Copyright &copy; 2026{' '}
+            <strong style={{ color: '#1d1d1f', fontWeight: 600 }}>MANTIS</strong>{' '}
+            (
+            <a
+              href="https://github.com/mantisdarling"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link"
+            >
+              @mantisdarling
             </a>
-            <span className="text-[#d1d5db]">|</span>
-            <span>Open Source (MIT)</span>
+            ). Open source under the MIT License.
+          </div>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com/mantisdarling/NeuroSched"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-[#1d1d1f] transition-colors"
+            >
+              <Github className="w-3.5 h-3.5" />
+              <span>mantisdarling/NeuroSched</span>
+            </a>
+            <span className="text-[#e0e0e0]">|</span>
+            <a
+              href="https://github.com/mantisdarling/NeuroSched/blob/main/CERTIFICATE.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 hover:text-[#1d1d1f] transition-colors"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#0066cc]" />
+              <span>Certified</span>
+            </a>
           </div>
         </div>
 

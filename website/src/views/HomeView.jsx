@@ -1,324 +1,358 @@
 import React from 'react';
 import Hero from '../components/Hero';
-import AudienceToggle from '../components/AudienceToggle';
-import HowToUse from '../components/HowToUse';
-import Quickstart from '../components/Quickstart';
 import FAQ from '../components/FAQ';
-import { Cpu, Terminal, TrendingUp, BookOpen, ChevronRight, Activity, ShieldCheck, Layers, Server, Monitor, Globe, Brain } from 'lucide-react';
+import Quickstart from '../components/Quickstart';
+
+/*
+  HomeView — alternating full-bleed product tiles (apple.com pattern)
+  Tile rhythm: white → dark (#272729) → parchment (#f5f5f7) → dark-2 (#2a2a2c) → white
+  Single accent: Action Blue #0066cc
+  No decorative gradients. No card shadows. Product-shadow on terminal only.
+  SEO: 600+ words about the tool, all target keywords embedded naturally.
+*/
+
+const NAV = (onNavigate) => (view, e) => {
+  if (e) e.preventDefault();
+  if (onNavigate) onNavigate(view);
+};
 
 export default function HomeView({ currentMode, setMode, onNavigate }) {
+  const go = NAV(onNavigate);
+
   return (
-    <div className="space-y-0">
-      {/* Hero Showcase */}
+    <div>
+
+      {/* ── Tile 1: Hero (white) ── */}
       <Hero currentMode={currentMode} onNavigate={onNavigate} />
 
-      {/* Audience Toggle (Architect vs ELIF5) */}
-      <AudienceToggle currentMode={currentMode} setMode={setMode} />
+      {/* ── Tile 2: Subsystem grid (dark #272729) ── */}
+      <section className="tile-dark border-b border-[#3a3a3c]" aria-label="Kernel subsystems">
+        <div className="max-w-[980px] mx-auto text-center">
 
-      {/* Multipage Hub Feature Grid */}
-      <section className="py-20 px-4 lg:px-8 bg-[#ffffff] text-[#1d1d1f] border-b border-[#e0e0e0]">
-        <div className="max-w-6xl mx-auto space-y-12">
-          
-          <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <div className="text-[13px] font-semibold text-[#1d4ed8] uppercase tracking-wider">
-              Multipage Subsystems
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#1d1d1f] tracking-tight leading-tight">
-              Explore the NeuroSched Kernel.
-            </h2>
-            <p className="text-[17px] text-[#86868b] leading-relaxed">
-              NeuroSched is organized into dedicated architectural sub-systems. Explore each core domain below.
-            </p>
+          <p className="text-[#2997ff] font-semibold mb-4" style={{ fontSize: 17, letterSpacing: '-0.374px' }}>
+            Subsystems
+          </p>
+          <h2
+            className="type-display-lg text-white max-w-[640px] mx-auto mb-4"
+            style={{ fontFamily: '"SF Pro Display", system-ui, sans-serif' }}
+          >
+            Every layer of the kernel, documented.
+          </h2>
+          <p className="text-[#cccccc] max-w-[520px] mx-auto mb-14" style={{ fontSize: 17, lineHeight: 1.47 }}>
+            Architecture, live simulator, verified benchmarks, and full technical
+            documentation — each in its own dedicated page.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-left">
+            {[
+              {
+                view: 'architecture',
+                title: 'Architecture',
+                desc: '5-dimensional PCB state vector. 5→8→1 MLP layer topology. 6-term Taylor sigmoid polynomial. 0-byte malloc layout.',
+                tag: 'x86 Kernel',
+              },
+              {
+                view: 'simulator',
+                title: 'Hardware Simulator',
+                desc: 'Live 60 FPS neural canvas forward-pass. Adjustable confidence fallback slider. COM1 serial console replay.',
+                tag: 'Interactive',
+              },
+              {
+                view: 'benchmarks',
+                title: 'Benchmarks',
+                desc: '64-tick QEMU i386 telemetry. 16.8% lower average wait. 14.2% faster turnaround. 50 safe Round Robin fallbacks.',
+                tag: 'Empirical',
+              },
+              {
+                view: 'docs',
+                title: 'Documentation',
+                desc: 'Multiboot2 handshake, x87 FPU flags, MLP C source, .rodata weight layout, COM1 serial driver — full spec.',
+                tag: 'Reference',
+              },
+              {
+                view: 'faq',
+                title: 'OS Knowledge Base',
+                desc: 'What is an operating system, Linux vs NeuroSched, OS types in BIOS, Android vs x86 kernel differences.',
+                tag: 'FAQ',
+              },
+              {
+                view: 'about',
+                title: 'About the Project',
+                desc: 'Open source under MIT. Built by MANTIS (@mantisdarling). Academic bare-metal kernel research project.',
+                tag: 'Open Source',
+              },
+            ].map((item) => (
+              <a
+                key={item.view}
+                href={`/${item.view}`}
+                onClick={(e) => go(item.view, e)}
+                className="card-dark hover:border-[#0066cc] group block transition-colors"
+                style={{ textDecoration: 'none' }}
+              >
+                <span
+                  className="inline-block mb-3 text-[11px] font-semibold uppercase tracking-widest"
+                  style={{ color: '#7a7a7a', letterSpacing: '0.08em' }}
+                >
+                  {item.tag}
+                </span>
+                <h3 className="type-body-strong text-white mb-2 group-hover:text-[#2997ff] transition-colors">
+                  {item.title}
+                </h3>
+                <p style={{ fontSize: 14, lineHeight: 1.57, color: '#cccccc' }}>{item.desc}</p>
+                <span
+                  className="inline-block mt-4 link-dark"
+                  style={{ fontSize: 14, fontWeight: 400 }}
+                >
+                  Learn more →
+                </span>
+              </a>
+            ))}
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            {/* Tile 1: Architecture */}
-            <a 
-              href="/architecture"
-              onClick={(e) => { e.preventDefault(); onNavigate('architecture'); }}
-              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#1d4ed8]/10 text-[#1d4ed8] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Cpu className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <h3 className="text-[19px] font-semibold text-[#1d1d1f] tracking-tight flex items-center justify-between">
-                  <span>Architecture</span>
-                  <ChevronRight className="w-4 h-4 text-[#86868b] group-hover:text-[#1d4ed8] transition-colors" />
-                </h3>
-                <p className="text-[14.5px] text-[#86868b] leading-relaxed">
-                  5-dimensional PCB state vector, 5-8-1 MLP layer matrix, 6-term Taylor sigmoid math, and 0 bytes malloc layout.
-                </p>
-              </div>
-              <div className="pt-2 text-[13px] font-medium text-[#1d4ed8] flex items-center gap-1">
-                <span>View Architecture Page</span>
-                <span>→</span>
-              </div>
-            </a>
-
-            {/* Tile 2: Live Simulator */}
-            <a 
-              href="/simulator"
-              onClick={(e) => { e.preventDefault(); onNavigate('simulator'); }}
-              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#16a34a]/10 text-[#16a34a] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Activity className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <h3 className="text-[19px] font-semibold text-[#1d1d1f] tracking-tight flex items-center justify-between">
-                  <span>Hardware Simulator</span>
-                  <ChevronRight className="w-4 h-4 text-[#86868b] group-hover:text-[#16a34a] transition-colors" />
-                </h3>
-                <p className="text-[14.5px] text-[#86868b] leading-relaxed">
-                  Live 60 FPS neural canvas forward-pass visualizer, confidence slider, COM1 console replay, and weight heatmap.
-                </p>
-              </div>
-              <div className="pt-2 text-[13px] font-medium text-[#16a34a] flex items-center gap-1">
-                <span>Launch Interactive Simulator</span>
-                <span>→</span>
-              </div>
-            </a>
-
-            {/* Tile 3: Benchmarks */}
-            <a 
-              href="/benchmarks"
-              onClick={(e) => { e.preventDefault(); onNavigate('benchmarks'); }}
-              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <TrendingUp className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <h3 className="text-[19px] font-semibold text-[#1d1d1f] tracking-tight flex items-center justify-between">
-                  <span>Verified Benchmarks</span>
-                  <ChevronRight className="w-4 h-4 text-[#86868b] group-hover:text-[#3b82f6] transition-colors" />
-                </h3>
-                <p className="text-[14.5px] text-[#86868b] leading-relaxed">
-                  QEMU serial telemetry metrics showing 16.8% lower average wait time and 14.2% faster turnaround over Round Robin.
-                </p>
-              </div>
-              <div className="pt-2 text-[13px] font-medium text-[#3b82f6] flex items-center gap-1">
-                <span>Explore Benchmark Metrics</span>
-                <span>→</span>
-              </div>
-            </a>
-
-            {/* Tile 4: Technical Documentation */}
-            <a 
-              href="/docs"
-              onClick={(e) => { e.preventDefault(); onNavigate('docs'); }}
-              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#f59e0b]/10 text-[#f59e0b] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <BookOpen className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <h3 className="text-[19px] font-semibold text-[#1d1d1f] tracking-tight flex items-center justify-between">
-                  <span>Technical Docs</span>
-                  <ChevronRight className="w-4 h-4 text-[#86868b] group-hover:text-[#f59e0b] transition-colors" />
-                </h3>
-                <p className="text-[14.5px] text-[#86868b] leading-relaxed">
-                  3-column terminal documentation engine with bracket navigation, multi-tab CLI box, and full kernel reference.
-                </p>
-              </div>
-              <div className="pt-2 text-[13px] font-medium text-[#f59e0b] flex items-center gap-1">
-                <span>Open Documentation Engine</span>
-                <span>→</span>
-              </div>
-            </a>
-
-            {/* Tile 5: FAQ & Knowledge Base */}
-            <a 
-              href="/faq"
-              onClick={(e) => { e.preventDefault(); onNavigate('faq'); }}
-              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group block"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#8b5cf6]/10 text-[#8b5cf6] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <h3 className="text-[19px] font-semibold text-[#1d1d1f] tracking-tight flex items-center justify-between">
-                  <span>Technical FAQ</span>
-                  <ChevronRight className="w-4 h-4 text-[#86868b] group-hover:text-[#8b5cf6] transition-colors" />
-                </h3>
-                <p className="text-[14.5px] text-[#86868b] leading-relaxed">
-                  Deep technical answers regarding x86 FPU coprocessor CR0 flags, Taylor math bounds, and safety invariants.
-                </p>
-              </div>
-              <div className="pt-2 text-[13px] font-medium text-[#8b5cf6] flex items-center gap-1">
-                <span>View Knowledge Base</span>
-                <span>→</span>
-              </div>
-            </a>
-
-            {/* Tile 6: Source Code Explorer */}
-            <a 
-              href="https://github.com/mantisdarling/NeuroSched"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="appleCardLight p-7 space-y-4 hover:border-[#1d4ed8] hover:shadow-lg transition-all group"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#111827]/10 text-[#111827] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Terminal className="w-5 h-5" />
-              </div>
-              <div className="space-y-1.5">
-                <h3 className="text-[19px] font-semibold text-[#1d1d1f] tracking-tight flex items-center justify-between">
-                  <span>GitHub Repository</span>
-                  <ChevronRight className="w-4 h-4 text-[#86868b] group-hover:text-[#1d4ed8] transition-colors" />
-                </h3>
-                <p className="text-[14.5px] text-[#86868b] leading-relaxed">
-                  Freestanding C source code, x86 assembly bootloader, linker scripts, and automated QEMU test harnesses.
-                </p>
-              </div>
-              <div className="pt-2 text-[13px] font-medium text-[#1d4ed8] flex items-center gap-1">
-                <span>Browse Code on GitHub</span>
-                <span>↗</span>
-              </div>
-            </a>
-
-          </div>
-
         </div>
       </section>
 
-      {/* How to Use Section */}
-      <HowToUse />
+      {/* ── Tile 3: SEO editorial article (parchment #f5f5f7) ── */}
+      <section className="tile-parchment border-b border-[#e0e0e0]" aria-label="About NeuroSched operating system">
+        <div className="max-w-[740px] mx-auto">
 
-      {/* 600+ Word Comprehensive On-Page Technical SEO Guide */}
-      <section className="py-20 px-4 lg:px-8 bg-[#ffffff] text-[#1d1d1f] border-b border-[#e0e0e0]">
-        <article className="max-w-4xl mx-auto space-y-10">
-          
-          {/* Header */}
-          <header className="space-y-3 text-center sm:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1d4ed8]/10 text-[#1d4ed8] rounded-full text-[12px] font-semibold tracking-wide uppercase">
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Comprehensive Technical Guide</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#1d1d1f] tracking-tight leading-tight">
-              What Is an Operating System? Understanding System Architecture and the Rise of the AI Operating System
-            </h2>
-            <p className="text-[17px] text-[#86868b] leading-relaxed">
-              An authoritative examination of operating system definition, major operating system examples, and how NeuroSched pioneers neural process scheduling in bare-metal x86 computing.
+          <p className="text-[#0066cc] font-semibold mb-4" style={{ fontSize: 17, letterSpacing: '-0.374px' }}>
+            Operating System
+          </p>
+          <h2
+            className="type-display-lg text-[#1d1d1f] mb-6"
+            style={{ fontFamily: '"SF Pro Display", system-ui, sans-serif' }}
+          >
+            What is NeuroSched?
+          </h2>
+
+          <article
+            className="space-y-5 text-[#1d1d1f]"
+            style={{ fontSize: 17, lineHeight: 1.47, letterSpacing: '-0.374px' }}
+          >
+            <p>
+              An <strong>operating system</strong> is the foundational software layer that
+              manages a computer's hardware resources — allocating processor time, memory,
+              and I/O peripherals between competing processes. The{' '}
+              <strong>operating system definition</strong> at its core is a resource
+              arbitrator: it decides which program runs next, for how long, and with what
+              priority. NeuroSched is a research-grade bare-metal{' '}
+              <strong>operating system</strong> that replaces the static heuristic at the
+              heart of that arbitration with a trained neural network.
             </p>
-          </header>
 
-          {/* Section 1: Definition & Role */}
-          <div className="space-y-4 text-[16px] text-[#52525b] leading-[1.85]">
-            <h3 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight flex items-center gap-2.5">
-              <Monitor className="w-6 h-6 text-[#1d4ed8]" />
-              <span>1. Operating System Definition: What Is an Operating System in Computer Systems?</span>
+            <p>
+              Traditional schedulers — present in every <strong>Linux operating system</strong>,
+              every <strong>Android operating system</strong>, and every desktop OS — rely on
+              deterministic rules: Round Robin divides CPU time in fixed slices;
+              Shortest Job First estimates burst length; Priority Queues assign static ranks.
+              These rules are simple, predictable, and fast — but they cannot adapt to
+              workload patterns they were not explicitly coded to handle. NeuroSched
+              demonstrates that a compact 5–8–1 Multi-Layer Perceptron, compiled directly
+              into kernel binary space, can outperform Round Robin on average process wait
+              time by <strong>16.8%</strong> without any dynamic memory allocation.
+            </p>
+
+            <h3
+              className="text-[#1d1d1f]"
+              style={{ fontFamily: '"SF Pro Display", system-ui, sans-serif', fontSize: 24, fontWeight: 600, lineHeight: 1.19, letterSpacing: '-0.01em' }}
+            >
+              How the Neural Scheduler Works
             </h3>
-            <p>
-              To answer the foundational question—<strong>what is an operating system</strong>—one must examine the structural boundary between hardware electronics and user software. In computer science, the formal <strong>operating system definition</strong> designates it as the core system software that manages computer hardware components, coordinates memory resources, schedules processor execution time, and provides universal shared APIs for application software.
-            </p>
-            <p>
-              Without an <strong>operating system in computer</strong> hardware, software engineers would be forced to write individual low-level assembly driver instructions for every specific central processing unit (CPU) instruction set architecture (ISA), memory controller, keyboard peripheral, and graphics buffer. The <strong>operating system</strong> solves this complexity by establishing an abstraction layer: it virtualizes hardware execution through preemptive multitasking, manages physical RAM allocation through memory management units (MMU) and page directories, and coordinates device access via interrupt service routines (ISRs).
-            </p>
-          </div>
 
-          {/* Section 2: Operating System Examples */}
-          <div className="space-y-4 text-[16px] text-[#52525b] leading-[1.85]">
-            <h3 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight flex items-center gap-2.5">
-              <Server className="w-6 h-6 text-[#16a34a]" />
-              <span>2. Real-World Operating System Examples: Linux, Android, and Windows</span>
+            <p>
+              At each scheduling tick the kernel reads five normalized values from the
+              Process Control Block of every runnable process:{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>wait_ticks</code>,{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>remaining_burst</code>,{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>priority</code>,{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>io_bound</code>, and{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>io_yield_count</code>.
+              These five values form the input vector to the MLP. The network's hidden layer
+              applies ReLU activation across eight neurons. The output neuron produces a
+              single confidence score via a 6-term Taylor series polynomial approximation
+              of the sigmoid function — avoiding any dependency on{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>math.h</code> or
+              the C standard library.
+            </p>
+
+            <p>
+              The process with the highest confidence score above{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>NN_CONF_THRESH = 0.65f</code>{' '}
+              is dispatched. If no process clears the threshold — signaling an
+              out-of-distribution workload the network is uncertain about — the scheduler
+              falls back to standard Round Robin for that tick. This confidence gate is
+              why NeuroSched achieves <strong>100% kernel stability</strong> with zero
+              kernel panics across all tested workloads. It is what separates a
+              research-grade <strong>AI operating system</strong> from a brittle proof of concept.
+            </p>
+
+            <h3
+              className="text-[#1d1d1f]"
+              style={{ fontFamily: '"SF Pro Display", system-ui, sans-serif', fontSize: 24, fontWeight: 600, lineHeight: 1.19, letterSpacing: '-0.01em' }}
+            >
+              Operating System Examples — Where NeuroSched Fits
             </h3>
-            <p>
-              When inquiring <strong>what is an operating system example</strong>, modern computing offers diverse implementations tailored to specific hardware paradigms:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-[#374151]">
-              <li>
-                <strong>Linux Operating System</strong>: The premier open-source monolithic kernel powering enterprise cloud computing, supercomputers, and web servers. The <strong>linux operating system</strong> utilizes the Completely Fair Scheduler (CFS), organizing runnable tasks in a balanced red-black binary tree based on individual task virtual runtime (<code className="font-mono text-xs bg-[#f5f5f7] px-1 py-0.5 rounded">vruntime</code>).
-              </li>
-              <li>
-                <strong>Android Operating System</strong>: Powering billions of mobile smartphones and embedded smart displays, the <strong>android operating system</strong> combines a modified Linux operating system kernel with the Android Runtime (ART) and user-space priority managers like LowMemoryKiller (LMK) to prioritize battery life and immediate touch latency.
-              </li>
-              <li>
-                <strong>Desktop and Embedded Systems</strong>: Commercial <strong>operating system examples</strong> such as Microsoft Windows (hybrid NT kernel) and Apple macOS (Darwin/XNU kernel), alongside specialized real-time operating systems (RTOS) like FreeRTOS and VxWorks used in automotive controllers and aerospace avionics.
-              </li>
-            </ul>
-          </div>
 
-          {/* Section 3: The Rise of the AI Operating System */}
-          <div className="space-y-4 text-[16px] text-[#52525b] leading-[1.85]">
-            <h3 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight flex items-center gap-2.5">
-              <Brain className="w-6 h-6 text-[#8b5cf6]" />
-              <span>3. The Emergence of the AI Operating System: How NeuroSched Reinvents CPU Scheduling</span>
+            <p>
+              <strong>Operating system examples</strong> span a wide range of architectures:
+              Linux, Windows, macOS, Android, FreeRTOS, and seL4. Among these,
+              NeuroSched occupies the same category as bare-metal research kernels —
+              systems like xv6, Redox OS, and OSDev community kernels — that are built
+              from scratch to explore a specific systems question. NeuroSched's question
+              is: can neural inference replace hand-coded scheduling heuristics without
+              sacrificing determinism or memory safety?
+            </p>
+
+            <p>
+              The x86 32-bit Protected Mode target was chosen deliberately.{' '}
+              <strong>What is an operating system</strong> at the hardware level is best
+              understood on a minimal architecture where every register, every flag, and
+              every memory address is under explicit programmer control. The Multiboot2
+              boot protocol (magic constant{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>0x36D76289</code>)
+              establishes a clean handshake between the bootloader and kernel binary before
+              any C code executes. The x87 FPU is enabled via assembly CR0 flag
+              manipulation before the neural inference path is entered.
+            </p>
+
+            <h3
+              className="text-[#1d1d1f]"
+              style={{ fontFamily: '"SF Pro Display", system-ui, sans-serif', fontSize: 24, fontWeight: 600, lineHeight: 1.19, letterSpacing: '-0.01em' }}
+            >
+              The Best Operating System for Machine Learning Research
             </h3>
-            <p>
-              While traditional <strong>operating system examples</strong> have delivered remarkable utility, their internal scheduling heuristics remain fundamentally static. Conventional schedulers rely on fixed, hand-crafted rules—such as uniform quantum slices in Round Robin or heuristic priority decay. Under mixed real-world workloads where long compute-heavy batch tasks run concurrently with bursts of interactive I/O jobs, static algorithms inevitably suffer from starvation and inflated queue wait times.
-            </p>
-            <p>
-              This limitation catalyzed the creation of the <strong>ai operating system</strong>. NeuroSched is an experimental, bare-metal 32-bit x86 <strong>ai operating system</strong> kernel where CPU scheduling decisions are predicted dynamically by an embedded neural network inference engine running in freestanding C. Rather than relying on rigid formulas, NeuroSched extracts a real-time 5-dimensional process state vector at every timer interrupt tick:
-            </p>
-
-            <div className="border border-[#e0e0e0] rounded-[12px] overflow-x-auto my-4">
-              <table className="w-full text-left text-[14px] min-w-[520px]">
-                <thead className="bg-[#f5f5f7] border-b border-[#e0e0e0] text-[#1d1d1f]">
-                  <tr>
-                    <th className="p-3.5 font-semibold">Input Feature</th>
-                    <th className="p-3.5 font-semibold">Kernel PCB Source</th>
-                    <th className="p-3.5 font-semibold">Scheduling Objective</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#e0e0e0] text-[#52525b]">
-                  <tr>
-                    <td className="p-3.5 font-mono text-[#1d4ed8] font-semibold">wait_ticks</td>
-                    <td className="p-3.5 font-mono text-xs">wait_ticks / dynamic_max_wait</td>
-                    <td className="p-3.5">Starvation prevention & task aging acceleration</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3.5 font-mono text-[#1d4ed8] font-semibold">remaining_burst</td>
-                    <td className="p-3.5 font-mono text-xs">remaining_burst / dynamic_max_burst</td>
-                    <td className="p-3.5">Shortest Job First affinity for rapid job completion</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3.5 font-mono text-[#1d4ed8] font-semibold">priority</td>
-                    <td className="p-3.5 font-mono text-xs">normalize(priority, 1.0, 5.0)</td>
-                    <td className="p-3.5">Static user-space scheduling class weight</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3.5 font-mono text-[#1d4ed8] font-semibold">io_bound</td>
-                    <td className="p-3.5 font-mono text-xs">p-&gt;io_bound ? 1.0 : 0.0</td>
-                    <td className="p-3.5">Interactive response prioritization</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3.5 font-mono text-[#1d4ed8] font-semibold">io_yield_count</td>
-                    <td className="p-3.5 font-mono text-xs">normalize(yield_count, 0.0, 7.0)</td>
-                    <td className="p-3.5">Historical voluntary yield frequency tracking</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
 
             <p>
-              To execute neural inference safely inside kernel space, NeuroSched guarantees <strong>0 Bytes dynamic heap allocation (zero malloc)</strong>. All 57 static float parameters (228 bytes total across W1, B1, W2, B2) are compiled directly into the binary's read-only data (<code className="font-mono text-xs bg-[#f5f5f7] px-1 py-0.5 rounded">.rodata</code>) section. Hidden layer activations utilize the Rectified Linear Unit (ReLU), while output scores are calculated using a 6-term Taylor polynomial approximation of the sigmoid function clamped to <code className="font-mono text-xs bg-[#f5f5f7] px-1 py-0.5 rounded">[-10, +10]</code>, avoiding dependencies on standard C math libraries (<code className="font-mono text-xs bg-[#f5f5f7] px-1 py-0.5 rounded">math.h</code>).
+              Researchers evaluating the <strong>best operating system</strong> substrate for
+              embedded machine learning inference need three guarantees that most general-purpose
+              kernels cannot provide simultaneously: no dynamic allocator (which would
+              introduce non-deterministic latency), direct hardware floating-point access
+              (which requires FPU setup before the C runtime), and a hard safety gate that
+              prevents the ML component from corrupting scheduler state on uncertain inputs.
+              NeuroSched provides all three. It is not intended as a production{' '}
+              <strong>operating system</strong> replacement for Linux or Android — it is a
+              rigorous proof that the architecture is feasible.
             </p>
+
+            <p>
+              Empirical QEMU telemetry across 64 scheduling ticks shows the neural
+              scheduler delivers an average process wait time of 28.60 ticks versus 34.40
+              ticks under Round Robin — a <strong>16.8% reduction</strong>. Average
+              turnaround drops from 40.80 to 35.00 ticks, a <strong>14.2% improvement</strong>.
+              All 57 floating-point model weights (228 bytes) are stored in the{' '}
+              <code className="mono text-[#0066cc]" style={{ fontSize: 14 }}>.rodata</code>{' '}
+              section of the kernel binary. No heap allocation occurs at any point during
+              inference — not at boot, not during scheduling ticks, not during fallback.
+            </p>
+          </article>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <button onClick={(e) => go('architecture', e)} className="btn-primary">
+              Read the Architecture
+            </button>
+            <button onClick={(e) => go('benchmarks', e)} className="btn-ghost">
+              View Benchmarks
+            </button>
           </div>
-
-          {/* Section 4: Why NeuroSched is the Best OS Experiment */}
-          <div className="space-y-4 text-[16px] text-[#52525b] leading-[1.85]">
-            <h3 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight flex items-center gap-2.5">
-              <ShieldCheck className="w-6 h-6 text-[#1d4ed8]" />
-              <span>4. Performance & Safety: Why NeuroSched Represents the Best Operating System Experiment</span>
-            </h3>
-            <p>
-              Researchers evaluating the <strong>best operating system</strong> for machine-learning-assisted scheduling require absolute determinism. NeuroSched solves the unpredictability of artificial intelligence by implementing a hard-coded <strong>confidence fallback threshold (<code className="font-mono text-xs bg-[#f5f5f7] px-1 py-0.5 rounded">NN_CONF_THRESH = 0.65f</code>)</strong>. When the highest neural score drops below 0.65 (signaling an out-of-distribution workload), the kernel immediately defers to circular Round Robin dispatch for that tick, guaranteeing 100% kernel stability with zero kernel panics.
-            </p>
-            <p>
-              In verified headless QEMU i386 telemetry tests, NeuroSched demonstrates a **16.8% lower average process wait time** (28.60 ticks versus 34.40 ticks under Round Robin) and a **14.2% faster average turnaround time** (35.00 ticks versus 40.80 ticks). By combining bare-metal x87 FPU hardware acceleration, zero-malloc memory safety, and learned process scoring, NeuroSched exemplifies the future of intelligent <strong>operating system</strong> architecture.
-            </p>
-          </div>
-
-        </article>
+        </div>
       </section>
 
-      {/* Developer Quickstart Commands */}
-      <Quickstart />
+      {/* ── Tile 4: Quick start (dark-2 #2a2a2c) ── */}
+      <section className="tile-dark-2 border-b border-[#3a3a3c]" aria-label="Developer quick start">
+        <div className="max-w-[980px] mx-auto text-center">
+          <p className="text-[#2997ff] font-semibold mb-4" style={{ fontSize: 17, letterSpacing: '-0.374px' }}>
+            Open Source
+          </p>
+          <h2
+            className="type-display-lg text-white mb-5"
+            style={{ fontFamily: '"SF Pro Display", system-ui, sans-serif' }}
+          >
+            Run it in three commands.
+          </h2>
+          <p className="text-[#cccccc] mb-12 max-w-[480px] mx-auto" style={{ fontSize: 17, lineHeight: 1.47 }}>
+            Requires an{' '}
+            <code className="mono" style={{ fontSize: 14, color: '#2997ff' }}>i686-elf</code>{' '}
+            GCC cross-compiler, NASM, Make, and QEMU. Runs headlessly on any
+            Linux host.
+          </p>
 
-      {/* FAQ Accordion */}
-      <FAQ />
+          <div className="text-left max-w-[640px] mx-auto space-y-3">
+            {[
+              {
+                step: '01',
+                label: 'Clone the repository',
+                cmd: 'git clone https://github.com/mantisdarling/NeuroSched.git && cd NeuroSched',
+              },
+              {
+                step: '02',
+                label: 'Build the kernel binary',
+                cmd: 'make all',
+              },
+              {
+                step: '03',
+                label: 'Run in QEMU — watch the serial output',
+                cmd: 'make run',
+              },
+            ].map((item) => (
+              <div key={item.step} className="card-dark flex gap-5 items-start">
+                <span
+                  className="mono shrink-0 mt-0.5"
+                  style={{ fontSize: 11, fontWeight: 600, color: '#7a7a7a', letterSpacing: '0.08em' }}
+                >
+                  {item.step}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[#cccccc] mb-2" style={{ fontSize: 13, letterSpacing: '-0.01em' }}>
+                    {item.label}
+                  </p>
+                  <code
+                    className="mono block bg-[#1d1d1f] rounded px-4 py-2.5 text-[#2997ff] overflow-x-auto"
+                    style={{ fontSize: 13, lineHeight: 1.6 }}
+                  >
+                    {item.cmd}
+                  </code>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <a
+              href="https://github.com/mantisdarling/NeuroSched"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              View on GitHub
+            </a>
+            <button onClick={(e) => go('docs', e)} className="btn-ghost-dark">
+              Read the Docs
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Tile 5: FAQ (white) ── */}
+      <section className="tile-light border-b border-[#e0e0e0]" aria-label="Frequently asked questions">
+        <div className="max-w-[740px] mx-auto">
+          <p className="text-[#0066cc] font-semibold mb-4" style={{ fontSize: 17, letterSpacing: '-0.374px' }}>
+            Knowledge Base
+          </p>
+          <h2
+            className="type-display-lg text-[#1d1d1f] mb-10"
+            style={{ fontFamily: '"SF Pro Display", system-ui, sans-serif' }}
+          >
+            Frequently asked questions.
+          </h2>
+          <FAQ />
+          <div className="mt-10">
+            <button onClick={(e) => go('faq', e)} className="btn-ghost">
+              View full FAQ page
+            </button>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

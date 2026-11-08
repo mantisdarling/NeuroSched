@@ -148,8 +148,8 @@ export default function App() {
       document.body.style.backgroundColor = '#000000';
       document.documentElement.style.backgroundColor = '#000000';
     } else {
-      document.body.style.backgroundColor = '#f5f5f7';
-      document.documentElement.style.backgroundColor = '#f5f5f7';
+      document.body.style.backgroundColor = '#ffffff';
+      document.documentElement.style.backgroundColor = '#ffffff';
     }
   }, [currentView]);
 
@@ -181,7 +181,7 @@ export default function App() {
 
   // Multipage Showcase Views
   return (
-    <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
+    <div className="min-h-screen bg-white text-[#1d1d1f] selection:bg-[#0066cc] selection:text-white font-sans antialiased flex flex-col justify-between">
       <div>
         <Navbar
           currentView={currentView}

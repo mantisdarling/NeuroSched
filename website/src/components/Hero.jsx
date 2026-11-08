@@ -1,166 +1,164 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Shield, ArrowRight, Play, Cpu, CheckCircle2, ChevronRight, Activity } from 'lucide-react';
 
-export default function Hero({ currentMode }) {
-  const [terminalStep, setTerminalStep] = useState(0);
+export default function Hero({ currentMode, onNavigate }) {
+  const [step, setStep] = useState(0);
 
   const bootLogs = [
-    "[OK] Multiboot2 boot verified (Magic: 0x36D76289)",
-    "[OK] VGA terminal initialized (80x25 text mode @ 0xB8000)",
-    "[OK] COM1 serial port configured (38400 baud, 8N1 @ 0x3F8)",
-    "[OK] x87 FPU enabled (CR0.EM=0, CR0.MP=1)",
-    "[INFO] Workload: 10 synthetic processes loaded",
-    ">>> Phase 1: Round Robin Simulation complete (64 ticks)",
-    ">>> Phase 2: Neural Scheduler Simulation complete (64 ticks)",
-    "[RESULT] Neural scheduler achieved 16.8% lower avg wait time!",
-    ">>> NeuroSched v1.0 complete. Halting CPU."
+    { text: '# Bootstrapping NeuroSched kernel binary...', color: '#7a7a7a' },
+    { text: '[OK]  Multiboot2 boot verified — Magic: 0x36D76289 in EAX', color: '#16a34a' },
+    { text: '[OK]  VGA text mode initialized @ 0xB8000 (80×25)', color: '#16a34a' },
+    { text: '[OK]  COM1 serial port configured — 38400 baud 8N1 @ 0x3F8', color: '#16a34a' },
+    { text: '[OK]  x87 FPU enabled — CR0.EM=0, CR0.MP=1, CR0.NE=1', color: '#16a34a' },
+    { text: '[INFO] Workload: 10 synthetic PCB processes loaded', color: '#7a7a7a' },
+    { text: 'Phase 1  Round Robin baseline complete   (64 ticks)', color: '#d97706' },
+    { text: 'Phase 2  Neural scheduler complete       (64 ticks)', color: '#d97706' },
+    { text: '[RESULT] NeuroSched achieved 16.8% lower average wait time.', color: '#2997ff' },
+    { text: 'NeuroSched v1.0 — halting CPU.', color: '#cccccc' },
   ];
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTerminalStep((prev) => (prev < bootLogs.length ? prev + 1 : prev));
-    }, 450);
-    return () => clearInterval(timer);
-  }, [bootLogs.length]);
+    if (step >= bootLogs.length) return;
+    const t = setTimeout(() => setStep((s) => s + 1), 420);
+    return () => clearTimeout(t);
+  }, [step, bootLogs.length]);
 
   return (
-    <section className="bg-[#ffffff] text-[#1d1d1f] pt-16 pb-20 px-4 lg:px-8 border-b border-[#e0e0e0] overflow-hidden">
-      <div className="max-w-6xl mx-auto text-center space-y-8">
-        
-        {/* Subtle Category Pill (No dots) */}
-        <div className="inline-flex items-center gap-3 bg-[#f5f5f7] border border-[#e0e0e0] px-4 py-1.5 rounded-full text-[14px] text-[#1d1d1f]">
-          <span className="font-semibold text-[#1d4ed8]">NeuroSched</span>
-          <span className="text-[#86868b]">|</span>
-          <span className="text-[#86868b]">Bare Metal x86 Kernel Architecture</span>
-        </div>
+    /* ── Hero tile: full-bleed white ── */
+    <section className="tile-light border-b border-[#e0e0e0] overflow-hidden">
+      <div className="max-w-[980px] mx-auto text-center">
 
-        {/* Display Headline */}
-        <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold text-[#1d1d1f] tracking-tight leading-[1.07] max-w-4xl mx-auto">
+        {/* Category eyebrow */}
+        <p
+          className="text-[#0066cc] mb-4"
+          style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.374px' }}
+        >
+          Operating System
+        </p>
+
+        {/* Hero headline */}
+        <h1
+          className="type-hero text-[#1d1d1f] max-w-[820px] mx-auto mb-5"
+          style={{ fontFamily: '"SF Pro Display", system-ui, -apple-system, sans-serif' }}
+        >
           An operating system driven by an embedded neural network.
         </h1>
 
-        {/* Lead Subtitle */}
-        <p className="text-[20px] sm:text-[24px] text-[#86868b] font-normal leading-[1.3] max-w-3xl mx-auto tracking-tight">
+        {/* Lead paragraph */}
+        <p className="type-lead text-[#1d1d1f] max-w-[640px] mx-auto mb-8">
           {currentMode === 'architect' ? (
             <>
-              Replaces static Round Robin scheduling heuristics with a freestanding C neural network (5 to 8 to 1 MLP). 
-              Zero dynamic memory allocations, native x87 hardware acceleration, and structure level confidence fallbacks.
+              32-bit x86 bare-metal kernel. 5–8–1 MLP in freestanding C.
+              Zero malloc. Native x87 FPU acceleration. Confidence-gated fallback
+              to Round Robin when neural confidence drops below 0.65.
             </>
           ) : (
             <>
-              What if your computer core system could predict which task needs the processor next? 
-              NeuroSched trains a neural network to organize running tasks, reducing waiting times by <strong className="text-[#1d1d1f] font-semibold">16.8%</strong>.
+              What if your computer could predict which task needs the processor
+              next? NeuroSched trains a neural network to organize running tasks,
+              cutting average wait times by{' '}
+              <strong style={{ color: '#1d1d1f', fontWeight: 600 }}>16.8%</strong>.
             </>
           )}
         </p>
 
-        {/* Dual Pill Action CTAs with Royal Cobalt Blue #1d4ed8 */}
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-          <a
-            href="#simulator"
-            className="appleBtnPrimary"
+        {/* CTA pair */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+          <button
+            onClick={() => onNavigate && onNavigate('simulator')}
+            className="btn-primary"
           >
-            <span>Launch Live Simulator</span>
-            <ChevronRight className="w-4 h-4 ml-0.5" />
-          </a>
-          <a
-            href="#architecture"
-            className="appleBtnSecondary"
+            Launch Simulator
+          </button>
+          <button
+            onClick={() => onNavigate && onNavigate('architecture')}
+            className="btn-ghost"
           >
-            <span>Explore Architecture</span>
-          </a>
+            Explore Architecture
+          </button>
         </div>
 
-        {/* Three Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-3xl mx-auto pt-4 text-left">
-          <div className="appleCardLight p-6">
-            <div className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">
-              Avg Wait Time
-            </div>
-            <div className="text-3xl font-semibold text-[#1d1d1f] mt-1.5 tracking-tight">
-              16.8% lower
-            </div>
-            <p className="text-[14px] text-[#86868b] mt-1 leading-normal">
-              Empirical speedup over standard Round Robin in QEMU.
-            </p>
-          </div>
-
-          <div className="appleCardLight p-6">
-            <div className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">
-              Heap Allocation
-            </div>
-            <div className="text-3xl font-semibold text-[#1d1d1f] mt-1.5 tracking-tight">
-              0 Bytes
-            </div>
-            <p className="text-[14px] text-[#86868b] mt-1 leading-normal">
-              Static stack and <code className="text-[#1d4ed8] font-mono text-xs">.rodata</code> matrix layout.
-            </p>
-          </div>
-
-          <div className="appleCardLight p-6">
-            <div className="text-[12px] uppercase font-semibold text-[#86868b] tracking-wider">
-              Kernel Safety
-            </div>
-            <div className="text-3xl font-semibold text-[#1d1d1f] mt-1.5 tracking-tight">
-              100%
-            </div>
-            <p className="text-[14px] text-[#86868b] mt-1 leading-normal">
-              Instant fallback to Round Robin when confidence drops.
-            </p>
-          </div>
-        </div>
-
-        {/* Centerpiece Hardware Product Render: Serial Console */}
-        <div className="max-w-4xl mx-auto pt-8">
-          <div className="appleCardDark appleProductShadow overflow-hidden text-left border border-[#3a3a3c]">
-            
-            {/* Terminal Header */}
-            <div className="bg-[#1d1d1f] border-b border-[#333336] px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block" />
-                <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block" />
-                <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block" />
-              </div>
-              <div className="text-[13px] font-mono text-[#86868b] flex items-center gap-2">
-                <Terminal className="w-3.5 h-3.5 text-[#1d4ed8]" />
-                <span>COM1 Serial Console — QEMU i386 Target</span>
-              </div>
-              <button 
-                onClick={() => setTerminalStep(0)}
-                className="text-[12px] text-[#3b82f6] hover:underline font-mono"
+        {/* Metric trio */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-[700px] mx-auto mb-16 text-left">
+          {[
+            {
+              label: 'Avg. Wait Time',
+              value: '−16.8%',
+              sub: 'Empirical over Round Robin in headless QEMU i386.',
+            },
+            {
+              label: 'Heap Allocation',
+              value: '0 Bytes',
+              sub: 'All weights compiled into .rodata — no malloc, ever.',
+            },
+            {
+              label: 'Kernel Safety',
+              value: '100%',
+              sub: 'Hard confidence gate falls back to Round Robin below 0.65.',
+            },
+          ].map((m) => (
+            <div key={m.label} className="card-stat">
+              <p
+                className="text-[12px] font-semibold text-[#7a7a7a] uppercase tracking-widest mb-2"
+                style={{ letterSpacing: '0.08em' }}
               >
-                Replay
-              </button>
+                {m.label}
+              </p>
+              <p
+                style={{
+                  fontFamily: '"SF Pro Display", system-ui, sans-serif',
+                  fontSize: 32,
+                  fontWeight: 600,
+                  lineHeight: 1,
+                  letterSpacing: '-0.03em',
+                  color: '#1d1d1f',
+                  marginBottom: 8,
+                }}
+              >
+                {m.value}
+              </p>
+              <p className="type-caption text-[#7a7a7a]">{m.sub}</p>
             </div>
+          ))}
+        </div>
 
-            {/* Console Output */}
-            <div className="p-6 font-mono text-[13px] leading-relaxed space-y-2 bg-[#1d1d1f] text-[#ffffff] min-h-[260px] overflow-x-auto">
-              <div className="text-[#86868b]"># Bootstrapping NeuroSched kernel binary...</div>
-              {bootLogs.slice(0, terminalStep).map((log, idx) => {
-                let color = "text-[#ffffff]";
-                if (log.includes("[OK]")) color = "text-[#16a34a]";
-                if (log.includes("[RESULT]")) color = "text-[#3b82f6] font-semibold";
-                if (log.includes("[INFO]")) color = "text-[#86868b]";
-                if (log.includes(">>>")) color = "text-[#d97706]";
-                return (
-                  <div key={idx} className={color}>
-                    {log}
-                  </div>
-                );
-              })}
-              {terminalStep < bootLogs.length && (
-                <div className="inline-block w-2 h-4 bg-[#3b82f6] animate-pulse align-middle" />
-              )}
-            </div>
+        {/* Terminal render — only place product-shadow is used */}
+        <div className="terminal product-shadow max-w-[760px] mx-auto text-left">
+          {/* Title bar */}
+          <div className="terminal-bar">
+            <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block" />
+            <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block" />
+            <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block" />
+            <span className="ml-3 text-[12px] text-[#7a7a7a]">
+              COM1 Serial Console — QEMU i386
+            </span>
+            <button
+              onClick={() => setStep(0)}
+              className="ml-auto text-[12px] text-[#2997ff] hover:underline"
+            >
+              Replay
+            </button>
+          </div>
 
-            {/* Hardware Status Strip */}
-            <div className="bg-[#272729] border-t border-[#3a3a3c] px-6 py-2.5 flex items-center justify-between text-[12px] font-mono text-[#86868b]">
-              <span>Architecture: i686 elf</span>
-              <span className="text-[#16a34a] flex items-center gap-1.5 font-medium">
-                Multiboot2 Handshake Verified
-              </span>
-            </div>
+          {/* Output */}
+          <div className="p-6 min-h-[240px] space-y-1 overflow-x-auto">
+            {bootLogs.slice(0, step).map((log, i) => (
+              <div
+                key={i}
+                className="mono text-[12.5px] leading-relaxed whitespace-nowrap"
+                style={{ color: log.color }}
+              >
+                {log.text}
+              </div>
+            ))}
+            {step < bootLogs.length && (
+              <span className="cursor-blink" aria-hidden="true" />
+            )}
+          </div>
 
+          {/* Status strip */}
+          <div className="bg-[#272729] border-t border-[#3a3a3c] px-6 py-2.5 flex items-center justify-between mono text-[11px] text-[#7a7a7a]">
+            <span>i686-elf · Protected Mode</span>
+            <span style={{ color: '#16a34a' }}>Multiboot2 Verified</span>
           </div>
         </div>
 
