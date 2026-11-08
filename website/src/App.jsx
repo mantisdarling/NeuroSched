@@ -380,26 +380,24 @@ function App() {
   /* 404 Page Not Found View */
   if (currentView === 'notfound') {
     return (
-      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
-        <div>
-          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
-          <ErrorView code={404} onNavigateHome={() => navigateTo('home')} onNavigateDocs={() => navigateTo('docs')} />
-        </div>
-        <Footer onNavigate={navigateTo} />
-      </div>
+      <ErrorView
+        code={404}
+        onNavigateHome={() => navigateTo('home')}
+        onNavigateDocs={() => navigateTo('docs')}
+        onNavigateSimulator={() => navigateTo('simulator')}
+      />
     );
   }
 
   /* 500 Internal Error View */
   if (currentView === 'error') {
     return (
-      <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] selection:bg-[#1d4ed8] selection:text-white font-sans antialiased flex flex-col justify-between">
-        <div>
-          <Navbar currentMode={currentMode} toggleMode={toggleMode} onNavigateDocs={() => navigateTo('docs')} onNavigate={navigateTo} />
-          <ErrorView code={500} onNavigateHome={() => navigateTo('home')} onNavigateDocs={() => navigateTo('docs')} />
-        </div>
-        <Footer onNavigate={navigateTo} />
-      </div>
+      <ErrorView
+        code={500}
+        onNavigateHome={() => navigateTo('home')}
+        onNavigateDocs={() => navigateTo('docs')}
+        onNavigateSimulator={() => navigateTo('simulator')}
+      />
     );
   }
 

@@ -6,16 +6,19 @@ export default function Navbar({ currentMode, toggleMode, onNavigateDocs, onNavi
 
   const handleLink = (targetView, anchorId, e) => {
     if (typeof window === 'undefined') return;
+    if (e) e.preventDefault();
+    setMobileMenuOpen(false);
+
     const isHome = window.location.pathname === '/' || window.location.pathname === '';
     
     if (isHome && anchorId) {
-      /* If on home, let default smooth anchor jump happen */
-      setMobileMenuOpen(false);
-      return;
+      const el = document.getElementById(anchorId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
     }
 
-    if (e) e.preventDefault();
-    setMobileMenuOpen(false);
     if (onNavigate) {
       onNavigate(targetView);
     }
