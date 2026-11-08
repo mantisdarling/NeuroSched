@@ -1,78 +1,191 @@
-import React from 'react';
-import { Cpu, Terminal, Github, ExternalLink, Activity } from 'lucide-react';
+import React, { useState } from 'react';
+import { Cpu, Terminal, Github, ExternalLink, Activity, Menu, X } from 'lucide-react';
 
-export default function Navbar({ currentMode, toggleMode }) {
+export default function Navbar({ currentMode, toggleMode, onNavigateDocs }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <header className="sticky top-0 z-50 bg-[#111111]/90 backdrop-blur-md border-b border-[#333333] px-4 lg:px-8 py-3.5">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        
-        {/* Brand identity */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-[#1B1B1B] border border-[#FF5A00] flex items-center justify-center text-[#FF5A00] font-mono font-bold text-lg shadow-[0_0_15px_rgba(255,90,0,0.25)]">
-            NS
+    <>
+      {/* Global Nav (44px, Pure Black #000000) */}
+      <div className="bg-[#000000] text-white text-[12px] tracking-[-0.12px] h-[44px] flex items-center px-4 lg:px-8 border-b border-[#222222] z-50 relative">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <a href="#" className="font-semibold text-white tracking-tight">
+              <span className="text-[14px] font-medium tracking-tight text-white">NeuroSched</span>
+            </a>
+            <span className="hidden sm:inline-block text-[#7a7a7a]">|</span>
+            <span className="hidden sm:inline-block text-[#86868b] text-[12px]">32 bit x86 Bare Metal AI Kernel</span>
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-mono font-bold tracking-wider text-[#EAEAEA] text-base">NEUROSCHED</span>
-              <span className="bg-[#FF5A00]/10 border border-[#FF5A00]/40 text-[#FF5A00] font-mono text-[10px] px-1.5 py-0.5 font-semibold uppercase">
-                v1.0 OS
-              </span>
-            </div>
-            <p className="text-[11px] text-[#888888] font-mono">x86 Neural Kernel Scheduler</p>
+
+          <div className="flex items-center gap-5 text-[#86868b]">
+            <a
+              href="https://github.com/mantisdarling/NeuroSched"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors flex items-center gap-1 text-[12px]"
+            >
+              <Github className="w-3.5 h-3.5" />
+              <span>GitHub</span>
+              <ExternalLink className="w-3 h-3 text-[#7a7a7a]" />
+            </a>
+            <a
+              href="https://github.com/mantisdarling/NeuroSched/blob/main/INFO.md"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors text-[12px] hidden md:inline-block"
+            >
+              Project Info
+            </a>
           </div>
         </div>
+      </div>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 font-mono text-xs text-[#888888]">
-          <a href="#howtouse" className="hover:text-[#FF5A00] transition-colors">
+      {/* Frosted Sub Nav (52px, Sticky, Frosted Glass) */}
+      <header className="sticky top-0 z-40 appleFrostedNav border-b border-[#e0e0e0] h-[52px] flex items-center px-4 lg:px-8">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+          
+          {/* Sub nav product title */}
+          <div className="flex items-center gap-3">
+            <a href="#" className="text-[21px] font-semibold text-[#1d1d1f] tracking-tight leading-none hover:opacity-80 transition-opacity">
+              NeuroSched
+            </a>
+            <span className="text-[11px] font-medium bg-[#e5e5ea] text-[#1d1d1f] px-2 py-0.5 rounded-full uppercase tracking-wider">
+              v1.0
+            </span>
+          </div>
+
+          {/* Desktop Nav Links & Action Blue Pill */}
+          <div className="hidden md:flex items-center gap-7 text-[14px]">
+            <nav className="flex items-center gap-6 text-[#1d1d1f]">
+              <a href="#howtouse" className="hover:text-[#1d4ed8] transition-colors">
+                How to Use
+              </a>
+              <a href="#simulator" className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1">
+                <span>Simulator</span>
+              </a>
+              <a href="#architecture" className="hover:text-[#1d4ed8] transition-colors">
+                Architecture
+              </a>
+              <a
+                href="#/docs"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigateDocs) onNavigateDocs();
+                }}
+                className="hover:text-[#1d4ed8] transition-colors"
+              >
+                Docs
+              </a>
+              <a href="#code" className="hover:text-[#1d4ed8] transition-colors">
+                Code
+              </a>
+              <a href="#benchmarks" className="hover:text-[#1d4ed8] transition-colors">
+                Benchmarks
+              </a>
+            </nav>
+
+            <div className="flex items-center gap-3 pl-3 border-l border-[#e0e0e0]">
+              {/* Audience Mode Switcher Capsule */}
+              <button
+                onClick={toggleMode}
+                className="applePressable text-[13px] text-[#1d1d1f] bg-[#ffffff] border border-[#e0e0e0] rounded-full px-3 py-1 flex items-center gap-1.5 hover:border-[#1d4ed8] transition-colors"
+                title="Switch explanation depth"
+              >
+                <span className="text-[#86868b] text-[11px] uppercase font-medium">Mode:</span>
+                <span className="font-semibold text-[#1d4ed8]">
+                  {currentMode === 'architect' ? 'System Architect' : 'Beginner ELIF5'}
+                </span>
+              </button>
+
+              {/* Action Blue Primary Pill */}
+              <a
+                href="#simulator"
+                className="appleBtnPrimary text-[14px] !py-1.5 !px-4 shadow-none"
+              >
+                <span>Launch</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={toggleMode}
+              className="text-[11px] bg-[#ffffff] border border-[#e0e0e0] text-[#1d4ed8] font-medium rounded-full px-2.5 py-1"
+            >
+              {currentMode === 'architect' ? 'Architect' : 'ELIF5'}
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-1.5 text-[#1d1d1f] hover:text-[#1d4ed8]"
+              aria-label="Toggle Navigation"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
+        </div>
+      </header>
+
+      {/* Mobile Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden sticky top-[96px] z-30 bg-[#ffffff] border-b border-[#e0e0e0] px-6 py-6 space-y-4 text-[17px] text-[#1d1d1f]">
+          <a
+            href="#howtouse"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
+          >
             How to Use
           </a>
-          <a href="#simulator" className="hover:text-[#FF5A00] transition-colors flex items-center gap-1.5">
-            <Activity className="w-3.5 h-3.5 text-[#FF5A00]" />
-            <span>Simulator</span>
+          <a
+            href="#simulator"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
+          >
+            Simulator
           </a>
-          <a href="#architecture" className="hover:text-[#FF5A00] transition-colors flex items-center gap-1.5">
-            <Cpu className="w-3.5 h-3.5 text-[#FF5A00]" />
-            <span>Architecture</span>
+          <a
+            href="#architecture"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
+          >
+            Architecture
           </a>
-          <a href="#code" className="hover:text-[#FF5A00] transition-colors flex items-center gap-1.5">
-            <Terminal className="w-3.5 h-3.5 text-[#FF5A00]" />
-            <span>Code</span>
+          <a
+            href="#/docs"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              if (onNavigateDocs) onNavigateDocs();
+            }}
+            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
+          >
+            Docs
           </a>
-          <a href="#benchmarks" className="hover:text-[#FF5A00] transition-colors">
+          <a
+            href="#code"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
+          >
+            Code
+          </a>
+          <a
+            href="#benchmarks"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 border-b border-[#f0f0f0] hover:text-[#1d4ed8]"
+          >
             Benchmarks
           </a>
-        </nav>
-
-        {/* Audience Mode Switcher & CTA */}
-        <div className="flex items-center gap-3">
-          
-          {/* Mode Switcher Pill */}
-          <button
-            onClick={toggleMode}
-            className="flex items-center gap-2 bg-[#1B1B1B] border border-[#333333] hover:border-[#FF5A00] px-3 py-1.5 font-mono text-xs text-[#EAEAEA] transition-all"
-            title="Switch explanation depth"
-          >
-            <span className="text-[10px] text-[#888888] uppercase tracking-wider">Mode:</span>
-            <span className="font-bold text-[#FF5A00]">
-              {currentMode === 'architect' ? 'System Architect' : 'Beginner (ELIF5)'}
-            </span>
-          </button>
-
-          {/* GitHub Repo Action */}
           <a
             href="https://github.com/mantisdarling/NeuroSched"
             target="_blank"
             rel="noreferrer"
-            className="hidden sm:flex items-center gap-1.5 bg-[#FF5A00] hover:bg-[#E04F00] text-black font-mono font-bold text-xs px-3.5 py-1.5 transition-all shadow-[0_0_20px_rgba(255,90,0,0.3)]"
+            className="block py-2 text-[#1d4ed8] font-medium"
           >
-            <Github className="w-3.5 h-3.5" />
-            <span>GitHub</span>
-            <ExternalLink className="w-3 h-3 ml-0.5" />
+            View on GitHub →
           </a>
         </div>
-
-      </div>
-    </header>
+      )}
+    </>
   );
 }
